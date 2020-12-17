@@ -34,6 +34,8 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         finishButton(teamNum)
 
         viewFinder = findViewById(R.id.view_finder)
+
+        // Set the team number for the picture
         viewFinder.post { startCamera(teamNum) }
 
         // Every time the provided texture view changes, recompute layout
@@ -76,7 +78,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         // Every time the viewfinder is updated, recompute layout
         preview.setOnPreviewOutputUpdateListener {
 
-            // To update the SurfaceTexture, we have to remove it and re-add it
+            // To update the SurfaceTexture, remove it and re-add it
             val parent = viewFinder.parent as ViewGroup
             parent.removeView(viewFinder)
             parent.addView(viewFinder, 0)
@@ -88,8 +90,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         // Create configuration object for the image capture use case
         val imageCaptureConfig = ImageCaptureConfig.Builder()
             .apply {
-                // We don't set a resolution for image capture; instead, we
-                // select a capture mode which will infer the appropriate
+                // Select a capture mode which will infer the appropriate
                 // resolution based on aspect ration and requested mode
                 setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
             }.build()
@@ -99,6 +100,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
 
         capture_button.setOnClickListener {
             val pictureType = picture_type.selectedItem.toString().toLowerCase(Locale.US)
+            // Create file name based on team number and picture type
             val fileName = "${teamNum}_${formatPictureType(pictureType)}"
             val file = File(
                 "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/",
@@ -148,7 +150,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         CameraX.bindToLifecycle(this, preview, imageCapture)
     }
 
-    //deletes the space in the "full robot" picture type, replacing it with an "_"
+    // Delete the space in the "full robot" picture type, replace it with an "_"
     private fun formatPictureType(pictureType: String): String {
         val pictureName: String
         return if (pictureType == "full robot") {

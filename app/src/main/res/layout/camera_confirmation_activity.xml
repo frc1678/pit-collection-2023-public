@@ -49,7 +49,7 @@
             android:layout_weight="1"
             android:padding="15dp"
             android:background="@color/red"
-            android:text="delete"
+            android:text="@string/cam_delete"
             android:textSize="25dp"
 
             />
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:padding="15dp"
             android:background="@color/green"
-            android:text="Continue"
+            android:text="@string/cam_continue"
             android:textSize="25dp" />
 
     </LinearLayout>

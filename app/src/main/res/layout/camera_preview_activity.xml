@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:background="@color/blue"
         android:textSize="30dp"
-        android:text="Back to Collection"
+        android:text="@string/back_to_collection"
         android:textColor="@color/dark_gray" />
 
     <TextureView

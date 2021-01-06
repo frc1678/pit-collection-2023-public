@@ -138,7 +138,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
-    //Saves data into a JSON file
+    //Save data into a JSON file
     private fun saveButton() {
         btn_save_button.setOnClickListener {
             // If number of motors editText is empty, show Snackbar as a reminder

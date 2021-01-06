@@ -103,7 +103,7 @@ class CollectionSubjectiveActivity : CollectionActivity() {
 
     fun onRadioButtonClicked(view: View) {
         if (view is RadioButton) {
-            // Is the button now checked?
+            // Check if the button is now checked
             val checked = view.isChecked
 
             // Check which radio button was clicked
@@ -168,7 +168,7 @@ class CollectionSubjectiveActivity : CollectionActivity() {
         }
     }
 
-    //Saves data into a JSON file
+    //Save data into a JSON file
     private fun saveButton() {
         btn_save_button.setOnClickListener {
             // If number of motors editText is empty, show Snackbar as a reminder

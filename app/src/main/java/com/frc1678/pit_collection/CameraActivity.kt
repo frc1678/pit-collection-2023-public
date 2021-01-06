@@ -78,7 +78,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         // Every time the viewfinder is updated, recompute layout
         preview.setOnPreviewOutputUpdateListener {
 
-            // To update the SurfaceTexture, remove it and re-add it
+            // Updates the SurfaceTexture by removing it and re-adding it
             val parent = viewFinder.parent as ViewGroup
             parent.removeView(viewFinder)
             parent.addView(viewFinder, 0)
@@ -150,7 +150,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         CameraX.bindToLifecycle(this, preview, imageCapture)
     }
 
-    // Delete the space in the "full robot" picture type, replace it with an "_"
+    //Delete the space in the "full robot" picture type, replace it with an "_"
     private fun formatPictureType(pictureType: String): String {
         val pictureName: String
         return if (pictureType == "full robot") {
@@ -178,7 +178,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         }
         matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
 
-        // Finally, apply transformations to our TextureView
+        // Apply transformations to our TextureView
         viewFinder.setTransform(matrix)
     }
 }

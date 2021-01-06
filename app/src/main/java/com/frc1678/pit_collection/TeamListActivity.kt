@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.team_list_activity.*
 import java.io.File
 import java.io.FileReader
 
-//Reads the csv file, populates a listView, and starts CollectionObjectiveDataActivity.
+//Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
     private var teamsList: List<String> = emptyList()
 
@@ -34,14 +34,14 @@ class TeamListActivity : CollectionActivity() {
             lateinit var currentMutableLine: String
 
             while (currentLine != null) {
-                //Resets the current line's value for every new line as the while loop proceeds.
+                //Reset the current line's value for every new line as the while loop proceeds.
                 currentMutableLine = ""
 
                 for (lineContents in currentLine) {
                     currentMutableLine += " $lineContents"
                 }
 
-                //Adds the current line's data to the list of the CSV file's contents (csvFileContents).
+                //Add the current line's data to the list of the CSV file's contents (csvFileContents).
                 csvFileContents.add(currentMutableLine)
                 currentLine = csvReader.readNext()
             }

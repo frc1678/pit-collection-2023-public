@@ -23,7 +23,7 @@ class TeamListAdapter(
         if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
                 "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
             ).exists())
-                    and (File("/storage/emulated/0/Download/${teamsList[position]}_drivetrain.jpg").exists()) and (File(
+                    and (File(
                 "/storage/emulated/0/Download/${teamsList[position]}_full_robot.jpg"
             ).exists()))
             or ((mode == Constants.ModeSelection.SUBJECTIVE.toString()) and (File(
@@ -31,6 +31,15 @@ class TeamListAdapter(
             ).exists()))
         ) {
             view.setBackgroundColor(context.resources.getColor(R.color.green, null))
+        }
+        else if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
+                "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
+            ).exists()))
+            or ((mode == Constants.ModeSelection.SUBJECTIVE.toString()) and (File(
+                "/storage/emulated/0/Download/${teamsList[position]}_subj_pit.json"
+            ).exists()))
+        ) {
+            view.setBackgroundColor(context.resources.getColor(R.color.light_orange, null))
         }
         return view
     }

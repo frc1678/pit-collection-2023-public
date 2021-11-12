@@ -10,10 +10,11 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.KeyEvent
 import androidx.core.app.ActivityCompat
-import com.opencsv.CSVReader
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.team_list_activity.*
-import java.io.File
-import java.io.FileReader
+import java.io.FileInputStream
+import java.lang.reflect.Type
 
 //Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
@@ -25,34 +26,12 @@ class TeamListActivity : CollectionActivity() {
         setToolbarText(actionBar, supportActionBar)
     }
 
-    private fun csvFileRead(): MutableList<String> {
-        val csvFile = File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team_list.csv")
-        val csvFileContents: MutableList<String> = ArrayList()
-        if (csvFile.exists()) {
-            val csvReader = CSVReader(FileReader(csvFile))
-            var currentLine: Array<String>? = csvReader.readNext()
-            lateinit var currentMutableLine: String
+    fun jsonFileRead(): MutableList<String> {
+        var teamListPath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team_list.json"
+        var teamList = FileInputStream(teamListPath).bufferedReader().use { it.readText() }
+        val listType: Type = object : TypeToken<MutableList<String>>() {}.type
 
-            while (currentLine != null) {
-                //Reset the current line's value for every new line as the while loop proceeds.
-                currentMutableLine = ""
-
-                for (lineContents in currentLine) {
-                    currentMutableLine += " $lineContents"
-                }
-
-                //Add the current line's data to the list of the CSV file's contents (csvFileContents).
-                csvFileContents.add(currentMutableLine)
-                currentLine = csvReader.readNext()
-            }
-
-            csvReader.close()
-        } else {
-            AlertDialog.Builder(this)
-                .setMessage("There is no teams list CSV file on this device")
-                .show()
-        }
-        return csvFileContents
+        return Gson().fromJson(teamList, listType)
     }
 
     // Starts the mode selection activity of the previously selected selection mode
@@ -88,8 +67,8 @@ class TeamListActivity : CollectionActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
-            if (csvFileRead() != ArrayList<String>()) {
-                teamsList = csvFileRead()[0].trim().split(" ")
+            if (jsonFileRead() != ArrayList<String>()) {
+                teamsList = jsonFileRead()
             }
             lv_teams_list.adapter = TeamListAdapter(
                 this,

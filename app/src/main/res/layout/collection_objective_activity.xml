@@ -27,8 +27,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center_vertical"
-            android:background="@color/green"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
+            android:background="@color/dark_green"
             android:src="@drawable/camera_button"
             android:scaleType="fitCenter" />
     </LinearLayout>
@@ -36,22 +36,111 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_weight="1">
 
         <ToggleButton
             style="@style/tb_collection"
-            android:id="@+id/tb_can_cross_trench"
-            android:textOn="@string/cross_trench"
-            android:textOff="@string/no_cross_trench" />
+            android:id="@+id/tb_can_cheesecake"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOn="@string/can_cheesecake"
+            android:textOff="@string/cannot_cheesecake">
+        </ToggleButton>
 
         <ToggleButton
-            style="@style/tb_collection"
-            android:id="@+id/tb_can_ground_intake"
-            android:textOn="@string/ground_intake"
-            android:textOff="@string/no_ground_intake" />
+            style="@style/tb_flagged"
+            android:id="@+id/tb_flag_cheesecake"
+            android:layout_weight="0.5"
+            android:textOn="@string/flagged_cheesecake"
+            android:textOff="@string/flag_cheesecake"
+            android:checked="true"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_can_climb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/cannot_climb"
+            android:textOn="@string/can_climb">
+        </ToggleButton>
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_has_vision"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/no_vision"
+            android:textOn="@string/has_vision"
+            android:checked="true">
+        </ToggleButton>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_can_intake_terminal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/cannot_intake_terminal"
+            android:textOn="@string/can_intake_terminal">
+        </ToggleButton>
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_can_eject_terminal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/cannot_eject_terminal"
+            android:textOn="@string/can_eject_terminal">
+        </ToggleButton>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_can_intake_ground"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/no_ground_intake"
+            android:textOn="@string/ground_intake"
+            android:checked="true">
+        </ToggleButton>
+
+        <ToggleButton
+            style="@style/tb_collection"
+            android:id="@+id/tb_can_move_under_low_rung"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textOff="@string/cannot_move_under_rung"
+            android:textOn="@string/can_move_under_rung">
+        </ToggleButton>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,13 +154,15 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/light_gray"
-            android:layout_marginBottom="10dp" />
+            android:layout_margin="10dp"/>
 
         <Spinner
             android:id="@+id/spin_drivetrain_motor_type"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/light_gray" />
 
     </LinearLayout>

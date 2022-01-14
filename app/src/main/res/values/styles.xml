@@ -23,9 +23,19 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_margin">15dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="tb_flagged">
+        <item name="android:background">@drawable/tb_flagged</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <style name="btn_collection">
@@ -42,6 +52,17 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">20dp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/dark_green</item>
+        <item name="colorSwitchThumbNormal">@color/red</item>
+        <item name="backgroundColor">@color/red</item>
+    </style>
+
+    <style name="SwitchCompatStyle" >
+        <item name="thumbTint">@color/green</item>
+        <item name="trackTint">@color/dark_green</item>
     </style>
 
 </resources>

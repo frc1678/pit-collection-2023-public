@@ -12,6 +12,7 @@ schema:
   drivetrain: Enum
   drivetrain_motors: int
   drivetrain_motor_type: Enum
+  has_vision: Bool
   has_ground_intake: Bool
   can_eject_terminal: Bool
   can_intake_terminal: Bool

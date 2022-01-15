@@ -98,8 +98,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
             val intent = Intent(this, CameraActivity::class.java)
             intent.putExtra("teamNumber", teamNum)
-                .putExtra("can_cross_trench", tb_can_cross_trench.isChecked)
-                .putExtra("has_ground_intake", tb_can_ground_intake.isChecked)
+                //.putExtra("can_cross_trench", tb_can_cross_trench.isChecked)
+                //.putExtra("has_ground_intake", tb_can_ground_intake.isChecked)
                 .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
                 .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
             if (et_number_of_motors.text.isNotEmpty()) {
@@ -116,8 +116,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
-            tb_can_cross_trench.isChecked = intent.getBooleanExtra("can_cross_trench", false)
-            tb_can_ground_intake.isChecked = intent.getBooleanExtra("has_ground_intake", false)
+            //tb_can_cross_trench.isChecked = intent.getBooleanExtra("can_cross_trench", false)
+            //tb_can_ground_intake.isChecked = intent.getBooleanExtra("has_ground_intake", false)
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
             spin_drivetrain_motor_type.setSelection(
                 intent.getIntExtra(
@@ -130,8 +130,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             }
         } else if (File("/storage/emulated/0/Download/${teamNum}_obj_pit.json").exists()) {
             val jsonFile = objJsonFileRead(teamNum)
-            tb_can_cross_trench.isChecked = jsonFile.can_cross_trench as Boolean
-            tb_can_ground_intake.isChecked = jsonFile.has_ground_intake as Boolean
+            //tb_can_cross_trench.isChecked = jsonFile.can_cross_trench as Boolean
+            //tb_can_ground_intake.isChecked = jsonFile.has_ground_intake as Boolean
             spin_drivetrain.setSelection(parseInt(jsonFile.drivetrain.toString()) + 1)
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())
@@ -168,9 +168,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     drivetrainMotorTypeSnack.show()
                 }
                 else -> {
-                    crossTrench = tb_can_cross_trench.isChecked
-                    numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
-                    hasGroundIntake = tb_can_ground_intake.isChecked
+                    //crossTrench = tb_can_cross_trench.isChecked
+                    //numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
+                    //hasGroundIntake = tb_can_ground_intake.isChecked
                     //TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
                     assignIndexNums()

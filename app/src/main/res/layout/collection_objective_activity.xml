@@ -41,9 +41,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_cheesecake"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOn="@string/can_cheesecake"
             android:textOff="@string/cannot_cheesecake">
         </ToggleButton>
@@ -51,7 +48,6 @@
         <ToggleButton
             style="@style/tb_flagged"
             android:id="@+id/tb_flag_cheesecake"
-            android:layout_weight="0.5"
             android:textOn="@string/flagged_cheesecake"
             android:textOff="@string/flag_cheesecake" />
 
@@ -65,9 +61,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_climb"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/cannot_climb"
             android:textOn="@string/can_climb">
         </ToggleButton>
@@ -75,9 +68,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_has_vision"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/no_vision"
             android:textOn="@string/has_vision">
         </ToggleButton>
@@ -92,9 +82,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_intake_terminal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/cannot_intake_terminal"
             android:textOn="@string/can_intake_terminal">
         </ToggleButton>
@@ -102,9 +89,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_eject_terminal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/cannot_eject_terminal"
             android:textOn="@string/can_eject_terminal">
         </ToggleButton>
@@ -119,9 +103,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_intake_ground"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/no_ground_intake"
             android:textOn="@string/ground_intake">
         </ToggleButton>
@@ -129,9 +110,6 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_move_under_low_rung"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:textOff="@string/cannot_move_under_rung"
             android:textOn="@string/can_move_under_rung">
         </ToggleButton>

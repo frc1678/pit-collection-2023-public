@@ -33,3 +33,4 @@ enums:
     cim: 1
     neo: 2
     falcon: 3
+    other: 4

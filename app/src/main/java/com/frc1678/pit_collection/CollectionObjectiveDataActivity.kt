@@ -17,9 +17,10 @@ import java.util.*
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
     private var teamNum: Int? = null
-    private var crossTrench: Boolean? = null
+    private var can_climb: Boolean? = null
     private var drivetrain: String? = null
-    private var hasGroundIntake: Boolean? = null
+    private var has_vision: Boolean? = null
+    private var can_intake_terminal: Boolean? = null
     private var numberOfDriveMotors: Int? = null
     private var drivetrainMotor: String? = null
     private var indexNumDrivetrain: Int? = null
@@ -98,8 +99,14 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
             val intent = Intent(this, CameraActivity::class.java)
             intent.putExtra("teamNumber", teamNum)
-                //.putExtra("can_cross_trench", tb_can_cross_trench.isChecked)
-                //.putExtra("has_ground_intake", tb_can_ground_intake.isChecked)
+                .putExtra("can_climb", tb_can_climb.isChecked)
+                .putExtra("can_intake_terminal", tb_can_intake_terminal.isChecked)
+                .putExtra("flag_cheesecake", tb_can_cheesecake.isChecked)
+                .putExtra("ground_intake", tb_can_intake_ground.isChecked)
+                .putExtra("can_move_under_rung", tb_can_move_under_low_rung.isChecked)
+                .putExtra("can_cheesecake", tb_can_cheesecake.isChecked)
+                .putExtra("can_eject_terminal", tb_can_eject_terminal.isChecked)
+                .putExtra("has_vision", tb_has_vision.isChecked)
                 .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
                 .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
             if (et_number_of_motors.text.isNotEmpty()) {
@@ -116,8 +123,14 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
-            //tb_can_cross_trench.isChecked = intent.getBooleanExtra("can_cross_trench", false)
-            //tb_can_ground_intake.isChecked = intent.getBooleanExtra("has_ground_intake", false)
+            tb_can_climb.isChecked = intent.getBooleanExtra("can_climb", false)
+            tb_can_intake_terminal.isChecked = intent.getBooleanExtra("can_intake_terminal", false )
+            tb_flag_cheesecake.isChecked = intent.getBooleanExtra("flag_cheesecake", false)
+            tb_can_intake_ground.isChecked = intent.getBooleanExtra("flag_cheesecake", false)
+            tb_can_move_under_low_rung.isChecked = intent.getBooleanExtra("can_move_under_rung", false)
+            tb_can_cheesecake.isChecked = intent.getBooleanExtra("can_cheesecake", false)
+            tb_can_eject_terminal.isChecked = intent.getBooleanExtra("can_eject_terminal", false)
+            tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
             spin_drivetrain_motor_type.setSelection(
                 intent.getIntExtra(
@@ -130,8 +143,15 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             }
         } else if (File("/storage/emulated/0/Download/${teamNum}_obj_pit.json").exists()) {
             val jsonFile = objJsonFileRead(teamNum)
-            //tb_can_cross_trench.isChecked = jsonFile.can_cross_trench as Boolean
-            //tb_can_ground_intake.isChecked = jsonFile.has_ground_intake as Boolean
+            tb_can_climb.isChecked = jsonFile.can_climb as Boolean
+            tb_has_vision.isChecked = jsonFile.has_vision as Boolean
+            tb_can_intake_terminal.isChecked = jsonFile.can_intake_terminal as Boolean
+            tb_flag_cheesecake.isChecked = jsonFile.flag_cheesecake as Boolean
+            tb_can_intake_ground.isChecked = jsonFile.can_intake_ground as Boolean
+            tb_can_move_under_low_rung.isChecked = jsonFile.can_move_under_low_rung as Boolean
+            tb_can_cheesecake.isChecked = jsonFile.can_cheesecake as Boolean
+            tb_can_eject_terminal.isChecked = jsonFile.can_eject_terminal as Boolean
+
             spin_drivetrain.setSelection(parseInt(jsonFile.drivetrain.toString()) + 1)
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())
@@ -168,9 +188,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     drivetrainMotorTypeSnack.show()
                 }
                 else -> {
-                    //crossTrench = tb_can_cross_trench.isChecked
-                    //numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
-                    //hasGroundIntake = tb_can_ground_intake.isChecked
+                    can_climb = tb_can_climb.isChecked
+                    numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
+                    has_vision = tb_has_vision.isChecked
                     //TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
                     assignIndexNums()

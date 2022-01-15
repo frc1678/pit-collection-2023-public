@@ -54,15 +54,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SwitchCompatTheme" >
-        <item name="colorControlActivated">@color/dark_green</item>
-        <item name="colorSwitchThumbNormal">@color/red</item>
-        <item name="backgroundColor">@color/red</item>
-    </style>
-
-    <style name="SwitchCompatStyle" >
-        <item name="thumbTint">@color/green</item>
-        <item name="trackTint">@color/dark_green</item>
-    </style>
-
 </resources>

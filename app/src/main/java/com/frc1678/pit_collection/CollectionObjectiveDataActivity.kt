@@ -21,11 +21,15 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var drivetrain: String? = null
     private var has_vision: Boolean? = null
     private var can_intake_terminal: Boolean? = null
+    private var can_intake_ground: Boolean? = null
     private var numberOfDriveMotors: Int? = null
     private var drivetrainMotor: String? = null
     private var indexNumDrivetrain: Int? = null
     private var indexNumMotor: Int? = null
-
+    private var flag_cheesecake: Boolean? = null
+    private var can_under_low_rung: Boolean? = null
+    private var canCheesecake: Boolean? = null
+    private var canEjectTerminal: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +93,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             "falcon" -> {
                 3
             }
+            "other" -> {
+                4
+            }
             else -> -1
         }
     }
@@ -147,8 +154,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
             tb_can_intake_terminal.isChecked = jsonFile.can_intake_terminal as Boolean
             tb_flag_cheesecake.isChecked = jsonFile.flag_cheesecake as Boolean
-            tb_can_intake_ground.isChecked = jsonFile.can_intake_ground as Boolean
-            tb_can_move_under_low_rung.isChecked = jsonFile.can_move_under_low_rung as Boolean
+            tb_can_intake_ground.isChecked = jsonFile.has_ground_intake as Boolean
+            tb_can_move_under_low_rung.isChecked = jsonFile.can_under_low_rung as Boolean
             tb_can_cheesecake.isChecked = jsonFile.can_cheesecake as Boolean
             tb_can_eject_terminal.isChecked = jsonFile.can_eject_terminal as Boolean
 
@@ -191,18 +198,30 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     can_climb = tb_can_climb.isChecked
                     numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
                     has_vision = tb_has_vision.isChecked
+                    can_intake_terminal = tb_can_eject_terminal.isChecked
+                    flag_cheesecake = tb_flag_cheesecake.isChecked
+                    can_under_low_rung = tb_can_move_under_low_rung.isChecked
+                    canCheesecake = tb_can_cheesecake.isChecked
+                    canEjectTerminal = tb_can_eject_terminal.isChecked
+                    can_intake_ground = tb_can_intake_ground.isChecked
                     //TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
                     assignIndexNums()
 
                     // Save variable information as a pitData class.
                     val information = Constants.DataObjective(
-                        teamNum,
-                        crossTrench,
-                        indexNumDrivetrain,
-                        hasGroundIntake,
-                        numberOfDriveMotors,
-                        indexNumMotor
+                        team_number =  teamNum,
+                        drivetrain = indexNumDrivetrain,
+                        can_climb = can_climb,
+                        can_intake_terminal = can_intake_terminal,
+                        flag_cheesecake = flag_cheesecake,
+                        has_ground_intake = can_intake_ground,
+                        can_under_low_rung = can_under_low_rung,
+                        can_cheesecake = canCheesecake,
+                        can_eject_terminal = canEjectTerminal,
+                        has_vision = has_vision,
+                        drivetrain_motors = numberOfDriveMotors,
+                        drivetrain_motor_type = indexNumMotor
                     )
                     val jsonData = convertToJson(information)
                     val fileName = "${teamNum}_obj_pit"

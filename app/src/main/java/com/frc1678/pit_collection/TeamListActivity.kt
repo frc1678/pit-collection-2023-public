@@ -44,47 +44,28 @@ class TeamListActivity : CollectionActivity() {
         )
     }
 
+    // Back button - put back in if using subjective pit collection
     // Restart app from ModeCollectionSelectActivity.kt when back button is long pressed.
-    override fun onBackPressed() {
-        AlertDialog.Builder(this).setMessage(R.string.error_back)
-            .setNegativeButton("OK") { _, _ -> TeamListActivity() }
-            .show()
-    }
+//    override fun onBackPressed() {
+//        AlertDialog.Builder(this).setMessage(R.string.error_back)
+//            .setNegativeButton("OK") { _, _ -> TeamListActivity() }
+//            .show()
+//    }
 
-    override fun onKeyLongPress(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            AlertDialog.Builder(this).setMessage(R.string.error_back_reset)
-                .setPositiveButton("Yes") { _, _ -> intentToMatchInput() }
-                .setNegativeButton("No") { _, _ -> TeamListActivity() }
-                .show()
-        }
-        return super.onKeyLongPress(keyCode, event)
-    }
+//    override fun onKeyLongPress(keyCode: Int, event: KeyEvent): Boolean {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            AlertDialog.Builder(this).setMessage(R.string.error_back_reset)
+//                .setPositiveButton("Yes") { _, _ -> intentToMatchInput() }
+//                .setNegativeButton("No") { _, _ -> TeamListActivity() }
+//                .show()
+//        }
+//        return super.onKeyLongPress(keyCode, event)
+//    }
 
 
     override fun onResume() {
         super.onResume()
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED)
-            or (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED)
-            or (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED)
-        ) {
-            try {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA
-                    ),
-                    100
-                )
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+        Permissions()
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
@@ -101,17 +82,18 @@ class TeamListActivity : CollectionActivity() {
                 if (teamsList.isNotEmpty()) {
                     val element = teamsList[position]
                     val intent: Intent
-                    if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.OBJECTIVE.toString()
-                    ) {
+//                    if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.OBJECTIVE.toString()
+//                    ) {
                         intent = Intent(this, CollectionObjectiveDataActivity::class.java)
                         intent.putExtra("teamNumber", element)
                         startActivity(intent)
-                    } else if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.SUBJECTIVE.toString()
-                    ) {
-                        intent = Intent(this, CollectionSubjectiveActivity::class.java)
-                        intent.putExtra("teamNumber", element)
-                        startActivity(intent)
-                    }
+                    //}
+//                    else if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.SUBJECTIVE.toString()
+//                    ) {
+//                        intent = Intent(this, CollectionSubjectiveActivity::class.java)
+//                        intent.putExtra("teamNumber", element)
+//                        startActivity(intent)
+//                    }
                 }
             }
         }

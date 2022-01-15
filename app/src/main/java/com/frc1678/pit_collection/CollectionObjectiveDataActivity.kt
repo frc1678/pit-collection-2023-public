@@ -16,20 +16,21 @@ import java.util.*
 //Create spinners (drivetrain and motor type).
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
-    private var teamNum: Int? = null
+    private var team_number: Int? = null
     private var can_climb: Boolean? = null
     private var drivetrain: String? = null
     private var has_vision: Boolean? = null
     private var can_intake_terminal: Boolean? = null
-    private var can_intake_ground: Boolean? = null
-    private var numberOfDriveMotors: Int? = null
-    private var drivetrainMotor: String? = null
-    private var indexNumDrivetrain: Int? = null
-    private var indexNumMotor: Int? = null
+    private var has_ground_intake: Boolean? = null
+    private var drivetrain_motors: Int? = null
+    private var drivetrain_motor_type: String? = null
     private var flag_cheesecake: Boolean? = null
     private var can_under_low_rung: Boolean? = null
-    private var canCheesecake: Boolean? = null
-    private var canEjectTerminal: Boolean? = null
+    private var can_cheesecake: Boolean? = null
+    private var can_eject_terminal: Boolean? = null
+
+    private var indexNumDrivetrain: Int? = null
+    private var indexNumMotor: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +42,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         createSpinner(spin_drivetrain, R.array.drivetrain_array)
         createSpinner(spin_drivetrain_motor_type, R.array.drivetrain_motor_type_array)
 
-        teamNum = parseInt(intent.getStringExtra("teamNumber")!!.toString())
-        tv_team_number.text = "$teamNum"
+        team_number = parseInt(intent.getStringExtra("teamNumber")!!.toString())
+        tv_team_number.text = "$team_number"
 
         setToolbarText(actionBar, supportActionBar)
 
-        cameraButton("$teamNum")
+        cameraButton("$team_number")
         saveButton()
         populateScreen()
     }
@@ -75,12 +76,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             else -> -1
         }
 
-        drivetrainMotor =
+        drivetrain_motor_type =
             spin_drivetrain_motor_type.selectedItem.toString().toLowerCase(Locale.US)
 
         //Drive Train Motor Type
         //Todo: Hook up to enums instead of hard coding
-        indexNumMotor = when (drivetrainMotor) {
+        indexNumMotor = when (drivetrain_motor_type) {
             "minicim" -> {
                 0
             }
@@ -148,8 +149,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             if (intent.getIntExtra("num_motors", 0) != 0) {
                 et_number_of_motors.setText(intent.getIntExtra("num_motors", 0).toString())
             }
-        } else if (File("/storage/emulated/0/Download/${teamNum}_obj_pit.json").exists()) {
-            val jsonFile = objJsonFileRead(teamNum)
+        } else if (File("/storage/emulated/0/Download/${team_number}_obj_pit.json").exists()) {
+            val jsonFile = objJsonFileRead(team_number)
             tb_can_climb.isChecked = jsonFile.can_climb as Boolean
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
             tb_can_intake_terminal.isChecked = jsonFile.can_intake_terminal as Boolean
@@ -196,38 +197,38 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 }
                 else -> {
                     can_climb = tb_can_climb.isChecked
-                    numberOfDriveMotors = parseInt(et_number_of_motors.text.toString())
+                    drivetrain_motors = parseInt(et_number_of_motors.text.toString())
                     has_vision = tb_has_vision.isChecked
                     can_intake_terminal = tb_can_eject_terminal.isChecked
                     flag_cheesecake = tb_flag_cheesecake.isChecked
                     can_under_low_rung = tb_can_move_under_low_rung.isChecked
-                    canCheesecake = tb_can_cheesecake.isChecked
-                    canEjectTerminal = tb_can_eject_terminal.isChecked
-                    can_intake_ground = tb_can_intake_ground.isChecked
+                    can_cheesecake = tb_can_cheesecake.isChecked
+                    can_eject_terminal = tb_can_eject_terminal.isChecked
+                    has_ground_intake = tb_can_intake_ground.isChecked
                     //TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
                     assignIndexNums()
 
                     // Save variable information as a pitData class.
                     val information = Constants.DataObjective(
-                        team_number =  teamNum,
+                        team_number =  team_number,
                         drivetrain = indexNumDrivetrain,
                         can_climb = can_climb,
                         can_intake_terminal = can_intake_terminal,
                         flag_cheesecake = flag_cheesecake,
-                        has_ground_intake = can_intake_ground,
+                        has_ground_intake = has_ground_intake,
                         can_under_low_rung = can_under_low_rung,
-                        can_cheesecake = canCheesecake,
-                        can_eject_terminal = canEjectTerminal,
+                        can_cheesecake = can_cheesecake,
+                        can_eject_terminal = can_eject_terminal,
                         has_vision = has_vision,
-                        drivetrain_motors = numberOfDriveMotors,
+                        drivetrain_motors = drivetrain_motors,
                         drivetrain_motor_type = indexNumMotor
                     )
                     val jsonData = convertToJson(information)
-                    val fileName = "${teamNum}_obj_pit"
+                    val fileName = "${team_number}_obj_pit"
                     writeToFile(fileName, jsonData)
 
-                    val element = teamNum
+                    val element = team_number
                     val intent = Intent(this, TeamListActivity::class.java)
                     intent.putExtra("teamNumber", element)
                     startActivity(intent)

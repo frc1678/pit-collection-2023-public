@@ -15,7 +15,7 @@
     <string name="can_eject_terminal">Can Eject Into Terminal</string>
     <string name="cannot_eject_terminal">Can NOT Eject Into Terminal</string>
     <string name="can_move_under_rung">Can Move Under Low Rung</string>
-    <string name="cannot_move_under_rung">Can Move Under Low Rung</string>
+    <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
     <string name="can_cheesecake">Can Cheesecake</string>
     <string name="cannot_cheesecake">Can NOT Cheesecake</string>
     <string name="flag_cheesecake">Flag Cheesecake</string>
@@ -58,6 +58,7 @@
         <item>Cim</item>
         <item>Neo</item>
         <item>Falcon</item>
+        <item>Other</item>
     </string-array>
     <string-array name="picture_types">
         <item>Full Robot</item>

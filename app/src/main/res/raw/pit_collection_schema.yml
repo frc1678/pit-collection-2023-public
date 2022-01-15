@@ -9,12 +9,16 @@ schema_file:
 # Stores data type/structure
 schema:
   team_number: int
-  can_cross_trench: bool
   drivetrain: Enum
   drivetrain_motors: int
   drivetrain_motor_type: Enum
-  has_ground_intake: bool
-
+  has_vision: Bool
+  has_ground_intake: Bool
+  can_eject_terminal: Bool
+  can_intake_terminal: Bool
+  can_under_low_rung: Bool
+  can_climb: Bool
+  can_cheesecake: Bool
 
 # Stores Enum data
 enums:
@@ -30,3 +34,4 @@ enums:
     cim: 1
     neo: 2
     falcon: 3
+    other: 4

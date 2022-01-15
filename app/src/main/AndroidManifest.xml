@@ -26,9 +26,9 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name="com.frc1678.pit_collection.TeamListActivity"-->
-<!--            android:screenOrientation="portrait" />-->
+        <activity
+            android:name="com.frc1678.pit_collection.ModeCollectionSelectActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.frc1678.pit_collection.CollectionObjectiveDataActivity"

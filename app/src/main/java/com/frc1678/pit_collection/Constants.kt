@@ -10,9 +10,18 @@ class Constants {
 
     data class DataObjective(
         var team_number: Int?,
-        var can_cross_trench: Boolean?,
+
         var drivetrain: Int?,
+        var can_climb: Boolean?,
+        var can_intake_terminal: Boolean?,
+        var flag_cheesecake: Boolean?,
         var has_ground_intake: Boolean?,
+        var can_under_low_rung: Boolean?,
+        var can_cheesecake: Boolean?,
+        var can_eject_terminal: Boolean?,
+        var has_vision: Boolean?,
+
+        //can cross trench and has ground intake deleted
         var drivetrain_motors: Int?,
         var drivetrain_motor_type: Int?
     )

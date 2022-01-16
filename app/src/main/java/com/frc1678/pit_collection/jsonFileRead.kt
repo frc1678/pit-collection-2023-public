@@ -15,34 +15,35 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     val jo = obj as JsonObject
 
     // Get values from the jo json file
-    val crossTrench = jo.get("can_cross_trench")
-    val indexNumDrivetrain = jo.get("drivetrain")
-    val hasGroundIntake = jo.get("has_ground_intake")
-    val numberOfDriveMotors = jo.get("drivetrain_motors")
-    val indexNumMotor = jo.get("drivetrain_motor_type")
+    val drivetrainType = jo.get("drivetrain").asInt
+    val canClimb = jo.get("can_climb").asBoolean
+    val canIntakeTerminal = jo.get("can_intake_terminal").asBoolean
+    val flagCheesecake = jo.get("flag_cheesecake").asBoolean
+    val canGroundIntake = jo.get("has_ground_intake").asBoolean
+    val canMoveUnderLowRung = jo.get("can_under_low_rung").asBoolean
+    val canCheesecake = jo.get("can_cheesecake").asBoolean
+    val canEjectTerminal = jo.get("can_eject_terminal").asBoolean
+    val hasVision = jo.get("has_vision").asBoolean
+    val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
+    val motorType = jo.get("drivetrain_motor_type").asInt
 
-    var boolCrossTrench: Boolean? = null
-    var boolHasGroundIntake: Boolean? = null
 
-    // Make values from jo boolean instead of jsonObject
-    when (crossTrench.toString()) {
-        "true" -> boolCrossTrench = true
-        "false" -> boolCrossTrench = false
-    }
-    when (hasGroundIntake.toString()) {
-        "true" -> boolHasGroundIntake = true
-        "false" -> boolHasGroundIntake = false
-    }
 
     // Create a DataObjective object with the information from jo
 
     return Constants.DataObjective(
-        teamNum,
-        boolCrossTrench,
-        parseInt(indexNumDrivetrain.toString()),
-        boolHasGroundIntake,
-        parseInt(numberOfDriveMotors.toString()),
-        parseInt(indexNumMotor.toString())
+        team_number =  teamNum,
+        drivetrain =  drivetrainType,
+        can_climb = canClimb,
+        can_intake_terminal = canIntakeTerminal,
+        flag_cheesecake = flagCheesecake,
+        has_ground_intake = canGroundIntake,
+        can_under_low_rung = canMoveUnderLowRung,
+        can_cheesecake = canCheesecake,
+        can_eject_terminal = canEjectTerminal,
+        has_vision = hasVision,
+        drivetrain_motors = numberOfDriveMotors,
+        drivetrain_motor_type = motorType
     )
 }
 

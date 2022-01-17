@@ -3,6 +3,7 @@ package com.frc1678.pit_collection
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -168,6 +169,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     //Save data into a JSON file
     private fun saveButton() {
+
         btn_save_button.setOnClickListener {
             // If number of motors editText is empty, show Snackbar as a reminder
             when {

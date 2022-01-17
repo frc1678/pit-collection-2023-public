@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:src="@drawable/ic_color_key">
+    </ImageView>
+
     <ListView
         android:id="@+id/lv_teams_list"
         android:layout_width="match_parent"

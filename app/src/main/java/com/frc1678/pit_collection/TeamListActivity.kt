@@ -24,6 +24,9 @@ class TeamListActivity : CollectionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.team_list_activity)
         setToolbarText(actionBar, supportActionBar)
+
+        var mode = Constants.ModeSelection.OBJECTIVE
+        putIntoStorage("mode_collection_select_activity", mode)
     }
 
     fun jsonFileRead(): MutableList<String> {
@@ -65,7 +68,6 @@ class TeamListActivity : CollectionActivity() {
 
     override fun onResume() {
         super.onResume()
-        Permissions()
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
@@ -82,18 +84,9 @@ class TeamListActivity : CollectionActivity() {
                 if (teamsList.isNotEmpty()) {
                     val element = teamsList[position]
                     val intent: Intent
-//                    if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.OBJECTIVE.toString()
-//                    ) {
                         intent = Intent(this, CollectionObjectiveDataActivity::class.java)
                         intent.putExtra("teamNumber", element)
                         startActivity(intent)
-                    //}
-//                    else if (retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.SUBJECTIVE.toString()
-//                    ) {
-//                        intent = Intent(this, CollectionSubjectiveActivity::class.java)
-//                        intent.putExtra("teamNumber", element)
-//                        startActivity(intent)
-//                    }
                 }
             }
         }

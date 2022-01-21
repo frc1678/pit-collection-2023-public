@@ -30,7 +30,7 @@ class TeamListActivity : CollectionActivity() {
     }
 
     fun jsonFileRead(): MutableList<String> {
-        var teamListPath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team_list.json"
+        var teamListPath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/${Constants.TBA_KEY}_team_list.json"
         var teamList = FileInputStream(teamListPath).bufferedReader().use { it.readText() }
         val listType: Type = object : TypeToken<MutableList<String>>() {}.type
 

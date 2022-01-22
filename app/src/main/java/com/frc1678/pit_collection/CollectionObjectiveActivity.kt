@@ -6,8 +6,12 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import kotlinx.android.synthetic.main.collection_objective_activity.*
 
 open class CollectionObjectiveActivity : CollectionActivity() {
+
+    private var indexNumDrivetrain: Int? = null
+    private var indexNumMotor: Int? = null
 
     // Create and populate a spinner.
     fun createSpinner(spinner: Spinner, array: Int) {
@@ -33,14 +37,20 @@ open class CollectionObjectiveActivity : CollectionActivity() {
             }
         }
     }
-
+//Puts datapoints in the intent passed out of the camera from the one originally passed into the camera
     fun putExtras(getIntent: Intent, intent: Intent, teamNum: String): Intent {
         intent.putExtra("teamNumber", teamNum)
-            .putExtra("can_cross_trench", getIntent.getBooleanExtra("can_cross_trench", false))
-            .putExtra("has_ground_intake", getIntent.getBooleanExtra("has_ground_intake", false))
+            .putExtra("can_climb", getIntent.getBooleanExtra("can_climb", false))
+            .putExtra("can_intake_terminal", getIntent.getBooleanExtra("can_intake_terminal", false))
+            .putExtra("flag_cheesecake", getIntent.getBooleanExtra("flag_cheesecake", true))
+            .putExtra("ground_intake", getIntent.getBooleanExtra("ground_intake", false))
+            .putExtra("can_move_under_rung", getIntent.getBooleanExtra("can_move_under_rung",false))
+            .putExtra("can_cheesecake", getIntent.getBooleanExtra("can_cheesecake", false))
+            .putExtra("can_eject_terminal", getIntent.getBooleanExtra("can_eject_terminal", false))
+            .putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
             .putExtra("drivetrain_pos", getIntent.getIntExtra("drivetrain_pos", -1))
             .putExtra("drivetrain_motor_pos", getIntent.getIntExtra("drivetrain_motor_pos", -1))
-            .putExtra("num_motors", getIntent.getIntExtra("num_motors", 0))
+            .putExtra("num_motors", getIntent.getIntExtra("num_motors",0))
         return intent
     }
 

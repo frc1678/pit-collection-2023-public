@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
 import kotlinx.android.synthetic.main.camera_confirmation_activity.*
 import java.io.File
@@ -29,13 +30,21 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
         setOnClickListeners(teamNum.toString(), fileName.toString())
     }
 
+    private fun rotateBitmap(source: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height, matrix, true
+        )
+    }
+
     private fun displayImage(fileName: String) {
         val imgFile = File(fileName)
 
         if (imgFile.exists()) {
             val myBitmap: Bitmap = BitmapFactory.decodeFile(fileName)
-            iv_picture_confirm.setImageBitmap(myBitmap)
-
+            val rotatedBitmap = rotateBitmap(myBitmap, 90f)
+            iv_picture_confirm.setImageBitmap(rotatedBitmap)
         }
     }
 

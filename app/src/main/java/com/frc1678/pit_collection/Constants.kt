@@ -3,10 +3,6 @@ package com.frc1678.pit_collection
 
 class Constants {
 
-    companion object {
-        const val TBA_KEY = "caln"
-    }
-
     enum class ModeSelection {
         OBJECTIVE,
         SUBJECTIVE,

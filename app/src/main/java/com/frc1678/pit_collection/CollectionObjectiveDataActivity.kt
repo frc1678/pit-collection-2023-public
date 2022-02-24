@@ -197,7 +197,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     can_climb = tb_can_climb.isChecked
                     drivetrain_motors = parseInt(et_number_of_motors.text.toString())
                     has_vision = tb_has_vision.isChecked
-                    can_intake_terminal = tb_can_eject_terminal.isChecked
+                    can_intake_terminal = tb_can_intake_terminal.isChecked
                     can_under_low_rung = tb_can_move_under_low_rung.isChecked
                     can_cheesecake = tb_can_cheesecake.isChecked
                     can_eject_terminal = tb_can_eject_terminal.isChecked

@@ -15,7 +15,6 @@ class Constants {
         var drivetrain: Int?,
         var can_climb: Boolean?,
         var can_intake_terminal: Boolean?,
-        var flag_cheesecake: Boolean?,
         var has_ground_intake: Boolean?,
         var can_under_low_rung: Boolean?,
         var can_cheesecake: Boolean?,

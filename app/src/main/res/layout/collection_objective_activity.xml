@@ -45,11 +45,16 @@
             android:textOff="@string/cannot_cheesecake">
         </ToggleButton>
 
-        <ToggleButton
-            style="@style/tb_flagged"
+        <Button
+            style="@style/tb_collection"
             android:id="@+id/tb_flag_cheesecake"
-            android:textOn="@string/flagged_cheesecake"
-            android:textOff="@string/flag_cheesecake" />
+            android:text="@string/yay_kate_keep_up_the_great_work_3"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            android:textSize="@dimen/slightly_small"
+            android:enabled="false"
+            android:background="@color/pretty_purple"/>
 
     </LinearLayout>
 

@@ -20,7 +20,7 @@ class TeamListAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = with(inflater) { inflate(R.layout.team_cell, parent, false) }
         view.team_number.text = teamsList[position]
-        var allPics = (File(
+        val allPics = (File(
                 "/storage/emulated/0/Download/${teamsList[position]}_full_robot.jpg"
             ).exists()) && (File(
             "/storage/emulated/0/Download/${teamsList[position]}_full_robot_2.jpg"
@@ -37,8 +37,7 @@ class TeamListAdapter(
         ).exists()))
         if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
                 "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
-            ).exists())
-                    and allPics)
+            ).exists()) and allPics)
         ) {
             view.setBackgroundColor(context.resources.getColor(R.color.green, null))
         } else if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(

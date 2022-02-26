@@ -54,43 +54,43 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     fun picturesTaken(){
         if (File("/storage/emulated/0/Download/${teamNum}_full_robot.jpg").exists()){
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_full_robot.jpg").exists())) {
+        } else {
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()){
             full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists())) {
+        } else {
             full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()){
             drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists())) {
+        } else {
             drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()){
             intake_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists())) {
+        } else {
             intake_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()){
             indexer_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists())) {
+        } else {
             indexer_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()){
             shooter_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists())) {
+        } else {
             shooter_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()){
             climber_picture_taken.setBackgroundColor(getColor(this, R.color.green))
-        } else if (!(File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists())) {
+        } else {
             climber_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
     }

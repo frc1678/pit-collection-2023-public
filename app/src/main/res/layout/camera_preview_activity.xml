@@ -7,7 +7,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/intake_picture_taken"
+            android:text="@string/picture_type_four"
+            style="@style/tv_pictures_taken" />
+
+        <Button
+            android:id="@+id/indexer_picture_taken"
+            android:text="@string/picture_type_five"
+            style="@style/tv_pictures_taken" />
+
+        <Button
+            android:id="@+id/shooter_picture_taken"
+            android:text="@string/picture_type_six"
+            style="@style/tv_pictures_taken" />
+
+        <Button
+            android:id="@+id/climber_picture_taken"
+            android:text="@string/picture_type_seven"
+            style="@style/tv_pictures_taken" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
         android:orientation="horizontal">
 
         <Button
@@ -16,36 +43,22 @@
             style="@style/tv_pictures_taken" />
 
         <Button
-            android:id="@+id/drivetrain_picture_taken"
+            android:id="@+id/full_robot_2_picture_taken"
             android:text="@string/picture_type_two"
             style="@style/tv_pictures_taken" />
 
         <Button
-            android:id="@+id/intake_picture_taken"
+            android:id="@+id/drivetrain_picture_taken"
             android:text="@string/picture_type_three"
             style="@style/tv_pictures_taken" />
 
-        <Button
-            android:id="@+id/indexer_picture_taken"
-            android:text="@string/picture_type_four"
-            style="@style/tv_pictures_taken" />
-
-        <Button
-            android:id="@+id/shooter_picture_taken"
-            android:text="@string/picture_type_five"
-            style="@style/tv_pictures_taken" />
-
-        <Button
-            android:id="@+id/climber_picture_taken"
-            android:text="@string/picture_type_six"
-            style="@style/tv_pictures_taken" />
     </LinearLayout>
 
     <Button
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:id="@+id/btn_return"
-        android:layout_weight="1"
+        android:layout_weight=".75"
         android:background="@color/blue"
         android:textSize="30dp"
         android:text="@string/back_to_collection"
@@ -60,7 +73,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".75"
         android:orientation="horizontal">
 
         <ImageButton

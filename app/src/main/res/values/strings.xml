@@ -43,11 +43,12 @@
     <string name="cam_continue">Continue</string>
     <string name="climber_installation_notes">Climber installation notes</string>
     <string name="picture_type_one">Full Robot</string>
-    <string name="picture_type_two">Drivetrain</string>
-    <string name="picture_type_three">Intake</string>
-    <string name="picture_type_four">Indexer</string>
-    <string name="picture_type_five">Shooter</string>
-    <string name="picture_type_six">Climber</string>
+    <string name="picture_type_two">Full Robot 2</string>
+    <string name="picture_type_three">Drivetrain</string>
+    <string name="picture_type_four">Intake</string>
+    <string name="picture_type_five">Indexer</string>
+    <string name="picture_type_six">Shooter</string>
+    <string name="picture_type_seven">Climber</string>
     <string name="yay_kate_keep_up_the_great_work_3">Yay Kate! Keep up the great work \n ଘ(੭*ˊᵕˋ)੭* ੈ♡‧₊˚</string>
 
     <string-array name="drivetrain_array">

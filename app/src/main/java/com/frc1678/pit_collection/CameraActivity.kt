@@ -58,6 +58,12 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()){
+            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else if (!(File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists())) {
+            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
         if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()){
             drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else if (!(File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists())) {

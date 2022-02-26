@@ -28,16 +28,6 @@
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    <style name="tb_flagged">
-        <item name="android:background">@drawable/tb_flagged</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">0.5</item>
-        <item name="android:textSize">18dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_margin">10dp</item>
-    </style>
-
     <style name="btn_collection">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

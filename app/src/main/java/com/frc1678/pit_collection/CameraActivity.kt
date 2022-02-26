@@ -198,6 +198,9 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         return if (pictureType == "full robot") {
             pictureName = "full_robot"
             pictureName
+        } else if (pictureType == "full robot 2"){
+            pictureName = "full_robot_2"
+            pictureName
         } else {
             pictureType
         }

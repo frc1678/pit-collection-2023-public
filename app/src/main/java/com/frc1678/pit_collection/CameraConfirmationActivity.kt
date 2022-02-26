@@ -10,6 +10,8 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.camera_confirmation_activity.*
 import java.io.File
 
+//TODO make comments on this file
+
 class CameraConfirmationActivity : CollectionObjectiveActivity() {
     private var fileName: String? = null
     private var teamNum: String? = null

@@ -18,8 +18,6 @@
     <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
     <string name="can_cheesecake">Can Cheesecake</string>
     <string name="cannot_cheesecake">Can NOT Cheesecake</string>
-    <string name="flag_cheesecake">Flag Cheesecake</string>
-    <string name="flagged_cheesecake">Cheesecake Flagged</string>
     <string name="team_number">1678</string>
     <string name="btn_save">Save Button</string>
     <string name="error_back_reset">Do you want to reset the collection mode?</string>
@@ -50,6 +48,7 @@
     <string name="picture_type_four">Indexer</string>
     <string name="picture_type_five">Shooter</string>
     <string name="picture_type_six">Climber</string>
+    <string name="yay_kate_keep_up_the_great_work_3">Yay Kate! Keep up the great work \n ଘ(੭*ˊᵕˋ)੭* ੈ♡‧₊˚</string>
 
     <string-array name="drivetrain_array">
         <item>Drivetrain</item>
@@ -69,6 +68,7 @@
 
     <string-array name="picture_types">
         <item>Full Robot</item>
+        <item>Full Robot 2</item>
         <item>Drivetrain</item>
         <item>Intake</item>
         <item>Indexer</item>

@@ -106,6 +106,8 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
             )
         }
     }
+    private val executor = Executors.newSingleThreadExecutor()
+    private lateinit var viewFinder: TextureView
 
     private fun startCamera(teamNum: String) {
         // Create configuration object for the viewfinder use case

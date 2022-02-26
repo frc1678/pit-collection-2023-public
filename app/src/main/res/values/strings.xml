@@ -44,6 +44,12 @@
     <string name="cam_delete">Delete</string>
     <string name="cam_continue">Continue</string>
     <string name="climber_installation_notes">Climber installation notes</string>
+    <string name="picture_type_one">Full Robot</string>
+    <string name="picture_type_two">Drivetrain</string>
+    <string name="picture_type_three">Intake</string>
+    <string name="picture_type_four">Indexer</string>
+    <string name="picture_type_five">Shooter</string>
+    <string name="picture_type_six">Climber</string>
 
     <string-array name="drivetrain_array">
         <item>Drivetrain</item>
@@ -60,6 +66,7 @@
         <item>Falcon</item>
         <item>Other</item>
     </string-array>
+
     <string-array name="picture_types">
         <item>Full Robot</item>
         <item>Drivetrain</item>

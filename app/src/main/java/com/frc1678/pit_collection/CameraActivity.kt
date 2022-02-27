@@ -12,6 +12,7 @@ import android.view.TextureView
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.camera.core.*
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.android.synthetic.main.camera_preview_activity.*
 import java.io.File
@@ -20,6 +21,8 @@ import java.util.concurrent.Executors
 
 class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     private lateinit var teamNum: String
+    private val executor = Executors.newSingleThreadExecutor()
+    private lateinit var viewFinder: TextureView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,54 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         viewFinder.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             updateTransform()
         }
+
+        picturesTaken()
+    }
+
+    //changes the color of buttons in camera_preview_activity to green if the picture has already been taken and grey otherwise
+    //This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
+    fun picturesTaken(){
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot.jpg").exists()){
+            full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()){
+            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()){
+            drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()){
+            intake_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            intake_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()){
+            indexer_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            indexer_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()){
+            shooter_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            shooter_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()){
+            climber_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+        } else {
+            climber_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+        }
     }
 
     private fun finishButton(teamNum: String) {
@@ -61,9 +112,6 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
             )
         }
     }
-
-    private val executor = Executors.newSingleThreadExecutor()
-    private lateinit var viewFinder: TextureView
 
     private fun startCamera(teamNum: String) {
         // Create configuration object for the viewfinder use case

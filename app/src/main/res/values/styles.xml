@@ -44,4 +44,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="tv_pictures_taken">
+        <item name="android:gravity">center|center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12dp</item>
+    </style>
 </resources>

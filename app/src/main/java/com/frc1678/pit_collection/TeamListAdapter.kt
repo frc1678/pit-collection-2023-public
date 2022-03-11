@@ -32,9 +32,8 @@ class TeamListAdapter(
             "/storage/emulated/0/Download/${teamsList[position]}_indexer.jpg"
         ).exists()) && (File(
             "/storage/emulated/0/Download/${teamsList[position]}_shooter.jpg"
-        ).exists()) && (File(
-            "/storage/emulated/0/Download/${teamsList[position]}_climber.jpg"
         ).exists()))
+
         if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
                 "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
             ).exists()) and allPics)

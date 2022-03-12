@@ -27,7 +27,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var drivetrain_motor_type: String? = null
     private var can_under_low_rung: Boolean? = null
     private var can_cheesecake: Boolean? = null
-    private var can_eject_terminal: Boolean? = null
 
     private var indexNumDrivetrain: Int? = null
     private var indexNumMotor: Int? = null
@@ -211,7 +210,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                         has_ground_intake = has_ground_intake,
                         can_under_low_rung = can_under_low_rung,
                         can_cheesecake = can_cheesecake,
-                        can_eject_terminal = can_eject_terminal,
                         has_vision = has_vision,
                         drivetrain_motors = drivetrain_motors,
                         drivetrain_motor_type = indexNumMotor

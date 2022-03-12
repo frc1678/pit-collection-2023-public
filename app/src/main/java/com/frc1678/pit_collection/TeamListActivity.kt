@@ -55,9 +55,9 @@ class TeamListActivity : CollectionActivity() {
                     else if ((teamJson.drivetrain != 1) && (teamJson.has_ground_intake == false)){
                         var drivetrain : String
                         drivetrain = when(teamJson.drivetrain){
-                            0 -> "tank"
-                            2 -> "swerve"
-                            else -> "other"
+                            0 -> "Tank"
+                            2 -> "Swerve"
+                            else -> "Other"
                         }
                         flagsExport.put(team, listOf(drivetrain, "No Ground Intake"))
                     }

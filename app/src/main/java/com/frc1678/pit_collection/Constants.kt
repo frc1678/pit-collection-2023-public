@@ -18,10 +18,9 @@ class Constants {
         var has_ground_intake: Boolean?,
         var can_under_low_rung: Boolean?,
         var can_cheesecake: Boolean?,
-        var can_eject_terminal: Boolean?,
         var has_vision: Boolean?,
 
-        //can cross trench and has ground intake deleted
+        //can cross trench and can eject terminal deleted
         var drivetrain_motors: Int?,
         var drivetrain_motor_type: Int?
     )

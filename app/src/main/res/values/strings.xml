@@ -12,8 +12,6 @@
     <string name="no_vision">Does NOT Have Vision</string>
     <string name="can_intake_terminal">Can Intake From Terminal</string>
     <string name="cannot_intake_terminal">Can NOT Intake From Terminal</string>
-    <string name="can_eject_terminal">Can Eject Into Terminal</string>
-    <string name="cannot_eject_terminal">Can NOT Eject Into Terminal</string>
     <string name="can_move_under_rung">Can Move Under Low Rung</string>
     <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
     <string name="can_cheesecake">Can Cheesecake</string>
@@ -49,7 +47,6 @@
     <string name="picture_type_five">Indexer</string>
     <string name="picture_type_six">Shooter</string>
     <string name="picture_type_seven">Climber</string>
-    <string name="yay_kate_keep_up_the_great_work_3">Yay Kate! Keep up the great work \n ଘ(੭*ˊᵕˋ)੭* ੈ♡‧₊˚</string>
     <string name="export_flags">Export Flags</string>
 
     <string-array name="drivetrain_array">

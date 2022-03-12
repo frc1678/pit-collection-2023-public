@@ -50,16 +50,10 @@ class TeamListActivity : CollectionActivity() {
                         flagsExport.put(team, listOf("Mechanum", "No Ground Intake"))
                     }
                     else if ((teamJson.drivetrain == 1) && (teamJson.has_ground_intake == true)){
-                        flagsExport.put(team, listOf("Mechanum", "Yes Ground Intake"))
+                        flagsExport.put(team, listOf("Mechanum"))
                     }
                     else if ((teamJson.drivetrain != 1) && (teamJson.has_ground_intake == false)){
-                        var drivetrain : String
-                        drivetrain = when(teamJson.drivetrain){
-                            0 -> "Tank"
-                            2 -> "Swerve"
-                            else -> "Other"
-                        }
-                        flagsExport.put(team, listOf(drivetrain, "No Ground Intake"))
+                        flagsExport.put(team, listOf("No Ground Intake"))
                     }
                 }
             }

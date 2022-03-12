@@ -42,18 +42,22 @@ class TeamListActivity : CollectionActivity() {
         val mapItem : MenuItem = menu.findItem(R.id.export_flags_button)
         val button = mapItem.actionView
         button.setOnClickListener {
-            var flagsExport : MutableMap<String, List<String>> = mutableMapOf()
+            val flagsExport : MutableMap<String, List<String>> = mutableMapOf()
             for (team in teamsList){
+                val flagsList : MutableList<String> = mutableListOf()
                 if (File("/storage/emulated/0/Download/${team.toInt()}_obj_pit.json").exists()){
                     val teamJson = objJsonFileRead(team.toInt())
-                    if ((teamJson.drivetrain == 1) && (teamJson.has_ground_intake == false)){
-                        flagsExport.put(team, listOf("Mechanum", "No Ground Intake"))
+                    if((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))){
+                        flagsList.add("Mechanum")
                     }
-                    else if ((teamJson.drivetrain == 1) && (teamJson.has_ground_intake == true)){
-                        flagsExport.put(team, listOf("Mechanum"))
+                    if((teamJson.has_ground_intake == false) && (!flagsList.contains("No Ground Intake"))){
+                        flagsList.add("No Ground Intake")
                     }
-                    else if ((teamJson.drivetrain != 1) && (teamJson.has_ground_intake == false)){
-                        flagsExport.put(team, listOf("No Ground Intake"))
+                    if((teamJson.can_climb == false) && (!flagsList.contains("Can Not Climb"))){
+                        flagsList.add("Can Not Climb")
+                    }
+                    if(flagsList.isNotEmpty()){
+                        flagsExport[team] = flagsList
                     }
                 }
             }

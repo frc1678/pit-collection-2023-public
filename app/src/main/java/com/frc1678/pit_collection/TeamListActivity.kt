@@ -3,18 +3,25 @@ package com.frc1678.pit_collection
 
 import android.Manifest
 import android.app.ActivityOptions
+import android.content.ClipboardManager
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.team_list_activity.*
 import java.io.FileInputStream
 import java.lang.reflect.Type
+import android.content.ClipData
+import java.io.File
+
 
 //Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
@@ -27,6 +34,41 @@ class TeamListActivity : CollectionActivity() {
 
         var mode = Constants.ModeSelection.OBJECTIVE
         putIntoStorage("mode_collection_select_activity", mode)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu) : Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.toolbar, menu)
+        val mapItem : MenuItem = menu.findItem(R.id.export_flags_button)
+        val button = mapItem.actionView
+        button.setOnClickListener {
+            var flagsExport : MutableMap<String, List<String>> = mutableMapOf()
+            for (team in teamsList){
+                if (File("/storage/emulated/0/Download/${team.toInt()}_obj_pit.json").exists()){
+                    val teamJson = objJsonFileRead(team.toInt())
+                    if ((teamJson.drivetrain == 1) && (teamJson.has_ground_intake == false)){
+                        flagsExport.put(team, listOf("Mechanum", "No Ground Intake"))
+                    }
+                    else if ((teamJson.drivetrain == 1) && (teamJson.has_ground_intake == true)){
+                        flagsExport.put(team, listOf("Mechanum", "Yes Ground Intake"))
+                    }
+                    else if ((teamJson.drivetrain != 1) && (teamJson.has_ground_intake == false)){
+                        var drivetrain : String
+                        drivetrain = when(teamJson.drivetrain){
+                            0 -> "tank"
+                            2 -> "swerve"
+                            else -> "other"
+                        }
+                        flagsExport.put(team, listOf(drivetrain, "No Ground Intake"))
+                    }
+                }
+            }
+            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("flags_export", flagsExport.toString())
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_LONG).show()
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun jsonFileRead(): MutableList<String> {

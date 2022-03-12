@@ -12,8 +12,6 @@
     <string name="no_vision">Does NOT Have Vision</string>
     <string name="can_intake_terminal">Can Intake From Terminal</string>
     <string name="cannot_intake_terminal">Can NOT Intake From Terminal</string>
-    <string name="can_eject_terminal">Can Eject Into Terminal</string>
-    <string name="cannot_eject_terminal">Can NOT Eject Into Terminal</string>
     <string name="can_move_under_rung">Can Move Under Low Rung</string>
     <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
     <string name="can_cheesecake">Can Cheesecake</string>
@@ -23,8 +21,8 @@
     <string name="error_back_reset">Do you want to reset the collection mode?</string>
     <string name="error_back">Please long press to reset the collection mode</string>
     <string name="tv_version_num">Version: %1$s</string>
-    <string name="tv_objective_version">Version: %1$s, Objective Collection</string>
-    <string name="tv_subjective_version">Version: %1$s, Subjective Collection</string>
+    <string name="tv_objective_version">Version: %1$s, Objective</string>
+    <string name="tv_subjective_version">Version: %1$s, Subjective</string>
     <string name="climber_strap_installation_difficulty">Climber Strap Installation Difficulty</string>
     <string name="filler_team">FILLER_TEAM</string>
     <string name="back_to_collection">Back to Collection</string>
@@ -49,7 +47,7 @@
     <string name="picture_type_five">Indexer</string>
     <string name="picture_type_six">Shooter</string>
     <string name="picture_type_seven">Climber</string>
-    <string name="yay_kate_keep_up_the_great_work_3">Yay Kate! Keep up the great work \n ଘ(੭*ˊᵕˋ)੭* ੈ♡‧₊˚</string>
+    <string name="export_flags">Export Flags</string>
 
     <string-array name="drivetrain_array">
         <item>Drivetrain</item>

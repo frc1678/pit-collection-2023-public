@@ -45,7 +45,6 @@ open class CollectionObjectiveActivity : CollectionActivity() {
             .putExtra("ground_intake", getIntent.getBooleanExtra("ground_intake", false))
             .putExtra("can_move_under_rung", getIntent.getBooleanExtra("can_move_under_rung",false))
             .putExtra("can_cheesecake", getIntent.getBooleanExtra("can_cheesecake", false))
-            .putExtra("can_eject_terminal", getIntent.getBooleanExtra("can_eject_terminal", false))
             .putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
             .putExtra("drivetrain_pos", getIntent.getIntExtra("drivetrain_pos", -1))
             .putExtra("drivetrain_motor_pos", getIntent.getIntExtra("drivetrain_motor_pos", -1))

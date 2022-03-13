@@ -41,15 +41,15 @@
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_cheesecake"
-            android:textOn="@string/can_cheesecake"
-            android:textOff="@string/cannot_cheesecake">
+            android:textOff="@string/cannot_cheesecake"
+            android:textOn="@string/can_cheesecake">
         </ToggleButton>
 
         <ToggleButton
             style="@style/tb_collection"
             android:id="@+id/tb_can_intake_terminal"
-            android:textOff="@string/cannot_intake_terminal"
-            android:textOn="@string/can_intake_terminal">
+            android:textOff="Yay Kate!"
+            android:textOn="Place holder!">
         </ToggleButton>
 
     </LinearLayout>

@@ -10,8 +10,6 @@
     <string name="cannot_climb">Can NOT Climb</string>
     <string name="has_vision">Has Vision</string>
     <string name="no_vision">Does NOT Have Vision</string>
-    <string name="can_intake_terminal">Can Intake From Terminal</string>
-    <string name="cannot_intake_terminal">Can NOT Intake From Terminal</string>
     <string name="can_move_under_rung">Can Move Under Low Rung</string>
     <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
     <string name="can_cheesecake">Can Cheesecake</string>

@@ -21,7 +21,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var can_climb: Boolean? = null
     private var drivetrain: String? = null
     private var has_vision: Boolean? = null
-    private var can_intake_terminal: Boolean? = null
     private var has_ground_intake: Boolean? = null
     private var drivetrain_motors: Int? = null
     private var drivetrain_motor_type: String? = null
@@ -107,7 +106,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             val intent = Intent(this, CameraActivity::class.java)
             intent.putExtra("teamNumber", teamNum)
                 .putExtra("can_climb", tb_can_climb.isChecked)
-                .putExtra("can_intake_terminal", tb_can_intake_terminal.isChecked)
                 .putExtra("ground_intake", tb_can_intake_ground.isChecked)
                 .putExtra("can_move_under_rung", tb_can_move_under_low_rung.isChecked)
                 .putExtra("can_cheesecake", tb_can_cheesecake.isChecked)
@@ -129,7 +127,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
             tb_can_climb.isChecked = intent.getBooleanExtra("can_climb", false)
-            tb_can_intake_terminal.isChecked = intent.getBooleanExtra("can_intake_terminal", false )
             tb_can_intake_ground.isChecked = intent.getBooleanExtra("ground_intake", false)
             tb_can_move_under_low_rung.isChecked = intent.getBooleanExtra("can_move_under_rung", false)
             tb_can_cheesecake.isChecked = intent.getBooleanExtra("can_cheesecake", false)
@@ -148,7 +145,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             val jsonFile = objJsonFileRead(team_number)
             tb_can_climb.isChecked = jsonFile.can_climb as Boolean
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
-            tb_can_intake_terminal.isChecked = jsonFile.can_intake_terminal as Boolean
             tb_can_intake_ground.isChecked = jsonFile.has_ground_intake as Boolean
             tb_can_move_under_low_rung.isChecked = jsonFile.can_under_low_rung as Boolean
             tb_can_cheesecake.isChecked = jsonFile.can_cheesecake as Boolean
@@ -193,7 +189,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     can_climb = tb_can_climb.isChecked
                     drivetrain_motors = parseInt(et_number_of_motors.text.toString())
                     has_vision = tb_has_vision.isChecked
-                    can_intake_terminal = tb_can_intake_terminal.isChecked
                     can_under_low_rung = tb_can_move_under_low_rung.isChecked
                     can_cheesecake = tb_can_cheesecake.isChecked
                     has_ground_intake = tb_can_intake_ground.isChecked
@@ -206,7 +201,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                         team_number =  team_number,
                         drivetrain = indexNumDrivetrain,
                         can_climb = can_climb,
-                        can_intake_terminal = can_intake_terminal,
                         has_ground_intake = has_ground_intake,
                         can_under_low_rung = can_under_low_rung,
                         can_cheesecake = can_cheesecake,

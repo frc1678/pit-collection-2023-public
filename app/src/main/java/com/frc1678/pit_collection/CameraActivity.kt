@@ -150,12 +150,9 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
             val pictureType = picture_type.selectedItem.toString().toLowerCase(Locale.US)
             // Create file name based on team number and picture type
             val fileName = "${teamNum}_${formatPictureType(pictureType)}"
-            val file = File(
-                "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/",
-                "$fileName.jpg"
-            )
+            val filepath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/$fileName.jpg"
 
-            imageCapture.takePicture(file, executor,
+            imageCapture.takePicture(File("$filepath.tmp"), executor,
                 object : ImageCapture.OnImageSavedListener {
                     override fun onError(
                         imageCaptureError: ImageCapture.ImageCaptureError,
@@ -179,7 +176,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
                                     ),
                                     teamNum
                                 )
-                                    .putExtra("fileName", file.toString())
+                                    .putExtra("fileName", filepath)
                                     .putExtra("picture_type", picture_type.selectedItem.toString()),
                                 ActivityOptions.makeSceneTransitionAnimation(
                                     this@CameraActivity,

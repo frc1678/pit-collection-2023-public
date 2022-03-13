@@ -41,10 +41,10 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
     }
 
     private fun displayImage(fileName: String) {
-        val imgFile = File(fileName)
+        val imgFile = File("$fileName.tmp")
 
         if (imgFile.exists()) {
-            val myBitmap: Bitmap = BitmapFactory.decodeFile(fileName)
+            val myBitmap: Bitmap = BitmapFactory.decodeFile("$fileName.tmp")
             val rotatedBitmap = rotateBitmap(myBitmap, 90f)
             iv_picture_confirm.setImageBitmap(rotatedBitmap)
         }
@@ -52,7 +52,7 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
 
     private fun setOnClickListeners(teamNum: String, fileName: String) {
         delete.setOnClickListener {
-            File(fileName).delete()
+            File("$fileName.tmp").delete()
             startActivity(
                 putExtras(intent, Intent(this, CameraActivity::class.java), teamNum),
                 ActivityOptions.makeSceneTransitionAnimation(
@@ -62,6 +62,7 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
             )
         }
         btn_continue.setOnClickListener {
+            File("$fileName.tmp").renameTo(File(fileName))
             startActivity(
                 putExtras(intent, Intent(this, CameraActivity::class.java), teamNum),
                 ActivityOptions.makeSceneTransitionAnimation(

@@ -41,7 +41,6 @@ open class CollectionObjectiveActivity : CollectionActivity() {
     fun putExtras(getIntent: Intent, intent: Intent, teamNum: String): Intent {
         intent.putExtra("teamNumber", teamNum)
             .putExtra("can_climb", getIntent.getBooleanExtra("can_climb", false))
-            .putExtra("can_intake_terminal", getIntent.getBooleanExtra("can_intake_terminal", false))
             .putExtra("ground_intake", getIntent.getBooleanExtra("ground_intake", false))
             .putExtra("can_move_under_rung", getIntent.getBooleanExtra("can_move_under_rung",false))
             .putExtra("can_cheesecake", getIntent.getBooleanExtra("can_cheesecake", false))

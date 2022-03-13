@@ -14,13 +14,12 @@ class Constants {
 
         var drivetrain: Int?,
         var can_climb: Boolean?,
-        var can_intake_terminal: Boolean?,
         var has_ground_intake: Boolean?,
         var can_under_low_rung: Boolean?,
         var can_cheesecake: Boolean?,
         var has_vision: Boolean?,
 
-        //can cross trench and can eject terminal deleted
+        //can cross trench and can eject terminal and can intake terminal deleted
         var drivetrain_motors: Int?,
         var drivetrain_motor_type: Int?
     )

@@ -55,7 +55,7 @@ class TeamListAdapter(
             view.setBackgroundColor(context.resources.getColor(R.color.purple, null))
         }
 
-        if (TeamListActivity.StarredTeams.hasValue(teamsList[position], context)) {
+        if (TeamListActivity.starredTeams.contains(teamsList[position])) {
             view.star.setImageResource(R.drawable.yellow_star)
         } else{
             view.star.setImageResource(R.drawable.gray_star)
@@ -75,9 +75,11 @@ class TeamListAdapter(
             for(i in 0 until TeamListActivity.StarredTeams.contents!!.size()){
                 TeamListActivity.StarredTeams.contents!!.remove(i)
             }
+            val jsonArray = JsonArray()
             for (team in TeamListActivity.starredTeams){
-                TeamListActivity.StarredTeams.contents!!.add(team)
+                jsonArray.add(team)
             }
+            TeamListActivity.StarredTeams.contents!!.add(jsonArray)
             TeamListActivity.StarredTeams.read(context)
             Log.e("starred", "${TeamListActivity.StarredTeams.contents}")
 

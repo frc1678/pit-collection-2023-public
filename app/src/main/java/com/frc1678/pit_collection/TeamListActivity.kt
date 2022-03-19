@@ -102,7 +102,7 @@ class TeamListActivity : CollectionActivity() {
 
         fun read(context: Context) {
 //            if (!fileExists()) {
-//                copyDefaults(context)
+//                write()
 //            }
             try {
                 contents = JsonParser().parse(FileReader(file)) as JsonArray
@@ -111,9 +111,9 @@ class TeamListActivity : CollectionActivity() {
             }
         }
 
-        fun write(jsonString : String) {
+        fun write() {
             var writer = FileWriter(file, false)
-            writer.write(jsonString)
+            writer.write("")
 
             writer.close()
         }

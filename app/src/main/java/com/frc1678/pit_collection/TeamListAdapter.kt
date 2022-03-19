@@ -92,8 +92,6 @@ class TeamListAdapter(
                 TeamListActivity.StarredTeams.contents.add(team)
             }
             TeamListActivity.StarredTeams.write()
-            TeamListActivity.StarredTeams.read(context)
-
             return@setOnLongClickListener true
         }
         return view

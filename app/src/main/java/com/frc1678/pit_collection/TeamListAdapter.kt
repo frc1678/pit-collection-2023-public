@@ -85,11 +85,11 @@ class TeamListAdapter(
                 TeamListActivity.starredTeams.add(teamsList[position])
                 listView.invalidateViews()
             }
-            for(i in 0 until TeamListActivity.StarredTeams.contents!!.size()){
-                TeamListActivity.StarredTeams.contents!!.remove(0)
+            for(i in 0 until TeamListActivity.StarredTeams.contents.size()){
+                TeamListActivity.StarredTeams.contents.remove(0)
             }
             for (team in TeamListActivity.starredTeams){
-                TeamListActivity.StarredTeams.contents!!.add(team)
+                TeamListActivity.StarredTeams.contents.add(team)
             }
             TeamListActivity.StarredTeams.write()
             TeamListActivity.StarredTeams.read(context)

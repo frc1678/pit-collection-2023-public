@@ -46,7 +46,7 @@ class TeamListActivity : CollectionActivity() {
 
         var mode = Constants.ModeSelection.OBJECTIVE
         putIntoStorage("mode_collection_select_activity", mode)
-        for (team in StarredTeams.contents!!.toList()){
+        for (team in StarredTeams.contents.toList()){
             starredTeams.add(team.asString)
         }
     }

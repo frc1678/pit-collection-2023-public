@@ -101,9 +101,6 @@ class TeamListActivity : CollectionActivity() {
             File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/starred_teams.json")
 
         fun read(context: Context) {
-//            if (!fileExists()) {
-//                write()
-//            }
             try {
                 contents = JsonParser().parse(FileReader(file)) as JsonArray
             } catch (e: Exception) {

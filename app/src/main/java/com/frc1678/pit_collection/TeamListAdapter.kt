@@ -2,6 +2,8 @@
 package com.frc1678.pit_collection
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +11,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.team_cell.view.*
+import kotlinx.android.synthetic.main.team_list_activity.*
 import java.io.File
 
 class TeamListAdapter(
@@ -59,6 +63,15 @@ class TeamListAdapter(
             view.star.setImageResource(R.drawable.yellow_star)
         } else{
             view.star.setImageResource(R.drawable.gray_star)
+        }
+
+        view.setOnClickListener {
+            if (teamsList.isNotEmpty()) {
+                val element = teamsList[position]
+                val intent = Intent(context, CollectionObjectiveDataActivity::class.java)
+                intent.putExtra("teamNumber", element)
+                startActivity(context, intent, Bundle())
+            }
         }
 
         // Mark matches as starred when long clicked.

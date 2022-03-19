@@ -164,16 +164,6 @@ class TeamListActivity : CollectionActivity() {
                 retrieveFromStorage("mode_collection_select_activity"),
                 lv_teams_list
             )
-
-//            lv_teams_list.setOnItemClickListener { _, _, position, _ ->
-//                if (teamsList.isNotEmpty()) {
-//                    val element = teamsList[position]
-//                    val intent: Intent
-//                        intent = Intent(this, CollectionObjectiveDataActivity::class.java)
-//                        intent.putExtra("teamNumber", element)
-//                        startActivity(intent)
-//                }
-//            }
         }
     }
 }

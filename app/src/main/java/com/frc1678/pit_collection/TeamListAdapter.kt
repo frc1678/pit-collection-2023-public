@@ -76,7 +76,6 @@ class TeamListAdapter(
 
         // Mark matches as starred when long clicked.
         view.setOnLongClickListener {
-            Log.e("starred-team", teamsList[position])
             if (TeamListActivity.starredTeams.contains(teamsList[position])) {
                 // The team is already starred.
                 TeamListActivity.starredTeams.remove(teamsList[position])
@@ -88,7 +87,6 @@ class TeamListAdapter(
             }
             for(i in 0 until TeamListActivity.StarredTeams.contents!!.size()){
                 val size = TeamListActivity.StarredTeams.contents.size()
-                Log.e("starred-size", "$size")
                 TeamListActivity.StarredTeams.contents!!.remove(0)
             }
             for (team in TeamListActivity.starredTeams){
@@ -96,7 +94,6 @@ class TeamListAdapter(
             }
             TeamListActivity.StarredTeams.write()
             TeamListActivity.StarredTeams.read(context)
-            Log.e("starred", "${TeamListActivity.StarredTeams.contents}")
 
             return@setOnLongClickListener true
         }

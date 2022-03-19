@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='pit-collection-2020'
+rootProject.name='pit-collection'

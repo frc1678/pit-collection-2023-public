@@ -94,7 +94,7 @@ class TeamListActivity : CollectionActivity() {
 
     object StarredTeams {
 
-        var contents: JsonArray? = null
+        var contents = JsonArray()
         var gson = Gson()
 
         private val file =
@@ -113,7 +113,7 @@ class TeamListActivity : CollectionActivity() {
 
         fun write() {
             var writer = FileWriter(file, false)
-            writer.write("")
+            writer.write("0")
 
             writer.close()
         }

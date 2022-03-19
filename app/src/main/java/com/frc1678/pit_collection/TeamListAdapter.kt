@@ -74,11 +74,14 @@ class TeamListAdapter(
                 listView.invalidateViews()
             }
             for(i in 0 until TeamListActivity.StarredTeams.contents!!.size()){
-                TeamListActivity.StarredTeams.contents!!.remove(i)
+                val size = TeamListActivity.StarredTeams.contents.size()
+                Log.e("starred-size", "$size")
+                TeamListActivity.StarredTeams.contents!!.remove(0)
             }
             for (team in TeamListActivity.starredTeams){
                 TeamListActivity.StarredTeams.contents!!.add(team)
             }
+            TeamListActivity.StarredTeams.write()
             TeamListActivity.StarredTeams.read(context)
             Log.e("starred", "${TeamListActivity.StarredTeams.contents}")
 

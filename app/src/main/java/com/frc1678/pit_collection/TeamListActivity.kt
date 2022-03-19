@@ -47,7 +47,7 @@ class TeamListActivity : CollectionActivity() {
         var mode = Constants.ModeSelection.OBJECTIVE
         putIntoStorage("mode_collection_select_activity", mode)
         for (team in StarredTeams.contents!!.toList()){
-            starredTeams.add(team.toString())
+            starredTeams.add(team.asString)
         }
     }
 
@@ -113,23 +113,9 @@ class TeamListActivity : CollectionActivity() {
 
         fun write() {
             var writer = FileWriter(file, false)
-            writer.write("0")
+            gson.toJson(contents as JsonElement, writer)
 
             writer.close()
-        }
-
-        fun hasValue(value: String, context: Context): Boolean {
-            try{
-                read(context)
-                for (i in 0 until contents!!.size()) {  // iterate through the JsonArray
-                    // first I get the 'i' JsonElement as a JsonObject, then I get the key as a string and I compare it with the value
-                    if (contents!![i].toString() == value) return true
-                }
-                return false
-            } catch (e: Exception){
-                Log.e("StarredTeams.hasValue", "Failed to check for value in starred teams file")
-                return false
-            }
         }
 
         fun fileExists(): Boolean = file.exists()

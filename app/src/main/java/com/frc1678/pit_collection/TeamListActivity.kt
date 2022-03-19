@@ -14,26 +14,41 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.team_list_activity.*
 import java.io.FileInputStream
 import java.lang.reflect.Type
 import android.content.ClipData
+import android.content.Context
+import android.util.Log
+import com.google.gson.*
 import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
+import com.google.gson.JsonArray
+
+
+
 
 
 //Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
     private var teamsList: List<String> = emptyList()
+    companion object{
+        var starredTeams: MutableSet<String> = mutableSetOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StarredTeams.read(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.team_list_activity)
         setToolbarText(actionBar, supportActionBar)
 
         var mode = Constants.ModeSelection.OBJECTIVE
         putIntoStorage("mode_collection_select_activity", mode)
+        for (team in StarredTeams.contents.toList()){
+            starredTeams.add(team.asString)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {
@@ -77,6 +92,32 @@ class TeamListActivity : CollectionActivity() {
         return Gson().fromJson(teamList, listType)
     }
 
+    object StarredTeams {
+
+        var contents = JsonArray()
+        var gson = Gson()
+
+        private val file =
+            File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/starred_teams.json")
+
+        fun read(context: Context) {
+            try {
+                contents = JsonParser().parse(FileReader(file)) as JsonArray
+            } catch (e: Exception) {
+                Log.e("StarredTeams.read", "Failed to read starred teams file")
+            }
+        }
+
+        fun write() {
+            var writer = FileWriter(file, false)
+            gson.toJson(contents as JsonElement, writer)
+
+            writer.close()
+        }
+
+        fun fileExists(): Boolean = file.exists()
+    }
+
     // Starts the mode selection activity of the previously selected selection mode
     private fun intentToMatchInput() {
         this.getSharedPreferences("PREFS", 0).edit().remove("mode_collection_select_activity")
@@ -117,18 +158,9 @@ class TeamListActivity : CollectionActivity() {
             lv_teams_list.adapter = TeamListAdapter(
                 this,
                 teamsList,
-                retrieveFromStorage("mode_collection_select_activity")
+                retrieveFromStorage("mode_collection_select_activity"),
+                lv_teams_list
             )
-
-            lv_teams_list.setOnItemClickListener { _, _, position, _ ->
-                if (teamsList.isNotEmpty()) {
-                    val element = teamsList[position]
-                    val intent: Intent
-                        intent = Intent(this, CollectionObjectiveDataActivity::class.java)
-                        intent.putExtra("teamNumber", element)
-                        startActivity(intent)
-                }
-            }
         }
     }
 }

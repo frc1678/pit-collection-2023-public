@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1"
+        android:id="@+id/star"
+        android:src="@drawable/gray_star"
+        />
+
     <TextView
         style="@style/tv_standard_linear_layout"
         android:id="@+id/team_number"

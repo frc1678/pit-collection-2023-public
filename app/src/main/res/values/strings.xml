@@ -38,7 +38,7 @@
     <string name="cam_delete">Delete</string>
     <string name="cam_continue">Continue</string>
     <string name="climber_installation_notes">Climber installation notes</string>
-    <string name="picture_type_one">Full Robot</string>
+    <string name="picture_type_one">Full Robot 1</string>
     <string name="picture_type_two">Full Robot 2</string>
     <string name="picture_type_three">Drivetrain</string>
     <string name="picture_type_four">Intake</string>

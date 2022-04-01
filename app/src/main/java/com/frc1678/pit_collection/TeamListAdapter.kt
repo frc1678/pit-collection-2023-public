@@ -32,7 +32,7 @@ class TeamListAdapter(
         val view = with(inflater) { inflate(R.layout.team_cell, parent, false) }
         view.team_number.text = teamsList[position]
         val allPics = (File(
-                "/storage/emulated/0/Download/${teamsList[position]}_full_robot.jpg"
+                "/storage/emulated/0/Download/${teamsList[position]}_full_robot_1.jpg"
             ).exists()) && (File(
             "/storage/emulated/0/Download/${teamsList[position]}_full_robot_2.jpg"
         ).exists() && (File(

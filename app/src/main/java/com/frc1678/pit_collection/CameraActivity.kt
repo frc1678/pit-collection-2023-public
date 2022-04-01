@@ -52,7 +52,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     //changes the color of buttons in camera_preview_activity to green if the picture has already been taken and grey otherwise
     //This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
     fun picturesTaken(){
-        if (File("/storage/emulated/0/Download/${teamNum}_full_robot.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_1.jpg").exists()){
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
@@ -198,8 +198,8 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     //Delete the space in the "full robot" picture type, replace it with an "_"
     private fun formatPictureType(pictureType: String): String {
         val pictureName: String
-        return if (pictureType == "full robot") {
-            pictureName = "full_robot"
+        return if (pictureType == "full robot 1") {
+            pictureName = "full_robot_1"
             pictureName
         } else if (pictureType == "full robot 2"){
             pictureName = "full_robot_2"

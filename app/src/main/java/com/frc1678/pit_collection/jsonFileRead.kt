@@ -19,7 +19,6 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     val canClimb = jo.get("can_climb").asBoolean
     val canGroundIntake = jo.get("has_ground_intake").asBoolean
     val canMoveUnderLowRung = jo.get("can_under_low_rung").asBoolean
-    val canCheesecake = jo.get("can_cheesecake").asBoolean
     val hasVision = jo.get("has_vision").asBoolean
     val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
@@ -34,7 +33,6 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
         can_climb = canClimb,
         has_ground_intake = canGroundIntake,
         can_under_low_rung = canMoveUnderLowRung,
-        can_cheesecake = canCheesecake,
         has_vision = hasVision,
         drivetrain_motors = numberOfDriveMotors,
         drivetrain_motor_type = motorType

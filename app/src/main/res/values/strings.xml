@@ -12,8 +12,6 @@
     <string name="no_vision">Does NOT Have Vision</string>
     <string name="can_move_under_rung">Can Move Under Low Rung</string>
     <string name="cannot_move_under_rung">Can NOT Move Under Low Rung</string>
-    <string name="can_cheesecake">Can Cheesecake</string>
-    <string name="cannot_cheesecake">Can NOT Cheesecake</string>
     <string name="team_number">1678</string>
     <string name="btn_save">Save Button</string>
     <string name="error_back_reset">Do you want to reset the collection mode?</string>

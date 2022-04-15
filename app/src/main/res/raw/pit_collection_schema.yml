@@ -16,7 +16,6 @@ schema:
   has_ground_intake: Bool
   can_under_low_rung: Bool
   can_climb: Bool
-  can_cheesecake: Bool
 
 # Stores Enum data
 enums:

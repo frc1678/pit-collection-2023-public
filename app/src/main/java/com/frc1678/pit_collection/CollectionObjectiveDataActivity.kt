@@ -25,7 +25,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var drivetrain_motors: Int? = null
     private var drivetrain_motor_type: String? = null
     private var can_under_low_rung: Boolean? = null
-    private var can_cheesecake: Boolean? = null
 
     private var indexNumDrivetrain: Int? = null
     private var indexNumMotor: Int? = null
@@ -186,7 +185,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     drivetrain_motors = parseInt(et_number_of_motors.text.toString())
                     has_vision = tb_has_vision.isChecked
                     can_under_low_rung = tb_can_move_under_low_rung.isChecked
-                    can_cheesecake = false
                     has_ground_intake = tb_can_intake_ground.isChecked
                     //TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
@@ -199,7 +197,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                         can_climb = can_climb,
                         has_ground_intake = has_ground_intake,
                         can_under_low_rung = can_under_low_rung,
-                        can_cheesecake = can_cheesecake,
                         has_vision = has_vision,
                         drivetrain_motors = drivetrain_motors,
                         drivetrain_motor_type = indexNumMotor

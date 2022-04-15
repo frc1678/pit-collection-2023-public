@@ -144,6 +144,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
             tb_can_intake_ground.isChecked = jsonFile.has_ground_intake as Boolean
             tb_can_move_under_low_rung.isChecked = jsonFile.can_under_low_rung as Boolean
+            
             spin_drivetrain.setSelection(parseInt(jsonFile.drivetrain.toString()) + 1)
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())

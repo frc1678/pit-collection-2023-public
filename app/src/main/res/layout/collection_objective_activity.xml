@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/very_small">
+    android:padding="@dimen/very_small"
+    tools:ignore="ExtraText">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,27 +33,6 @@
             android:background="@drawable/camera_button_round"
             android:src="@drawable/camera_button"
             android:scaleType="fitCenter" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ToggleButton
-            style="@style/tb_collection"
-            android:id="@+id/tb_can_cheesecake"
-            android:textOff="@string/cannot_cheesecake"
-            android:textOn="@string/can_cheesecake">
-        </ToggleButton>
-
-        <ToggleButton
-            style="@style/tb_collection"
-            android:id="@+id/tb_can_intake_terminal"
-            android:textOff="Yay Kate!"
-            android:textOn="Place holder!">
-        </ToggleButton>
-
     </LinearLayout>
 
     <LinearLayout

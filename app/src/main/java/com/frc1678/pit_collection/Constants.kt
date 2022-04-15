@@ -16,7 +16,6 @@ class Constants {
         var can_climb: Boolean?,
         var has_ground_intake: Boolean?,
         var can_under_low_rung: Boolean?,
-        var can_cheesecake: Boolean?,
         var has_vision: Boolean?,
 
         //can cross trench and can eject terminal and can intake terminal deleted

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.content.Intent
@@ -8,17 +8,10 @@ import android.view.WindowManager
 import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.collection_subjective_activity.*
 import kotlinx.android.synthetic.main.collection_objective_activity.btn_save_button
 import kotlinx.android.synthetic.main.collection_objective_activity.tv_team_number
+import kotlinx.android.synthetic.main.collection_subjective_activity.*
 import java.io.File
-import android.widget.RadioGroup
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
-import android.widget.CompoundButton
-
 
 class CollectionSubjectiveActivity : CollectionActivity() {
 
@@ -97,7 +90,12 @@ class CollectionSubjectiveActivity : CollectionActivity() {
                     radio_group_one.clearCheck()
                 }
             }
-            et_subjective_notes.setText(jsonFile.climber_strap_installation_notes?.replace("\"", ""))
+            et_subjective_notes.setText(
+                jsonFile.climber_strap_installation_notes?.replace(
+                    "\"",
+                    ""
+                )
+            )
         }
     }
 

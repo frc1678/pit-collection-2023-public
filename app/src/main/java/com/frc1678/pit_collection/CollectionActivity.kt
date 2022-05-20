@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.Manifest
@@ -60,7 +60,8 @@ open class CollectionActivity : AppCompatActivity() {
         file.write("$jsonString\n")
         file.close()
     }
-     override fun onResume() {
+
+    override fun onResume() {
         super.onResume()
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED)

@@ -1,9 +1,8 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.app.ActivityOptions
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -14,7 +13,7 @@ import java.io.File
 import java.lang.Integer.parseInt
 import java.util.*
 
-//Create spinners (drivetrain and motor type).
+// Create spinners (drivetrain and motor type).
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
     private var team_number: Int? = null
@@ -35,7 +34,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
-        //Populate spinner with arrays from strings.xml
+        // Populate spinner with arrays from strings.xml
         createSpinner(spin_drivetrain, R.array.drivetrain_array)
         createSpinner(spin_drivetrain_motor_type, R.array.drivetrain_motor_type_array)
 
@@ -76,8 +75,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         drivetrain_motor_type =
             spin_drivetrain_motor_type.selectedItem.toString().toLowerCase(Locale.US)
 
-        //Drive Train Motor Type
-        //Todo: Hook up to enums instead of hard coding
+        // Drive Train Motor Type
+        // TODO: Hook up to enums instead of hard coding
         indexNumMotor = when (drivetrain_motor_type) {
             "minicim" -> {
                 0
@@ -126,7 +125,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         if (intent.getBooleanExtra("after_camera", false)) {
             tb_can_climb.isChecked = intent.getBooleanExtra("can_climb", false)
             tb_can_intake_ground.isChecked = intent.getBooleanExtra("ground_intake", false)
-            tb_can_move_under_low_rung.isChecked = intent.getBooleanExtra("can_move_under_rung", false)
+            tb_can_move_under_low_rung.isChecked =
+                intent.getBooleanExtra("can_move_under_rung", false)
             tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
             spin_drivetrain_motor_type.setSelection(
@@ -144,14 +144,14 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
             tb_can_intake_ground.isChecked = jsonFile.has_ground_intake as Boolean
             tb_can_move_under_low_rung.isChecked = jsonFile.can_under_low_rung as Boolean
-            
+
             spin_drivetrain.setSelection(parseInt(jsonFile.drivetrain.toString()) + 1)
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())
         }
     }
 
-    //Save data into a JSON file
+    // Save data into a JSON file
     private fun saveButton() {
 
         btn_save_button.setOnClickListener {
@@ -187,13 +187,13 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     has_vision = tb_has_vision.isChecked
                     can_under_low_rung = tb_can_move_under_low_rung.isChecked
                     has_ground_intake = tb_can_intake_ground.isChecked
-                    //TODO Move below code to CollectionObjectiveDataActivity and link to save button
+                    // TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
                     assignIndexNums()
 
                     // Save variable information as a pitData class.
                     val information = Constants.DataObjective(
-                        team_number =  team_number,
+                        team_number = team_number,
                         drivetrain = indexNumDrivetrain,
                         can_climb = can_climb,
                         has_ground_intake = has_ground_intake,
@@ -216,7 +216,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
 
     override fun onBackPressed() {

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.app.ActivityOptions
@@ -9,8 +9,6 @@ import android.graphics.Matrix
 import android.os.Bundle
 import kotlinx.android.synthetic.main.camera_confirmation_activity.*
 import java.io.File
-
-//TODO make comments on this file
 
 class CameraConfirmationActivity : CollectionObjectiveActivity() {
     private var fileName: String? = null

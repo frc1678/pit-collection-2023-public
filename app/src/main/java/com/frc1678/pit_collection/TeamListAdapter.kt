@@ -1,21 +1,16 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.team_cell.view.*
-import kotlinx.android.synthetic.main.team_list_activity.*
 import java.io.File
 
 class TeamListAdapter(
@@ -32,8 +27,8 @@ class TeamListAdapter(
         val view = with(inflater) { inflate(R.layout.team_cell, parent, false) }
         view.team_number.text = teamsList[position]
         val allPics = (File(
-                "/storage/emulated/0/Download/${teamsList[position]}_full_robot_1.jpg"
-            ).exists()) && (File(
+            "/storage/emulated/0/Download/${teamsList[position]}_full_robot_1.jpg"
+        ).exists()) && (File(
             "/storage/emulated/0/Download/${teamsList[position]}_full_robot_2.jpg"
         ).exists() && (File(
             "/storage/emulated/0/Download/${teamsList[position]}_drivetrain.jpg"
@@ -61,7 +56,7 @@ class TeamListAdapter(
 
         if (TeamListActivity.starredTeams.contains(teamsList[position])) {
             view.star.setImageResource(R.drawable.yellow_star)
-        } else{
+        } else {
             view.star.setImageResource(R.drawable.gray_star)
         }
 
@@ -85,10 +80,10 @@ class TeamListAdapter(
                 TeamListActivity.starredTeams.add(teamsList[position])
                 listView.invalidateViews()
             }
-            for(i in 0 until TeamListActivity.StarredTeams.contents.size()){
+            for (i in 0 until TeamListActivity.StarredTeams.contents.size()) {
                 TeamListActivity.StarredTeams.contents.remove(0)
             }
-            for (team in TeamListActivity.starredTeams){
+            for (team in TeamListActivity.starredTeams) {
                 TeamListActivity.StarredTeams.contents.add(team)
             }
             TeamListActivity.StarredTeams.write()

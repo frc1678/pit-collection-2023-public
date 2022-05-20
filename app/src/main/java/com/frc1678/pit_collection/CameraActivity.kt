@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.app.ActivityOptions
@@ -49,46 +49,46 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         picturesTaken()
     }
 
-    //changes the color of buttons in camera_preview_activity to green if the picture has already been taken and grey otherwise
-    //This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
-    fun picturesTaken(){
-        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_1.jpg").exists()){
+    // changes the color of buttons in camera_preview_activity to green if the picture has already been taken and grey otherwise
+    // This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
+    fun picturesTaken() {
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_1.jpg").exists()) {
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()) {
             full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()) {
             drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()) {
             intake_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             intake_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()) {
             indexer_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             indexer_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()) {
             shooter_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             shooter_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()){
+        if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()) {
             climber_picture_taken.setBackgroundColor(getColor(this, R.color.green))
         } else {
             climber_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
@@ -195,13 +195,13 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         CameraX.bindToLifecycle(this, preview, imageCapture)
     }
 
-    //Delete the space in the "full robot" picture type, replace it with an "_"
+    // Delete the space in the "full robot" picture type, replace it with an "_"
     private fun formatPictureType(pictureType: String): String {
         val pictureName: String
         return if (pictureType == "full robot 1") {
             pictureName = "full_robot_1"
             pictureName
-        } else if (pictureType == "full robot 2"){
+        } else if (pictureType == "full robot 2") {
             pictureName = "full_robot_2"
             pictureName
         } else {

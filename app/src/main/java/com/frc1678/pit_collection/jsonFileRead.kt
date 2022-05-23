@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import com.google.gson.JsonObject
@@ -23,13 +23,11 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
 
-
-
     // Create a DataObjective object with the information from jo
 
     return Constants.DataObjective(
-        team_number =  teamNum,
-        drivetrain =  drivetrainType,
+        team_number = teamNum,
+        drivetrain = drivetrainType,
         can_climb = canClimb,
         has_ground_intake = canGroundIntake,
         can_under_low_rung = canMoveUnderLowRung,

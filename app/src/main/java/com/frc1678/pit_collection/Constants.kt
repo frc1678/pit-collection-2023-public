@@ -1,4 +1,4 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 class Constants {
@@ -18,7 +18,7 @@ class Constants {
         var can_under_low_rung: Boolean?,
         var has_vision: Boolean?,
 
-        //can cross trench and can eject terminal and can intake terminal deleted
+        // can cross trench and can eject terminal and can intake terminal deleted
         var drivetrain_motors: Int?,
         var drivetrain_motor_type: Int?
     )

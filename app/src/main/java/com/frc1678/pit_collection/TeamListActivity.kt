@@ -1,40 +1,37 @@
-// Copyright (c) 2019 FRC Team 1678: Citrus Circuits
+// Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
 import android.Manifest
 import android.app.ActivityOptions
+import android.content.ClipData
 import android.content.ClipboardManager
-import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
-import android.view.KeyEvent
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.team_list_activity.*
-import java.io.FileInputStream
-import java.lang.reflect.Type
-import android.content.ClipData
-import android.content.Context
-import android.util.Log
-import com.google.gson.*
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileReader
 import java.io.FileWriter
-import com.google.gson.JsonArray
+import java.lang.reflect.Type
 
-
-
-
-
-//Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
+// Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
     private var teamsList: List<String> = emptyList()
-    companion object{
+
+    companion object {
         var starredTeams: MutableSet<String> = mutableSetOf()
     }
 
@@ -46,32 +43,32 @@ class TeamListActivity : CollectionActivity() {
 
         var mode = Constants.ModeSelection.OBJECTIVE
         putIntoStorage("mode_collection_select_activity", mode)
-        for (team in StarredTeams.contents.toList()){
+        for (team in StarredTeams.contents.toList()) {
             starredTeams.add(team.asString)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu) : Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.toolbar, menu)
-        val mapItem : MenuItem = menu.findItem(R.id.export_flags_button)
+        val mapItem: MenuItem = menu.findItem(R.id.export_flags_button)
         val button = mapItem.actionView
         button.setOnClickListener {
-            val flagsExport : MutableMap<String, List<String>> = mutableMapOf()
-            for (team in teamsList){
-                val flagsList : MutableList<String> = mutableListOf()
-                if (File("/storage/emulated/0/Download/${team.toInt()}_obj_pit.json").exists()){
+            val flagsExport: MutableMap<String, List<String>> = mutableMapOf()
+            for (team in teamsList) {
+                val flagsList: MutableList<String> = mutableListOf()
+                if (File("/storage/emulated/0/Download/${team.toInt()}_obj_pit.json").exists()) {
                     val teamJson = objJsonFileRead(team.toInt())
-                    if((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))){
+                    if ((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))) {
                         flagsList.add("Mechanum")
                     }
-                    if((teamJson.has_ground_intake == false) && (!flagsList.contains("No Ground Intake"))){
+                    if ((teamJson.has_ground_intake == false) && (!flagsList.contains("No Ground Intake"))) {
                         flagsList.add("No Ground Intake")
                     }
-                    if((teamJson.can_climb == false) && (!flagsList.contains("Can Not Climb"))){
+                    if ((teamJson.can_climb == false) && (!flagsList.contains("Can Not Climb"))) {
                         flagsList.add("Can Not Climb")
                     }
-                    if(flagsList.isNotEmpty()){
+                    if (flagsList.isNotEmpty()) {
                         flagsExport[team] = flagsList
                     }
                 }
@@ -128,8 +125,8 @@ class TeamListActivity : CollectionActivity() {
         )
     }
 
-    // Back button - put back in if using subjective pit collection
-    // Restart app from ModeCollectionSelectActivity.kt when back button is long pressed.
+    // This code was removed since subjective collection was not being used this year.
+
 //    override fun onBackPressed() {
 //        AlertDialog.Builder(this).setMessage(R.string.error_back)
 //            .setNegativeButton("OK") { _, _ -> TeamListActivity() }

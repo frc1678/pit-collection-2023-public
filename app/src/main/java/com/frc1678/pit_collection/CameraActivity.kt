@@ -158,14 +158,14 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         fun setPictureType (buttonId : Button) {
             buttonId.setOnClickListener {
                 if(File("/storage/emulated/0/Download/${teamNum}_${pictureTypeId.text.toString().
-                    toLowerCase(Locale.US)}.jpg").exists()) {
+                    replace(" ", "_").toLowerCase(Locale.US)}.jpg").exists()) {
                     pictureTypeId.setBackgroundColor((getColor(this, R.color.green)))
                 } else {
                     pictureTypeId.setBackgroundColor((getColor(this, R.color.light_gray)))
                 }
 
                 if(File("/storage/emulated/0/Download/${teamNum}_${buttonId.text.toString().
-                    toLowerCase(Locale.US)}.jpg").exists()) {
+                    replace(" ", "_").toLowerCase(Locale.US)}.jpg").exists()) {
                     buttonId.setBackgroundColor(getColor(this, R.color.dark_green))
                 } else {
                     buttonId.setBackgroundColor(getColor(this, R.color.dark_gray))

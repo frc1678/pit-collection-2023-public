@@ -154,7 +154,8 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         var pictureTypeId = intake_picture_type
 
         // Set the picture type to whatever picture type button the user clicks on
-        // If the
+        // If the user presses on a picture type button that is green, it will turn it to dark green
+        // If the user presses on a picture type that is light gray, it will turn it to dark gray
         fun setPictureType (buttonId : Button) {
             buttonId.setOnClickListener {
                 if(File("/storage/emulated/0/Download/${teamNum}_${pictureTypeId.text.toString().

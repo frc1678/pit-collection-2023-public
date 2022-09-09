@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
@@ -33,8 +32,6 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         setToolbarText(actionBar, supportActionBar)
 
         teamNum = intent.getStringExtra("teamNumber")!!.toString()
-
-        finishButton(teamNum)
 
         viewFinder = findViewById(R.id.view_finder)
 
@@ -95,22 +92,15 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         }
     }
 
-    private fun finishButton(teamNum: String) {
-        btn_return.setOnClickListener {
-            startActivity(
-                putExtras(
-                    intent,
-                    Intent(
-                        this,
-                        CollectionObjectiveDataActivity::class.java
-                    ).putExtra("after_camera", true), teamNum
-                ),
-                ActivityOptions.makeSceneTransitionAnimation(
-                    this,
-                    btn_return, "proceed_button"
-                ).toBundle()
-            )
-        }
+    override fun onBackPressed() {
+        startActivity(
+            putExtras(
+                intent,
+                Intent(this, CollectionObjectiveDataActivity::class.java).putExtra("after_camera", true),
+                teamNum
+            ),
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
+        )
     }
 
     private fun startCamera(teamNum: String) {

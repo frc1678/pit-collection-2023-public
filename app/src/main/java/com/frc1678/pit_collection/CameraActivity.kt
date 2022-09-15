@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.util.Size
 import android.view.*
 import android.widget.Button
@@ -180,7 +179,6 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
 
 
             buttonId.setOnLongClickListener {
-                Log.e("bobbo", "long clicked!")
                 picturePreviewFile = File("/storage/emulated/0/Download/${teamNum}_${buttonId.
                 text.toString().replace(" ", "_").toLowerCase(Locale.US)}.jpg")
 

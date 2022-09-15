@@ -52,4 +52,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12dp</item>
     </style>
+
+    <style name="tv_picture_type">
+        <item name="android:textSize">30dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>

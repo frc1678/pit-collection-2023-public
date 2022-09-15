@@ -7,15 +7,18 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Environment
 import android.util.Size
-import android.view.Surface
-import android.view.TextureView
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.android.synthetic.main.camera_confirmation_activity.view.*
 import kotlinx.android.synthetic.main.camera_preview_activity.*
+import kotlinx.android.synthetic.main.camera_taken_picture_popup.view.*
 import java.io.File
 import java.util.*
 import java.util.concurrent.Executors
@@ -166,9 +169,41 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
             }
         }
 
+        fun showTakenPicturePreview (buttonId: Button) {
+            // Create a variable to store the file for the taken picture the user wants to preview
+            var picturePreviewFile: File
+            val popupView = View.inflate(this, R.layout.camera_taken_picture_popup, null)
+            val width = LinearLayout.LayoutParams.MATCH_PARENT
+            val height = LinearLayout.LayoutParams.MATCH_PARENT
+            val popupWindow = PopupWindow(popupView, width, height, false)
+
+
+            buttonId.setOnLongClickListener {
+                picturePreviewFile = File("/storage/emulated/0/Download/${teamNum}_${buttonId.
+                text.toString().replace(" ", "_").toLowerCase(Locale.US)}.jpg")
+
+                if (picturePreviewFile.exists()) {
+                    popupView.picture_preview.setImageURI(picturePreviewFile.toUri())
+                    popupWindow.showAtLocation(it, Gravity.CENTER, 0, 0)
+                }
+
+                popupView.tv_type_preview.text = buttonId.text.toString()
+
+                popupView.close_button.setOnClickListener {
+                    popupWindow.dismiss()
+                }
+
+                return@setOnLongClickListener true
+            }
+
+        }
+
+
+
         // Run the setPictureType function for every picture type in listOfPictureTypes
         for (type in listOfPictureTypes) {
             setPictureType(type)
+            showTakenPicturePreview(type)
         }
 
         // Take a picture and gives it the correct file name based on team number and picture type

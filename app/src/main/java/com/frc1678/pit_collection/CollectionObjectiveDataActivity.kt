@@ -152,7 +152,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
-    fun allNotChecked(): Boolean {
+    // Check if any changes are made to the obj data collection screen
+    private fun allNotChecked(): Boolean {
         return (
             (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
                 (indexNumMotor == -1 || indexNumMotor == null)
@@ -170,6 +171,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         has_ground_intake = tb_can_intake_ground.isChecked
     }
 
+    // Save obj data to a file in downloads
     private fun saver() {
         populateData()
         // TODO Move below code to CollectionObjectiveDataActivity and link to save button

@@ -4,12 +4,14 @@ package com.frc1678.pit_collection
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.core.content.ContextCompat.startActivity
+import kotlinx.android.synthetic.main.collection_objective_activity.view.*
 import kotlinx.android.synthetic.main.team_cell.view.*
 import java.io.File
 
@@ -26,6 +28,16 @@ class TeamListAdapter(
         TeamListActivity.StarredTeams.read(context)
         val view = with(inflater) { inflate(R.layout.team_cell, parent, false) }
         view.team_number.text = teamsList[position]
+
+        // Read the file for each objective data file
+        fun readFileDirectlyAsText(fileName: String): String {
+            return if (File(fileName).exists()) {
+                File(fileName).readText(Charsets.UTF_8)
+            } else {
+                "file doesn't exist"
+            }
+        }
+
         val allPics = (File(
             "/storage/emulated/0/Download/${teamsList[position]}_full_robot_1.jpg"
         ).exists()) && (File(
@@ -40,14 +52,28 @@ class TeamListAdapter(
             "/storage/emulated/0/Download/${teamsList[position]}_shooter.jpg"
         ).exists()))
 
-        if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
-                "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
-            ).exists()) and allPics)
-        ) {
+        if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and!
+            readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                    "${teamsList[position]}_obj_pit.json").contains("drivetrain\":-1") and!
+            readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                    "${teamsList[position]}_obj_pit.json").contains("drivetrain_motor_type\":-1") and!
+            readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                    "${teamsList[position]}_obj_pit.json").contains("drivetrain_motors\":0") and!
+            readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                    "${teamsList[position]}_obj_pit.json").contains("file doesn't exist")
+                    ) and allPics)
+         {
             view.setBackgroundColor(context.resources.getColor(R.color.green, null))
-        } else if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and (File(
-                "/storage/emulated/0/Download/${teamsList[position]}_obj_pit.json"
-            ).exists()))
+        } else if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and!
+                    readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                            "${teamsList[position]}_obj_pit.json").contains("drivetrain\":-1") and!
+                    readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                            "${teamsList[position]}_obj_pit.json").contains("drivetrain_motor_type\":-1") and!
+                    readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                            "${teamsList[position]}_obj_pit.json").contains("drivetrain_motors\":0") and!
+                    readFileDirectlyAsText("/storage/emulated/0/Download/" +
+                            "${teamsList[position]}_obj_pit.json").contains("file doesn't exist")
+                    )
         ) {
             view.setBackgroundColor(context.resources.getColor(R.color.light_orange, null))
         } else if ((mode == Constants.ModeSelection.OBJECTIVE.toString()) and allPics) {

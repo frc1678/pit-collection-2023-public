@@ -4,6 +4,7 @@ package com.frc1678.pit_collection
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -151,12 +152,14 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
-    // Save data into a JSON file
+    // Check if any changes are made to the obj data collection screen
     private fun allNotChecked(): Boolean {
         return (
             (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
                 (indexNumMotor == -1 || indexNumMotor == null)
-                && et_number_of_motors.text.toString() == ""
+                    && et_number_of_motors.text.toString() == "" && can_climb == false &&
+                    can_under_low_rung == false && has_ground_intake == false &&
+                    has_vision == false
                 )
     }
 
@@ -168,6 +171,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         has_ground_intake = tb_can_intake_ground.isChecked
     }
 
+    // Save obj data to a file in downloads
     private fun saver() {
         populateData()
         // TODO Move below code to CollectionObjectiveDataActivity and link to save button

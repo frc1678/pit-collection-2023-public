@@ -8,7 +8,6 @@ import android.view.WindowManager
 import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.collection_objective_activity.btn_save_button
 import kotlinx.android.synthetic.main.collection_objective_activity.tv_team_number
 import kotlinx.android.synthetic.main.collection_subjective_activity.*
 import java.io.File

@@ -4,6 +4,8 @@ package com.frc1678.pit_collection
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
@@ -24,7 +26,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var drivetrain_motors: Int? = null
     private var drivetrain_motor_type: String? = null
     private var can_under_low_rung: Boolean? = null
-
     private var indexNumDrivetrain: Int? = null
     private var indexNumMotor: Int? = null
 
@@ -44,7 +45,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         setToolbarText(actionBar, supportActionBar)
 
         cameraButton("$team_number")
-        saveButton()
+
         populateScreen()
     }
 
@@ -151,66 +152,90 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
-    // Save data into a JSON file
-    private fun saveButton() {
+    // Check if any changes are made to the obj data collection screen
+    private fun allNotChecked(): Boolean {
+        return (
+            (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
+                (indexNumMotor == -1 || indexNumMotor == null)
+                    && et_number_of_motors.text.toString() == "" && can_climb == false &&
+                    can_under_low_rung == false && has_ground_intake == false &&
+                    has_vision == false
+                )
+    }
 
-        btn_save_button.setOnClickListener {
-            // If number of motors editText is empty, show Snackbar as a reminder
-            when {
-                et_number_of_motors.text.isEmpty() -> {
-                    val numberOfMotorSnack = Snackbar.make(
-                        it,
-                        "Please Enter Number Of Drivetrain Motors",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    numberOfMotorSnack.show()
-                }
-                spin_drivetrain.selectedItem.toString() == "Drivetrain" -> {
-                    val drivetrainSnack = Snackbar.make(
-                        it,
-                        "Please Define A Drivetrain",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    drivetrainSnack.show()
-                }
-                spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> {
-                    val drivetrainMotorTypeSnack = Snackbar.make(
-                        it,
-                        "Please Define A Drivetrain Motor Type",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    drivetrainMotorTypeSnack.show()
-                }
-                else -> {
-                    can_climb = tb_can_climb.isChecked
-                    drivetrain_motors = parseInt(et_number_of_motors.text.toString())
-                    has_vision = tb_has_vision.isChecked
-                    can_under_low_rung = tb_can_move_under_low_rung.isChecked
-                    has_ground_intake = tb_can_intake_ground.isChecked
-                    // TODO Move below code to CollectionObjectiveDataActivity and link to save button
+    private fun populateData() {
+        can_climb = tb_can_climb.isChecked
+        drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
+        has_vision = tb_has_vision.isChecked
+        can_under_low_rung = tb_can_move_under_low_rung.isChecked
+        has_ground_intake = tb_can_intake_ground.isChecked
+    }
 
-                    assignIndexNums()
+    // Save obj data to a file in downloads
+    private fun saver() {
+        populateData()
+        // TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
-                    // Save variable information as a pitData class.
-                    val information = Constants.DataObjective(
-                        team_number = team_number,
-                        drivetrain = indexNumDrivetrain,
-                        can_climb = can_climb,
-                        has_ground_intake = has_ground_intake,
-                        can_under_low_rung = can_under_low_rung,
-                        has_vision = has_vision,
-                        drivetrain_motors = drivetrain_motors,
-                        drivetrain_motor_type = indexNumMotor
-                    )
-                    val jsonData = convertToJson(information)
-                    val fileName = "${team_number}_obj_pit"
-                    writeToFile(fileName, jsonData)
+        assignIndexNums()
 
-                    val element = team_number
-                    val intent = Intent(this, TeamListActivity::class.java)
-                    intent.putExtra("teamNumber", element)
-                    startActivity(intent)
-                }
+        // Save variable information as a pitData class.
+
+        if (allNotChecked()) {
+            val element = team_number
+            val intent = Intent(this, TeamListActivity::class.java)
+            intent.putExtra("teamNumber", element)
+            startActivity(intent)
+        } else {
+
+            val information = Constants.DataObjective(
+                team_number = team_number,
+                drivetrain = indexNumDrivetrain,
+                can_climb = can_climb,
+                has_ground_intake = has_ground_intake,
+                can_under_low_rung = can_under_low_rung,
+                has_vision = has_vision,
+                drivetrain_motors = drivetrain_motors,
+                drivetrain_motor_type = indexNumMotor
+            )
+            val jsonData = convertToJson(information)
+            val fileName = "${team_number}_obj_pit"
+            writeToFile(fileName, jsonData)
+            val element = team_number
+            val intent = Intent(this, TeamListActivity::class.java)
+            intent.putExtra("teamNumber", element)
+            startActivity(intent)
+        }
+    }
+    override fun onBackPressed() {
+
+        when {
+            et_number_of_motors.text.isEmpty() -> {
+                val numberOfMotorSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Enter Number Of Drivetrain Motors",
+                    Snackbar.LENGTH_SHORT
+                )
+                numberOfMotorSnack.show()
+            }
+            spin_drivetrain.selectedItem.toString() == "Drivetrain" -> {
+
+                val drivetrainSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Define A Drivetrain",
+                    Snackbar.LENGTH_SHORT
+                )
+                drivetrainSnack.show()
+            }
+            spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> {
+                val drivetrainMotorTypeSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Define A Drivetrain Motor Type",
+                    Snackbar.LENGTH_SHORT
+                )
+                drivetrainMotorTypeSnack.show()
+            }
+            else -> {
+                saver()
             }
         }
     }
@@ -218,9 +243,11 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     override fun onNothingSelected(parent: AdapterView<*>) {
         TODO("not implemented")
     }
-
-    override fun onBackPressed() {
-        val intent = Intent(this, TeamListActivity::class.java)
-        startActivity(intent)
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            saver()
+            return true
+        }
+        return super.onKeyLongPress(keyCode, event)
     }
 }

@@ -7,14 +7,18 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Environment
 import android.util.Size
-import android.view.Surface
-import android.view.TextureView
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.android.synthetic.main.camera_confirmation_activity.view.*
 import kotlinx.android.synthetic.main.camera_preview_activity.*
+import kotlinx.android.synthetic.main.camera_taken_picture_popup.view.*
 import java.io.File
 import java.util.*
 import java.util.concurrent.Executors
@@ -30,11 +34,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
 
         setToolbarText(actionBar, supportActionBar)
 
-        createSpinner(picture_type, R.array.picture_types)
-
         teamNum = intent.getStringExtra("teamNumber")!!.toString()
-
-        finishButton(teamNum)
 
         viewFinder = findViewById(R.id.view_finder)
 
@@ -53,64 +53,57 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     // This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
     fun picturesTaken() {
         if (File("/storage/emulated/0/Download/${teamNum}_full_robot_1.jpg").exists()) {
-            full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            full_robot_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            full_robot_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            full_robot_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()) {
-            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            full_robot_2_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            full_robot_2_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            full_robot_2_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()) {
-            drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            drivetrain_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()) {
-            intake_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            intake_picture_type.setBackgroundColor(getColor(this, R.color.dark_green))
         } else {
-            intake_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            intake_picture_type.setBackgroundColor(getColor(this, R.color.dark_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()) {
-            indexer_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            indexer_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            indexer_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            indexer_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()) {
-            shooter_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            shooter_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            shooter_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            shooter_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
         if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()) {
-            climber_picture_taken.setBackgroundColor(getColor(this, R.color.green))
+            climber_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            climber_picture_taken.setBackgroundColor(getColor(this, R.color.light_gray))
+            climber_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
     }
 
-    private fun finishButton(teamNum: String) {
-        btn_return.setOnClickListener {
-            startActivity(
-                putExtras(
-                    intent,
-                    Intent(
-                        this,
-                        CollectionObjectiveDataActivity::class.java
-                    ).putExtra("after_camera", true), teamNum
-                ),
-                ActivityOptions.makeSceneTransitionAnimation(
-                    this,
-                    btn_return, "proceed_button"
-                ).toBundle()
-            )
-        }
+    override fun onBackPressed() {
+        startActivity(
+            putExtras(
+                intent,
+                Intent(this, CollectionObjectiveDataActivity::class.java).putExtra("after_camera", true),
+                teamNum
+            ),
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
+        )
     }
 
     private fun startCamera(teamNum: String) {
@@ -146,9 +139,79 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
 
+        // List of all of the picture type options
+        val listOfPictureTypes = listOf(intake_picture_type, indexer_picture_type, shooter_picture_type,
+            climber_picture_type, full_robot_picture_type, full_robot_2_picture_type, drivetrain_picture_type)
+
+        // Set default picture type to intake
+        var pictureTypeId = intake_picture_type
+
+        // Set the picture type to whatever picture type button the user clicks on
+        // If the user presses on a picture type button that is green, it will turn it to dark green
+        // If the user presses on a picture type that is light gray, it will turn it to dark gray
+        fun setPictureType (buttonId : Button) {
+            buttonId.setOnClickListener {
+                if(File("/storage/emulated/0/Download/${teamNum}_${pictureTypeId.text.toString().
+                    replace(" ", "_").toLowerCase(Locale.US)}.jpg").exists()) {
+                    pictureTypeId.setBackgroundColor((getColor(this, R.color.green)))
+                } else {
+                    pictureTypeId.setBackgroundColor((getColor(this, R.color.light_gray)))
+                }
+
+                if(File("/storage/emulated/0/Download/${teamNum}_${buttonId.text.toString().
+                    replace(" ", "_").toLowerCase(Locale.US)}.jpg").exists()) {
+                    buttonId.setBackgroundColor(getColor(this, R.color.dark_green))
+                } else {
+                    buttonId.setBackgroundColor(getColor(this, R.color.dark_gray))
+                }
+
+                pictureTypeId = buttonId
+            }
+        }
+
+        fun showTakenPicturePreview (buttonId: Button) {
+            // Create a variable to store the file for the taken picture the user wants to preview
+            var picturePreviewFile: File
+            val popupView = View.inflate(this, R.layout.camera_taken_picture_popup, null)
+            val width = LinearLayout.LayoutParams.MATCH_PARENT
+            val height = LinearLayout.LayoutParams.MATCH_PARENT
+            val popupWindow = PopupWindow(popupView, width, height, false)
+
+
+            buttonId.setOnLongClickListener {
+                picturePreviewFile = File("/storage/emulated/0/Download/${teamNum}_${buttonId.
+                text.toString().replace(" ", "_").toLowerCase(Locale.US)}.jpg")
+
+                if (picturePreviewFile.exists()) {
+                    popupView.picture_preview.setImageURI(picturePreviewFile.toUri())
+                    popupWindow.showAtLocation(it, Gravity.CENTER, 0, 0)
+                }
+
+                popupView.tv_type_preview.text = buttonId.text.toString()
+
+                popupView.close_button.setOnClickListener {
+                    popupWindow.dismiss()
+                }
+
+                return@setOnLongClickListener true
+            }
+
+        }
+
+
+
+        // Run the setPictureType function for every picture type in listOfPictureTypes
+        for (type in listOfPictureTypes) {
+            setPictureType(type)
+            showTakenPicturePreview(type)
+        }
+
+        // Take a picture and gives it the correct file name based on team number and picture type
+        // If the picture fails it will give a Photo capture failed message
+        // Save picture to File Downloads
         capture_button.setOnClickListener {
-            val pictureType = picture_type.selectedItem.toString().toLowerCase(Locale.US)
             // Create file name based on team number and picture type
+            var pictureType = pictureTypeId.text.toString().toLowerCase(Locale.US)
             val fileName = "${teamNum}_${formatPictureType(pictureType)}"
             val filepath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/$fileName.jpg"
 
@@ -177,7 +240,7 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
                                     teamNum
                                 )
                                     .putExtra("fileName", filepath)
-                                    .putExtra("picture_type", picture_type.selectedItem.toString()),
+                                    .putExtra("picture_type", pictureType),
                                 ActivityOptions.makeSceneTransitionAnimation(
                                     this@CameraActivity,
                                     capture_button, "proceed_button"

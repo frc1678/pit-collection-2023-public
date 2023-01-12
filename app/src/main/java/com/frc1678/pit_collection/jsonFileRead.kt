@@ -3,6 +3,7 @@ package com.frc1678.pit_collection
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import kotlinx.android.synthetic.main.collection_objective_activity.*
 import java.io.FileReader
 import java.lang.Integer.parseInt
 
@@ -13,12 +14,12 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     // Make a json object called jo
     val obj = JsonParser().parse(FileReader(fileName))
     val jo = obj as JsonObject
-
+    val jsonFile = objJsonFileRead(teamNum)
     // Get values from the jo json file
     val drivetrainType = jo.get("drivetrain").asInt
-    val canClimb = jo.get("can_climb").asBoolean
-    val canGroundIntake = jo.get("has_ground_intake").asBoolean
-    val canMoveUnderLowRung = jo.get("can_under_low_rung").asBoolean
+    val has_communication_device = jo.get("has_communication_device").asBoolean
+    val weight = jo.get("weight").asDouble
+    val dimensions: MutableMap<String, Double?> = mutableMapOf("length" to jsonFile.dimensions?.get("length"), "width" to jsonFile.dimensions?.get("width"))
     val hasVision = jo.get("has_vision").asBoolean
     val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
@@ -28,9 +29,9 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     return Constants.DataObjective(
         team_number = teamNum,
         drivetrain = drivetrainType,
-        can_climb = canClimb,
-        has_ground_intake = canGroundIntake,
-        can_under_low_rung = canMoveUnderLowRung,
+        has_communication_device = has_communication_device,
+        dimensions = mutableMapOf("length" to dimensions["length"],"width" to dimensions["width"]),
+        weight = weight,
         has_vision = hasVision,
         drivetrain_motors = numberOfDriveMotors,
         drivetrain_motor_type = motorType

@@ -4,7 +4,6 @@ package com.frc1678.pit_collection
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -12,6 +11,7 @@ import android.widget.AdapterView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.collection_objective_activity.*
 import java.io.File
+import java.lang.Double.parseDouble
 import java.lang.Integer.parseInt
 import java.util.*
 
@@ -19,13 +19,13 @@ import java.util.*
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
     private var team_number: Int? = null
-    private var can_climb: Boolean? = null
     private var drivetrain: String? = null
     private var has_vision: Boolean? = null
-    private var has_ground_intake: Boolean? = null
+    private var has_communication_device: Boolean? = null
+    private var weight: Double? = null
+    private var dimensions: MutableMap<String,Double> = mutableMapOf("length" to 0.0,"width" to 0.0)
     private var drivetrain_motors: Int? = null
     private var drivetrain_motor_type: String? = null
-    private var can_under_low_rung: Boolean? = null
     private var indexNumDrivetrain: Int? = null
     private var indexNumMotor: Int? = null
 
@@ -104,14 +104,21 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
             val intent = Intent(this, CameraActivity::class.java)
             intent.putExtra("teamNumber", teamNum)
-                .putExtra("can_climb", tb_can_climb.isChecked)
-                .putExtra("ground_intake", tb_can_intake_ground.isChecked)
-                .putExtra("can_move_under_rung", tb_can_move_under_low_rung.isChecked)
+                .putExtra("has_communication_device", tb_has_communication.isChecked)
                 .putExtra("has_vision", tb_has_vision.isChecked)
                 .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
                 .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
             if (et_number_of_motors.text.isNotEmpty()) {
                 intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
+            }
+            if (et_weight.text.isNotEmpty()) {
+                intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+            }
+            if (et_length.text.isNotEmpty()) {
+                intent.putExtra("length", parseDouble(et_length.text.toString()))
+            }
+            if (et_width.text.isNotEmpty()) {
+                intent.putExtra("width", parseDouble(et_width.text.toString()))
             }
             startActivity(
                 intent, ActivityOptions.makeSceneTransitionAnimation(
@@ -124,10 +131,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
-            tb_can_climb.isChecked = intent.getBooleanExtra("can_climb", false)
-            tb_can_intake_ground.isChecked = intent.getBooleanExtra("ground_intake", false)
-            tb_can_move_under_low_rung.isChecked =
-                intent.getBooleanExtra("can_move_under_rung", false)
+            tb_has_communication.isChecked = intent.getBooleanExtra("has_communication", false)
             tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
             spin_drivetrain_motor_type.setSelection(
@@ -139,16 +143,26 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             if (intent.getIntExtra("num_motors", 0) != 0) {
                 et_number_of_motors.setText(intent.getIntExtra("num_motors", 0).toString())
             }
+            if (intent.getDoubleExtra("length", 0.0) != 0.0) {
+                et_length.setText(intent.getDoubleExtra("length", 0.0).toString())
+            }
+            if (intent.getDoubleExtra("weight", 0.0) != 0.0) {
+                et_weight.setText(intent.getDoubleExtra("weight", 0.0).toString())
+            }
+            if (intent.getDoubleExtra("width", 0.0) != 0.0) {
+                et_width.setText(intent.getDoubleExtra("width", 0.0).toString())
+            }
         } else if (File("/storage/emulated/0/Download/${team_number}_obj_pit.json").exists()) {
             val jsonFile = objJsonFileRead(team_number)
-            tb_can_climb.isChecked = jsonFile.can_climb as Boolean
+            tb_has_communication.isChecked = jsonFile.has_communication_device as Boolean
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
-            tb_can_intake_ground.isChecked = jsonFile.has_ground_intake as Boolean
-            tb_can_move_under_low_rung.isChecked = jsonFile.can_under_low_rung as Boolean
 
             spin_drivetrain.setSelection(parseInt(jsonFile.drivetrain.toString()) + 1)
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())
+            et_weight.setText(jsonFile.weight.toString())
+            et_length.setText(jsonFile.dimensions?.get("length")?.toString() ?: "0.0")
+            et_width.setText(jsonFile.dimensions?.get("width")?.toString() ?: "0.0")
         }
     }
 
@@ -157,18 +171,19 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         return (
             (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
                 (indexNumMotor == -1 || indexNumMotor == null)
-                    && et_number_of_motors.text.toString() == "" && can_climb == false &&
-                    can_under_low_rung == false && has_ground_intake == false &&
+                    && et_number_of_motors.text.toString() == "" && has_communication_device == false &&
+                    et_length.text.toString() == "0.0" && et_width.text.toString() == "0.0" && et_weight.text.toString() == "0.0" &&
                     has_vision == false
                 )
     }
 
     private fun populateData() {
-        can_climb = tb_can_climb.isChecked
+        has_communication_device = tb_has_communication.isChecked
         drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
         has_vision = tb_has_vision.isChecked
-        can_under_low_rung = tb_can_move_under_low_rung.isChecked
-        has_ground_intake = tb_can_intake_ground.isChecked
+        weight = if (et_weight.text.toString() == "0.0") 0.0 else parseDouble(et_weight.text.toString())
+        dimensions["length"] = if (et_length.text.toString() == "0.0") 0.0 else parseDouble(et_length.text.toString())
+        dimensions["width"] = if (et_width.text.toString() == "0.0") 0.0 else parseDouble(et_width.text.toString())
     }
 
     // Save obj data to a file in downloads
@@ -190,9 +205,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             val information = Constants.DataObjective(
                 team_number = team_number,
                 drivetrain = indexNumDrivetrain,
-                can_climb = can_climb,
-                has_ground_intake = has_ground_intake,
-                can_under_low_rung = can_under_low_rung,
+                has_communication_device = has_communication_device,
+                dimensions = mutableMapOf("length" to dimensions["length"],"width" to dimensions["width"]),
+                weight = weight,
                 has_vision = has_vision,
                 drivetrain_motors = drivetrain_motors,
                 drivetrain_motor_type = indexNumMotor

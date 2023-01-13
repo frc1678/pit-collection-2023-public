@@ -111,15 +111,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             if (et_number_of_motors.text.isNotEmpty()) {
                 intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
             }
-            if (et_weight.text.isNotEmpty()) {
-                intent.putExtra("weight", parseDouble(et_weight.text.toString()))
-            }
-            if (et_length.text.isNotEmpty()) {
-                intent.putExtra("length", parseDouble(et_length.text.toString()))
-            }
-            if (et_width.text.isNotEmpty()) {
-                intent.putExtra("width", parseDouble(et_width.text.toString()))
-            }
+            if (et_weight.text.isNotEmpty()) intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+            else intent.putExtra("weight", 0.0)
+            if (et_length.text.isNotEmpty()) intent.putExtra("length", parseDouble(et_length.text.toString()))
+            else intent.putExtra("length",0.0)
+            if (et_width.text.isNotEmpty()) intent.putExtra("width", parseDouble(et_width.text.toString()))
+            else intent.putExtra("width",0.0)
             startActivity(
                 intent, ActivityOptions.makeSceneTransitionAnimation(
                     this,
@@ -131,7 +128,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
-            tb_has_communication.isChecked = intent.getBooleanExtra("has_communication", false)
+            tb_has_communication.isChecked = intent.getBooleanExtra("has_communication_device", false)
             tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
             spin_drivetrain_motor_type.setSelection(
@@ -172,7 +169,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
                 (indexNumMotor == -1 || indexNumMotor == null)
                     && et_number_of_motors.text.toString() == "" && has_communication_device == false &&
-                    et_length.text.toString() == "0.0" && et_width.text.toString() == "0.0" && et_weight.text.toString() == "0.0" &&
+                    (et_length.text.toString() == "0.0" || et_length.text.toString() == "") &&
+                    (et_width.text.toString() == "0.0" || et_width.text.toString() == "") &&
+                    (et_weight.text.toString() == "0.0" || et_weight.text.toString() == "") &&
                     has_vision == false
                 )
     }
@@ -181,9 +180,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         has_communication_device = tb_has_communication.isChecked
         drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
         has_vision = tb_has_vision.isChecked
-        weight = if (et_weight.text.toString() == "0.0") 0.0 else parseDouble(et_weight.text.toString())
-        dimensions["length"] = if (et_length.text.toString() == "0.0") 0.0 else parseDouble(et_length.text.toString())
-        dimensions["width"] = if (et_width.text.toString() == "0.0") 0.0 else parseDouble(et_width.text.toString())
+        weight = if (et_weight.text.toString() == "0.0" || et_weight.text.toString() == "") 0.0 else parseDouble(et_weight.text.toString())
+        dimensions["length"] = if (et_length.text.toString() == "0.0" || et_length.text.toString() == "") 0.0 else parseDouble(et_length.text.toString())
+        dimensions["width"] = if (et_width.text.toString() == "0.0" || et_width.text.toString() == "") 0.0 else parseDouble(et_width.text.toString())
     }
 
     // Save obj data to a file in downloads

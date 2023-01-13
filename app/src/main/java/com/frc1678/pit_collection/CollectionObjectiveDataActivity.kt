@@ -23,7 +23,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private var has_vision: Boolean? = null
     private var has_communication_device: Boolean? = null
     private var weight: Double? = null
-    private var dimensions: MutableMap<String,Double> = mutableMapOf("length" to 0.0,"width" to 0.0)
+    private var length: Double? = null
+    private var width: Double? = null
     private var drivetrain_motors: Int? = null
     private var drivetrain_motor_type: String? = null
     private var indexNumDrivetrain: Int? = null
@@ -158,8 +159,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             spin_drivetrain_motor_type.setSelection(parseInt(jsonFile.drivetrain_motor_type.toString()) + 1)
             et_number_of_motors.setText(jsonFile.drivetrain_motors.toString())
             et_weight.setText(jsonFile.weight.toString())
-            et_length.setText(jsonFile.dimensions?.get("length")?.toString() ?: "0.0")
-            et_width.setText(jsonFile.dimensions?.get("width")?.toString() ?: "0.0")
+            et_length.setText(jsonFile.length.toString())
+            et_width.setText(jsonFile.width.toString())
         }
     }
 
@@ -181,8 +182,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
         has_vision = tb_has_vision.isChecked
         weight = if (et_weight.text.toString() == "0.0" || et_weight.text.toString() == "") 0.0 else parseDouble(et_weight.text.toString())
-        dimensions["length"] = if (et_length.text.toString() == "0.0" || et_length.text.toString() == "") 0.0 else parseDouble(et_length.text.toString())
-        dimensions["width"] = if (et_width.text.toString() == "0.0" || et_width.text.toString() == "") 0.0 else parseDouble(et_width.text.toString())
+        length = if (et_length.text.toString() == "0.0" || et_length.text.toString() == "") 0.0 else parseDouble(et_length.text.toString())
+        width = if (et_width.text.toString() == "0.0" || et_width.text.toString() == "") 0.0 else parseDouble(et_width.text.toString())
     }
 
     // Save obj data to a file in downloads
@@ -205,7 +206,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 team_number = team_number,
                 drivetrain = indexNumDrivetrain,
                 has_communication_device = has_communication_device,
-                dimensions = mutableMapOf("length" to dimensions["length"],"width" to dimensions["width"]),
+                length = length,
+                width = width,
                 weight = weight,
                 has_vision = has_vision,
                 drivetrain_motors = drivetrain_motors,

@@ -15,7 +15,8 @@ class Constants {
         var drivetrain: Int?,
         var has_communication_device: Boolean?,
         var weight: Double?,
-        var dimensions: MutableMap<String, Double?>,
+        var length: Double?,
+        var width: Double?,
         var has_vision: Boolean?,
 
         // can cross trench and can eject terminal and can intake terminal deleted

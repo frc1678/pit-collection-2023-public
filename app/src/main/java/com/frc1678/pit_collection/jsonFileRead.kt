@@ -14,12 +14,12 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     // Make a json object called jo
     val obj = JsonParser().parse(FileReader(fileName))
     val jo = obj as JsonObject
-    val jsonFile = objJsonFileRead(teamNum)
     // Get values from the jo json file
     val drivetrainType = jo.get("drivetrain").asInt
     val has_communication_device = jo.get("has_communication_device").asBoolean
     val weight = jo.get("weight").asDouble
-    val dimensions: MutableMap<String, Double?> = mutableMapOf("length" to jsonFile.dimensions?.get("length"), "width" to jsonFile.dimensions?.get("width"))
+    val width = jo.get("width").asDouble
+    val length = jo.get("length").asDouble
     val hasVision = jo.get("has_vision").asBoolean
     val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
@@ -30,7 +30,8 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
         team_number = teamNum,
         drivetrain = drivetrainType,
         has_communication_device = has_communication_device,
-        dimensions = mutableMapOf("length" to dimensions["length"],"width" to dimensions["width"]),
+        length = length,
+        width = width,
         weight = weight,
         has_vision = hasVision,
         drivetrain_motors = numberOfDriveMotors,

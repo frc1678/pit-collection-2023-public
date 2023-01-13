@@ -4,32 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".7"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight=".7"-->
+<!--        android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/intake_picture_type"
-            android:text="@string/picture_type_four"
-            style="@style/tv_pictures_taken" />
+<!--        <Button-->
+<!--            android:id="@+id/top_picture_type"-->
+<!--            android:text="@string/picture_type_four"-->
+<!--            style="@style/tv_pictures_taken" />-->
 
-        <Button
-            android:id="@+id/indexer_picture_type"
-            android:text="@string/picture_type_five"
-            style="@style/tv_pictures_taken" />
+<!--        <Button-->
+<!--            android:id="@+id/front_picture_type"-->
+<!--            android:text="@string/picture_type_five"-->
+<!--            style="@style/tv_pictures_taken" />-->
 
-        <Button
-            android:id="@+id/shooter_picture_type"
-            android:text="@string/picture_type_six"
-            style="@style/tv_pictures_taken" />
+<!--        <Button-->
+<!--            android:id="@+id/side_picture_type"-->
+<!--            android:text="@string/picture_type_six"-->
+<!--            style="@style/tv_pictures_taken" />-->
 
-        <Button
-            android:id="@+id/climber_picture_type"
-            android:text="@string/picture_type_seven"
-            style="@style/tv_pictures_taken" />
-    </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/isometric_picture_type"-->
+<!--            android:text="@string/picture_type_seven"-->
+<!--            style="@style/tv_pictures_taken" />-->
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,12 +43,12 @@
             style="@style/tv_pictures_taken" />
 
         <Button
-            android:id="@+id/full_robot_2_picture_type"
+            android:id="@+id/front_picture_type"
             android:text="@string/picture_type_two"
             style="@style/tv_pictures_taken" />
 
         <Button
-            android:id="@+id/drivetrain_picture_type"
+            android:id="@+id/side_picture_type"
             android:text="@string/picture_type_three"
             style="@style/tv_pictures_taken" />
 

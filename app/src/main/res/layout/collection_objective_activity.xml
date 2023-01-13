@@ -41,8 +41,8 @@
         <ToggleButton
             style="@style/tb_collection_horizontal"
             android:id="@+id/tb_has_communication"
-            android:textOff="@string/has_communication"
-            android:textOn="@string/no_communication">
+            android:textOn="@string/has_communication"
+            android:textOff="@string/no_communication">
         </ToggleButton>
 
         <ToggleButton

@@ -112,7 +112,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             if (et_number_of_motors.text.isNotEmpty()) {
                 intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
             }
-            if (et_weight.text.isNotEmpty()) intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+            if (et_weight.text!!.isNotEmpty()) intent.putExtra("weight", parseDouble(et_weight.text.toString()))
             else intent.putExtra("weight", 0.0)
             if (et_length.text.isNotEmpty()) intent.putExtra("length", parseDouble(et_length.text.toString()))
             else intent.putExtra("length",0.0)

@@ -59,13 +59,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+            <com.google.android.material.textfield.TextInputEditText
 
-        <EditText
-            style="@style/tb_collection_horizontal"
-            android:id="@+id/et_weight"
-            android:background="@color/light_gray"
-            android:hint="@string/weight">
-        </EditText>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:id="@+id/et_weight"
+                android:background="@color/light_gray"
+                android:hint="@string/weight">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"

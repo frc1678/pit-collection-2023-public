@@ -67,13 +67,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_margin="10dp"
-                android:gravity="center"
+                style="@style/material_text_field"
+                android:inputType="number"
                 android:id="@+id/et_weight"
-                android:background="@color/light_gray"
                 android:hint="@string/weight">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,18 +79,32 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical">
-            <EditText
-                style="@style/tb_collection_vertical"
-                android:id="@+id/et_length"
-                android:background="@color/light_gray"
-                android:hint="@string/length">
-            </EditText>
-            <EditText
-                style="@style/tb_collection_vertical"
-                android:id="@+id/et_width"
-                android:background="@color/light_gray"
-                android:hint="@string/width">
-            </EditText>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/material_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/et_length"
+                    android:inputType="number"
+                    android:hint="@string/length">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/material_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:id="@+id/et_width"
+                    android:hint="@string/width">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </LinearLayout>

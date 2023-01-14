@@ -114,9 +114,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             }
             if (et_weight.text!!.isNotEmpty()) intent.putExtra("weight", parseDouble(et_weight.text.toString()))
             else intent.putExtra("weight", 0.0)
-            if (et_length.text.isNotEmpty()) intent.putExtra("length", parseDouble(et_length.text.toString()))
+            if (et_length.text!!.isNotEmpty()) intent.putExtra("length", parseDouble(et_length.text.toString()))
             else intent.putExtra("length",0.0)
-            if (et_width.text.isNotEmpty()) intent.putExtra("width", parseDouble(et_width.text.toString()))
+            if (et_width.text!!.isNotEmpty()) intent.putExtra("width", parseDouble(et_width.text.toString()))
             else intent.putExtra("width",0.0)
             startActivity(
                 intent, ActivityOptions.makeSceneTransitionAnimation(

@@ -40,14 +40,14 @@ open class CollectionObjectiveActivity : CollectionActivity() {
     // Puts datapoints in the intent passed out of the camera from the one originally passed into the camera
     fun putExtras(getIntent: Intent, intent: Intent, teamNum: String): Intent {
         intent.putExtra("teamNumber", teamNum)
-            .putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
             .putExtra("has_communication_device", getIntent.getBooleanExtra("has_communication_device", false))
-            .putExtra("drivetrain_pos", getIntent.getIntExtra("drivetrain_pos", -1))
-            .putExtra("drivetrain_motor_pos", getIntent.getIntExtra("drivetrain_motor_pos", -1))
-            .putExtra("num_motors", getIntent.getIntExtra("num_motors", 0))
+            .putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
             .putExtra("weight", getIntent.getDoubleExtra("weight", 0.0))
             .putExtra("length", getIntent.getDoubleExtra("length", 0.0))
             .putExtra("width", getIntent.getDoubleExtra("width", 0.0))
+            .putExtra("drivetrain_pos", getIntent.getIntExtra("drivetrain_pos", -1))
+            .putExtra("drivetrain_motor_pos", getIntent.getIntExtra("drivetrain_motor_pos", -1))
+            .putExtra("num_motors", getIntent.getIntExtra("num_motors", 0))
         return intent
     }
 

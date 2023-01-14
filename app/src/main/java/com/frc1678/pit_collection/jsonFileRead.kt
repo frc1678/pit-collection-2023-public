@@ -15,27 +15,27 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     val obj = JsonParser().parse(FileReader(fileName))
     val jo = obj as JsonObject
     // Get values from the jo json file
-    val drivetrainType = jo.get("drivetrain").asInt
-    val has_communication_device = jo.get("has_communication_device").asBoolean
-    val weight = jo.get("weight").asDouble
-    val width = jo.get("width").asDouble
-    val length = jo.get("length").asDouble
+    val hasCommunicationDevice = jo.get("has_communication_device").asBoolean
     val hasVision = jo.get("has_vision").asBoolean
-    val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
+    val weight = jo.get("weight").asDouble
+    val length = jo.get("length").asDouble
+    val width = jo.get("width").asDouble
+    val drivetrainType = jo.get("drivetrain").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
+    val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
 
     // Create a DataObjective object with the information from jo
 
     return Constants.DataObjective(
         team_number = teamNum,
-        drivetrain = drivetrainType,
-        has_communication_device = has_communication_device,
+        has_communication_device = hasCommunicationDevice,
+        has_vision = hasVision,
+        weight = weight,
         length = length,
         width = width,
-        weight = weight,
-        has_vision = hasVision,
-        drivetrain_motors = numberOfDriveMotors,
-        drivetrain_motor_type = motorType
+        drivetrain = drivetrainType,
+        drivetrain_motor_type = motorType,
+        drivetrain_motors = numberOfDriveMotors
     )
 }
 

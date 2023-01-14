@@ -62,12 +62,6 @@ class TeamListActivity : CollectionActivity() {
                     if ((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))) {
                         flagsList.add("Mechanum")
                     }
-                    if ((teamJson.has_ground_intake == false) && (!flagsList.contains("No Ground Intake"))) {
-                        flagsList.add("No Ground Intake")
-                    }
-                    if ((teamJson.can_climb == false) && (!flagsList.contains("Can Not Climb"))) {
-                        flagsList.add("Can Not Climb")
-                    }
                     if (flagsList.isNotEmpty()) {
                         flagsExport[team] = flagsList
                     }

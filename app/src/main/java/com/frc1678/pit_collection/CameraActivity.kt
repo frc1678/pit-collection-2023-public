@@ -52,47 +52,47 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     // changes the color of buttons in camera_preview_activity to green if the picture has already been taken and grey otherwise
     // This should probably be a for loop, but I could figure out how to change the ID of the button as well without making a second function.
     fun picturesTaken() {
-        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_1.jpg").exists()) {
+        if (File("/storage/emulated/0/Download/${teamNum}_full_robot.jpg").exists()) {
             full_robot_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
             full_robot_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_full_robot_2.jpg").exists()) {
-            full_robot_2_picture_type.setBackgroundColor(getColor(this, R.color.green))
+//        if (File("/storage/emulated/0/Download/${teamNum}_other.jpg").exists()) {
+//            other_picture_type.setBackgroundColor(getColor(this, R.color.green))
+//        } else {
+//            other_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
+//        }
+
+//        if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()) {
+//            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.green))
+//        } else {
+//            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
+//        }
+//
+//        if (File("/storage/emulated/0/Download/${teamNum}_top.jpg").exists()) {
+//            top_picture_type.setBackgroundColor(getColor(this, R.color.dark_green))
+//        } else {
+//            top_picture_type.setBackgroundColor(getColor(this, R.color.dark_gray))
+//        }
+
+        if (File("/storage/emulated/0/Download/${teamNum}_front.jpg").exists()) {
+            front_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            full_robot_2_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
+            front_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_drivetrain.jpg").exists()) {
-            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.green))
+        if (File("/storage/emulated/0/Download/${teamNum}_side.jpg").exists()) {
+            side_picture_type.setBackgroundColor(getColor(this, R.color.green))
         } else {
-            drivetrain_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
+            side_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
         }
 
-        if (File("/storage/emulated/0/Download/${teamNum}_intake.jpg").exists()) {
-            intake_picture_type.setBackgroundColor(getColor(this, R.color.dark_green))
-        } else {
-            intake_picture_type.setBackgroundColor(getColor(this, R.color.dark_gray))
-        }
-
-        if (File("/storage/emulated/0/Download/${teamNum}_indexer.jpg").exists()) {
-            indexer_picture_type.setBackgroundColor(getColor(this, R.color.green))
-        } else {
-            indexer_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
-        }
-
-        if (File("/storage/emulated/0/Download/${teamNum}_shooter.jpg").exists()) {
-            shooter_picture_type.setBackgroundColor(getColor(this, R.color.green))
-        } else {
-            shooter_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
-        }
-
-        if (File("/storage/emulated/0/Download/${teamNum}_climber.jpg").exists()) {
-            climber_picture_type.setBackgroundColor(getColor(this, R.color.green))
-        } else {
-            climber_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
-        }
+//        if (File("/storage/emulated/0/Download/${teamNum}_isometric.jpg").exists()) {
+//            isometric_picture_type.setBackgroundColor(getColor(this, R.color.green))
+//        } else {
+//            isometric_picture_type.setBackgroundColor(getColor(this, R.color.light_gray))
+//        }
     }
 
     override fun onBackPressed() {
@@ -140,11 +140,10 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
         val imageCapture = ImageCapture(imageCaptureConfig)
 
         // List of all of the picture type options
-        val listOfPictureTypes = listOf(intake_picture_type, indexer_picture_type, shooter_picture_type,
-            climber_picture_type, full_robot_picture_type, full_robot_2_picture_type, drivetrain_picture_type)
+        val listOfPictureTypes = listOf(front_picture_type, side_picture_type, full_robot_picture_type)
 
         // Set default picture type to intake
-        var pictureTypeId = intake_picture_type
+        var pictureTypeId = full_robot_picture_type
 
         // Set the picture type to whatever picture type button the user clicks on
         // If the user presses on a picture type button that is green, it will turn it to dark green
@@ -261,11 +260,8 @@ class CameraActivity : CollectionObjectiveActivity(), LifecycleOwner {
     // Delete the space in the "full robot" picture type, replace it with an "_"
     private fun formatPictureType(pictureType: String): String {
         val pictureName: String
-        return if (pictureType == "full robot 1") {
-            pictureName = "full_robot_1"
-            pictureName
-        } else if (pictureType == "full robot 2") {
-            pictureName = "full_robot_2"
+        return if (pictureType == "full robot") {
+            pictureName = "full_robot"
             pictureName
         } else {
             pictureType

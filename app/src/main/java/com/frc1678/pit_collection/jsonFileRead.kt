@@ -3,6 +3,7 @@ package com.frc1678.pit_collection
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import kotlinx.android.synthetic.main.collection_objective_activity.*
 import java.io.FileReader
 import java.lang.Integer.parseInt
 
@@ -13,27 +14,28 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     // Make a json object called jo
     val obj = JsonParser().parse(FileReader(fileName))
     val jo = obj as JsonObject
-
     // Get values from the jo json file
-    val drivetrainType = jo.get("drivetrain").asInt
-    val canClimb = jo.get("can_climb").asBoolean
-    val canGroundIntake = jo.get("has_ground_intake").asBoolean
-    val canMoveUnderLowRung = jo.get("can_under_low_rung").asBoolean
+    val hasCommunicationDevice = jo.get("has_communication_device").asBoolean
     val hasVision = jo.get("has_vision").asBoolean
-    val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
+    val weight = jo.get("weight").asDouble
+    val length = jo.get("length").asDouble
+    val width = jo.get("width").asDouble
+    val drivetrainType = jo.get("drivetrain").asInt
     val motorType = jo.get("drivetrain_motor_type").asInt
+    val numberOfDriveMotors = jo.get("drivetrain_motors").asInt
 
     // Create a DataObjective object with the information from jo
 
     return Constants.DataObjective(
         team_number = teamNum,
-        drivetrain = drivetrainType,
-        can_climb = canClimb,
-        has_ground_intake = canGroundIntake,
-        can_under_low_rung = canMoveUnderLowRung,
+        has_communication_device = hasCommunicationDevice,
         has_vision = hasVision,
-        drivetrain_motors = numberOfDriveMotors,
-        drivetrain_motor_type = motorType
+        weight = weight,
+        length = length,
+        width = width,
+        drivetrain = drivetrainType,
+        drivetrain_motor_type = motorType,
+        drivetrain_motors = numberOfDriveMotors
     )
 }
 

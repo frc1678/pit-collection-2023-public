@@ -19,13 +19,18 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.team_list_activity.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.android.synthetic.main.team_list_activity.lv_teams_list
+import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileReader
 import java.io.FileWriter
-import java.lang.reflect.Type
 
 // Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
@@ -75,12 +80,15 @@ class TeamListActivity : CollectionActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun jsonFileRead(): MutableList<String> {
-        var teamListPath = "/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team_list.json"
-        var teamList = FileInputStream(teamListPath).bufferedReader().use { it.readText() }
-        val listType: Type = object : TypeToken<MutableList<String>>() {}.type
-
-        return Gson().fromJson(teamList, listType)
+    suspend fun jsonFileRead(): MutableList<String> {
+        val client = HttpClient(CIO) {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+        return client.get("https://grosbeak.citruscircuits.org/api/team-list/2022mttd") {
+            header("Authorization", "02ae3a526cf54db9b563928b0ec05a77")
+        }.body()
     }
 
     object StarredTeams {
@@ -143,9 +151,9 @@ class TeamListActivity : CollectionActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
-            if (jsonFileRead() != ArrayList<String>()) {
-                teamsList = jsonFileRead()
-            }
+            val result: MutableList<String>
+            runBlocking { result = jsonFileRead() }
+            if (result.isNotEmpty()) teamsList = result
             lv_teams_list.adapter = TeamListAdapter(
                 this,
                 teamsList,

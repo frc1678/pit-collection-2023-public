@@ -45,6 +45,9 @@
     <string name="picture_type_six"></string>
     <string name="picture_type_seven"></string>
     <string name="export_flags">Export Flags</string>
+    <string name="teams_list_not_exist"><b> team_list.json file is not downloaded!</b> </string>
+    <string name="download_text_title"> <b><u> How to download:</u></b></string>
+    <string name="how_to_download_team_list">Go to slack and download the current competition\'s team list from <b>#9_phone_app_updates</b></string>
 
     <string-array name="drivetrain_array">
         <item>Drivetrain</item>

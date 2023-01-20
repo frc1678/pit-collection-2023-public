@@ -19,7 +19,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.frc1678.pit_collection.TeamListActivity"
+            android:name="com.frc1678.pit_collection.StartingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +53,10 @@
 
         <activity
             android:name="com.frc1678.pit_collection.CollectionObjectiveActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.frc1678.pit_collection.TeamListActivity"
             android:screenOrientation="portrait" />
 
     </application>

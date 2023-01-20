@@ -80,4 +80,13 @@
         <item name="android:textStyle">bold</item>
         <item name="android:background">@color/light_gray</item>
     </style>
+
+    <style name="no_teams_list_downloaded">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">0.01</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25sp</item>
+    </style>
 </resources>

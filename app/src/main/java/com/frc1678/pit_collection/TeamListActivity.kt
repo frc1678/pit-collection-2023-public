@@ -34,9 +34,9 @@ import java.io.FileWriter
 
 // Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
-    private var teamsList: List<String> = emptyList()
 
     companion object {
+        var teamsList = emptyList<String>()
         var starredTeams: MutableSet<String> = mutableSetOf()
     }
 
@@ -78,17 +78,6 @@ class TeamListActivity : CollectionActivity() {
             Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_LONG).show()
         }
         return super.onCreateOptionsMenu(menu)
-    }
-
-    suspend fun jsonFileRead(): MutableList<String> {
-        val client = HttpClient(CIO) {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
-        return client.get("https://grosbeak.citruscircuits.org/api/team-list/2022mttd") {
-            header("Authorization", "02ae3a526cf54db9b563928b0ec05a77")
-        }.body()
     }
 
     object StarredTeams {
@@ -151,9 +140,6 @@ class TeamListActivity : CollectionActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
-            val result: MutableList<String>
-            runBlocking { result = jsonFileRead() }
-            if (result.isNotEmpty()) teamsList = result
             lv_teams_list.adapter = TeamListAdapter(
                 this,
                 teamsList,

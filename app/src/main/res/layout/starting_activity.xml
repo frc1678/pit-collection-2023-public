@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-    <TextView style="@style/no_teams_list_downloaded"
-        android:text="@string/teams_list_not_exist"/>
-
-
-    <TextView style="@style/no_teams_list_downloaded"
-        android:text="@string/download_text_title"/>
-
-    <TextView style="@style/no_teams_list_downloaded"
-        android:lineSpacingExtra="5dp"
-        android:text="@string/how_to_download_team_list"/>
-
-    <View
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.01"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/team_list_download_failed"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
 </LinearLayout>

@@ -10,7 +10,7 @@ class Constants {
     }
 
     data class DataObjective(
-        var team_number: Int?,
+        var team_number: String?,
 
         var drivetrain: Int?,
         var has_communication_device: Boolean?,
@@ -25,7 +25,7 @@ class Constants {
     )
 
     data class DataSubjective(
-        var team_number: Int?,
+        var team_number: String?,
         var climber_strap_installation_difficulty: Int?,
         var climber_strap_installation_notes: String?
     )

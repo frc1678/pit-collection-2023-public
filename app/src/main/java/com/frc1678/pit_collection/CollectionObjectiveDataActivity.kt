@@ -18,7 +18,7 @@ import java.util.*
 // Create spinners (drivetrain and motor type).
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
-    private var team_number: Int? = null
+    private var team_number: String? = null
     private var has_communication_device: Boolean? = null
     private var has_vision: Boolean? = null
     private var weight: Double? = null
@@ -40,7 +40,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         createSpinner(spin_drivetrain, R.array.drivetrain_array)
         createSpinner(spin_drivetrain_motor_type, R.array.drivetrain_motor_type_array)
 
-        team_number = parseInt(intent.getStringExtra("teamNumber")!!.toString())
+        team_number = intent.getStringExtra("teamNumber")!!
         tv_team_number.text = "$team_number"
 
         setToolbarText(actionBar, supportActionBar)

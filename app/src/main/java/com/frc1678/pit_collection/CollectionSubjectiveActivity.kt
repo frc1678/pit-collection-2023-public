@@ -14,7 +14,7 @@ import java.io.File
 
 class CollectionSubjectiveActivity : CollectionActivity() {
 
-    private var team_number: Int? = null
+    private var team_number: String? = null
     private var climber_strap_installation_difficulty: Int? = null
     private var climber_strap_installation_notes: String? = null
 
@@ -27,7 +27,7 @@ class CollectionSubjectiveActivity : CollectionActivity() {
 
         subjectiveNotesEntered()
 
-        team_number = Integer.parseInt(intent?.getStringExtra("teamNumber").toString())
+        team_number = intent?.getStringExtra("teamNumber")
         tv_team_number.text = "$team_number"
 
         saveButton()

@@ -8,7 +8,7 @@ import java.io.FileReader
 import java.lang.Integer.parseInt
 
 // TODO CONSOLIDATE INTO A SINGLE FUNCTION
-fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
+fun objJsonFileRead(teamNum: String?): Constants.DataObjective {
     val fileName = "/storage/emulated/0/Download/${teamNum}_obj_pit.json"
 
     // Make a json object called jo
@@ -39,7 +39,7 @@ fun objJsonFileRead(teamNum: Int?): Constants.DataObjective {
     )
 }
 
-fun subjJsonFileRead(teamNum: Int?): Constants.DataSubjective {
+fun subjJsonFileRead(teamNum: String?): Constants.DataSubjective {
     val fileName = "/storage/emulated/0/Download/${teamNum}_subj_pit.json"
 
     // Make a json object called jo

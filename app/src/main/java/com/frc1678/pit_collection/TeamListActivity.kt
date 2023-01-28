@@ -62,8 +62,8 @@ class TeamListActivity : CollectionActivity() {
             val flagsExport: MutableMap<String, List<String>> = mutableMapOf()
             for (team in teamsList) {
                 val flagsList: MutableList<String> = mutableListOf()
-                if (File("/storage/emulated/0/Download/${team.toInt()}_obj_pit.json").exists()) {
-                    val teamJson = objJsonFileRead(team.toInt())
+                if (File("/storage/emulated/0/Download/${team}_obj_pit.json").exists()) {
+                    val teamJson = objJsonFileRead(team)
                     if ((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))) {
                         flagsList.add("Mechanum")
                     }

@@ -71,7 +71,8 @@
                 android:inputType="numberDecimal"
                 android:text=""
                 android:id="@+id/et_weight"
-                android:hint="@string/weight">
+                android:hint="@string/weight"
+                android:nextFocusDown="@id/et_length">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 

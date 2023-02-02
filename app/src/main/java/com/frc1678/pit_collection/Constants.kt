@@ -1,7 +1,10 @@
 // Copyright (c) 2022 FRC Team 1678: Citrus Circuits
 package com.frc1678.pit_collection
 
-class Constants {
+object Constants {
+
+    const val EVENT_KEY = "2022mttd"
+    const val GROSBEAK_AUTH_KEY = "02ae3a526cf54db9b563928b0ec05a77"
 
     enum class ModeSelection {
         OBJECTIVE,

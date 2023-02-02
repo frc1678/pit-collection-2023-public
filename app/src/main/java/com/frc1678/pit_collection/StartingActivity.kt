@@ -31,8 +31,8 @@ class StartingActivity : CollectionActivity() {
                 }
                 // Fetch the data
                 teamsList =
-                    client.get("https://grosbeak.citruscircuits.org/api/team-list/2022mttd") {
-                        header("Authorization", "02ae3a526cf54db9b563928b0ec05a77")
+                    client.get("https://grosbeak.citruscircuits.org/api/team-list/${Constants.EVENT_KEY}") {
+                        header("Authorization", Constants.GROSBEAK_AUTH_KEY)
                     }.body()
                 // If the request worked, start the main team list activity
                 startActivity(Intent(this@StartingActivity, TeamListActivity::class.java))

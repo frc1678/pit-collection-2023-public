@@ -2,6 +2,7 @@
 package com.frc1678.pit_collection
 
 import android.app.ActivityOptions
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -99,34 +100,60 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
+    private fun overLimit(): Boolean {
+        if (parseDouble(et_weight.text.toString()) > 125) {
+            AlertDialog.Builder(this).setTitle("Error: Weight is above legal limit")
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }.show()
+        }
+        if (parseDouble(et_length.text.toString()) > 120) {
+            AlertDialog.Builder(this).setTitle("Error: Length is above legal limit")
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }.show()
+        }
+        if (parseDouble(et_width.text.toString()) > 120) {
+            AlertDialog.Builder(this).setTitle("Error: Width is above legal limit")
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }.show()
+        }
+        return ((parseDouble(et_weight.text.toString()) > 125) || (parseDouble(et_length.text.toString()) > 120)
+                || (parseDouble(et_width.text.toString()) > 120))
+    }
+
     private fun cameraButton(teamNum: String) {
         btn_camera.setOnClickListener {
-            assignIndexNums()
+            if(!overLimit()){
 
-            val intent = Intent(this, CameraActivity::class.java)
-            intent.putExtra("teamNumber", teamNum)
-                .putExtra("has_communication_device", tb_has_communication.isChecked)
-                .putExtra("has_vision", tb_has_vision.isChecked)
-                .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
-                .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
-            if (et_weight.text.toString().isNotEmpty()) {
-                intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+                assignIndexNums()
+
+                val intent = Intent(this, CameraActivity::class.java)
+                intent.putExtra("teamNumber", teamNum)
+                    .putExtra("has_communication_device", tb_has_communication.isChecked)
+                    .putExtra("has_vision", tb_has_vision.isChecked)
+                    .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
+                    .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
+                if (et_weight.text.toString().isNotEmpty()) {
+                    intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+                }
+                if (et_length.text.toString().isNotEmpty()) {
+                    intent.putExtra("length", parseDouble(et_length.text.toString()))
+                }
+                if (et_width.text.toString().isNotEmpty()) {
+                    intent.putExtra("width", parseDouble(et_width.text.toString()))
+                }
+                if (et_number_of_motors.text.isNotEmpty()) {
+                    intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
+                }
+                startActivity(
+                    intent, ActivityOptions.makeSceneTransitionAnimation(
+                        this,
+                        btn_camera, "proceed_button"
+                    ).toBundle()
+                )
             }
-            if (et_length.text.toString().isNotEmpty()) {
-                intent.putExtra("length", parseDouble(et_length.text.toString()))
-            }
-            if (et_width.text.toString().isNotEmpty()) {
-                intent.putExtra("width", parseDouble(et_width.text.toString()))
-            }
-            if (et_number_of_motors.text.isNotEmpty()) {
-                intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
-            }
-            startActivity(
-                intent, ActivityOptions.makeSceneTransitionAnimation(
-                    this,
-                    btn_camera, "proceed_button"
-                ).toBundle()
-            )
         }
     }
 
@@ -194,38 +221,42 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     // Save obj data to a file in downloads
     private fun saver() {
-        populateData()
-        // TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
-        assignIndexNums()
+        if(!overLimit()){
 
-        // Save variable information as a pitData class.
+            populateData()
+            // TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
-        if (allNotChecked()) {
-            val element = team_number
-            val intent = Intent(this, TeamListActivity::class.java)
-            intent.putExtra("teamNumber", element)
-            startActivity(intent)
-        } else {
+            assignIndexNums()
 
-            val information = Constants.DataObjective(
-                team_number = team_number,
-                has_communication_device = has_communication_device,
-                has_vision = has_vision,
-                weight = weight,
-                length = length,
-                width = width,
-                drivetrain = indexNumDrivetrain,
-                drivetrain_motor_type = indexNumMotor,
-                drivetrain_motors = drivetrain_motors
-            )
-            val jsonData = convertToJson(information)
-            val fileName = "${team_number}_obj_pit"
-            writeToFile(fileName, jsonData)
-            val element = team_number
-            val intent = Intent(this, TeamListActivity::class.java)
-            intent.putExtra("teamNumber", element)
-            startActivity(intent)
+            // Save variable information as a pitData class.
+
+            if (allNotChecked()) {
+                val element = team_number
+                val intent = Intent(this, TeamListActivity::class.java)
+                intent.putExtra("teamNumber", element)
+                startActivity(intent)
+            } else {
+
+                val information = Constants.DataObjective(
+                    team_number = team_number,
+                    has_communication_device = has_communication_device,
+                    has_vision = has_vision,
+                    weight = weight,
+                    length = length,
+                    width = width,
+                    drivetrain = indexNumDrivetrain,
+                    drivetrain_motor_type = indexNumMotor,
+                    drivetrain_motors = drivetrain_motors
+                )
+                val jsonData = convertToJson(information)
+                val fileName = "${team_number}_obj_pit"
+                writeToFile(fileName, jsonData)
+                val element = team_number
+                val intent = Intent(this, TeamListActivity::class.java)
+                intent.putExtra("teamNumber", element)
+                startActivity(intent)
+            }
         }
     }
     override fun onBackPressed() {

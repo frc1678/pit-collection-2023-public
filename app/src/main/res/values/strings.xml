@@ -44,9 +44,9 @@
     <string name="picture_type_five"></string>
     <string name="picture_type_six"></string>
     <string name="picture_type_seven"></string>
-    <string name="export_flags">Export Flags</string>
+    <string name="pit_map">Pit Map</string>
     <string name="team_list_download_failed">Failed to download team list!</string>
-
+    <string name="rotate">Rotate</string>
     <string-array name="drivetrain_array">
         <item>Drivetrain</item>
         <item>Tank</item>

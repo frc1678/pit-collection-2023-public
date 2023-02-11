@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/export_flags_button"
+        android:id="@+id/pit_map"
         app:showAsAction="always|withText"
         app:actionLayout="@layout/action_bar"
-        android:title="@string/export_flags"/>
+        android:title="@string/pit_map"/>
 </menu>

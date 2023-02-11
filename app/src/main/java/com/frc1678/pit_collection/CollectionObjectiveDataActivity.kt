@@ -101,32 +101,35 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     }
 
     private fun overLimit(): Boolean {
-        if (parseDouble(et_weight.text.toString()) > 125) {
-            AlertDialog.Builder(this).setTitle("Error: Weight is above legal limit")
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.cancel()
-                }.show()
+        if (et_length.text.toString() != "" &&
+            et_width.text.toString() != "" && et_weight.text.toString() != "") {
+            if (parseDouble(et_weight.text.toString()) > 125) {
+                AlertDialog.Builder(this).setTitle("Error: Weight is above legal limit")
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }.show()
+            }
+            if (parseDouble(et_length.text.toString()) > 120) {
+                AlertDialog.Builder(this).setTitle("Error: Length is above legal limit")
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }.show()
+            }
+            if (parseDouble(et_width.text.toString()) > 120) {
+                AlertDialog.Builder(this).setTitle("Error: Width is above legal limit")
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }.show()
+            }
+            return ((parseDouble(et_weight.text.toString()) > 125) || (parseDouble(et_length.text.toString()) > 120)
+                    || (parseDouble(et_width.text.toString()) > 120))
+        } else {
+            return false
         }
-        if (parseDouble(et_length.text.toString()) > 120) {
-            AlertDialog.Builder(this).setTitle("Error: Length is above legal limit")
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.cancel()
-                }.show()
-        }
-        if (parseDouble(et_width.text.toString()) > 120) {
-            AlertDialog.Builder(this).setTitle("Error: Width is above legal limit")
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.cancel()
-                }.show()
-        }
-        return ((parseDouble(et_weight.text.toString()) > 125) || (parseDouble(et_length.text.toString()) > 120)
-                || (parseDouble(et_width.text.toString()) > 120))
     }
 
     private fun cameraButton(teamNum: String) {
         btn_camera.setOnClickListener {
-            if(!overLimit()){
-
                 assignIndexNums()
 
                 val intent = Intent(this, CameraActivity::class.java)
@@ -155,7 +158,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 )
             }
         }
-    }
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {

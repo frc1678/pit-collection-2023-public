@@ -18,6 +18,7 @@ import kotlinx.coroutines.runBlocking
  * [TeamListActivity].
  */
 class StartingActivity : CollectionActivity() {
+    var collectionObjectiveDataActivity = CollectionObjectiveDataActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Use a coroutine scope for running a web request
@@ -36,6 +37,7 @@ class StartingActivity : CollectionActivity() {
                     }.body()
                 // If the request worked, start the main team list activity
                 startActivity(Intent(this@StartingActivity, TeamListActivity::class.java))
+                collectionObjectiveDataActivity.checksTeamInfo()
             } catch (t: Throwable) {
                 // Set layout to the error message layout
                 setContentView(R.layout.starting_activity)

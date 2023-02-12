@@ -11,23 +11,21 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.serialization.kotlinx.json.json
+import kotlinx.android.synthetic.main.pit_map_popup.view.*
 import kotlinx.android.synthetic.main.team_list_activity.lv_teams_list
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
@@ -38,6 +36,7 @@ class TeamListActivity : CollectionActivity() {
     companion object {
         var teamsList = emptyList<String>()
         var starredTeams: MutableSet<String> = mutableSetOf()
+        var mapRotation = -90F
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,26 +55,39 @@ class TeamListActivity : CollectionActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.toolbar, menu)
-        val mapItem: MenuItem = menu.findItem(R.id.export_flags_button)
-        val button = mapItem.actionView
-        button.setOnClickListener {
-            val flagsExport: MutableMap<String, List<String>> = mutableMapOf()
-            for (team in teamsList) {
-                val flagsList: MutableList<String> = mutableListOf()
-                if (File("/storage/emulated/0/Download/${team}_obj_pit.json").exists()) {
-                    val teamJson = objJsonFileRead(team)
-                    if ((teamJson.drivetrain == 1) && (!flagsList.contains("Mechanum"))) {
-                        flagsList.add("Mechanum")
-                    }
-                    if (flagsList.isNotEmpty()) {
-                        flagsExport[team] = flagsList
-                    }
-                }
+        val mapItem: MenuItem = menu.findItem(R.id.pit_map)
+        val pitMapButton = mapItem.actionView
+        pitMapButton.setOnClickListener {
+            val popupView = View.inflate(this, R.layout.pit_map_popup, null)
+            val width = LinearLayout.LayoutParams.MATCH_PARENT
+            val height = LinearLayout.LayoutParams.MATCH_PARENT
+            val popupWindow = PopupWindow(popupView, width, height, false)
+
+            var mapFile = File(
+                Environment.getExternalStorageDirectory().resolve("Download"),
+                "pit_map"
+            )
+
+            if (mapFile.exists()) {
+                popupView.pit_map.setImageURI(mapFile.toUri())
             }
-            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("flags_export", flagsExport.toString())
-            clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_LONG).show()
+
+            mapRotation =
+                this.getSharedPreferences("PREFS", 0).getFloat("mapRotation", mapRotation)
+
+            popupView.pit_map.rotation = mapRotation
+            popupWindow.showAtLocation(it, Gravity.CENTER, 0, 0)
+
+            popupView.rotate_view.setOnClickListener {
+                popupView.pit_map.rotation += 90F
+                mapRotation = popupView.pit_map.rotation
+                this.getSharedPreferences("PREFS", 0)?.edit()
+                    ?.putFloat("mapRotation", mapRotation)?.apply()
+            }
+
+            popupView.close_button.setOnClickListener {
+                popupWindow.dismiss()
+            }
         }
         return super.onCreateOptionsMenu(menu)
     }

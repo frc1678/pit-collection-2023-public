@@ -2,6 +2,7 @@ package com.frc1678.pit_collection
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -18,7 +19,6 @@ import kotlinx.coroutines.runBlocking
  * [TeamListActivity].
  */
 class StartingActivity : CollectionActivity() {
-    var collectionObjectiveDataActivity = CollectionObjectiveDataActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Use a coroutine scope for running a web request
@@ -37,7 +37,6 @@ class StartingActivity : CollectionActivity() {
                     }.body()
                 // If the request worked, start the main team list activity
                 startActivity(Intent(this@StartingActivity, TeamListActivity::class.java))
-                collectionObjectiveDataActivity.checksTeamInfo()
             } catch (t: Throwable) {
                 // Set layout to the error message layout
                 setContentView(R.layout.starting_activity)

@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -19,7 +20,7 @@ import java.util.*
 // Create spinners (drivetrain and motor type).
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
-    private var team_number: String? = null
+    public var team_number: String? = null
     private var has_communication_device: Boolean? = null
     private var has_vision: Boolean? = null
     private var weight: Double? = null
@@ -223,7 +224,6 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     // Save obj data to a file in downloads
     private fun saver() {
-
         if(!overLimit()){
 
             populateData()
@@ -261,6 +261,51 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             }
         }
     }
+
+    fun checksTeamInfo(team_number: String?, initial_run: Boolean) {
+        // during initial run, et is not already pre-loaded, so we need to load/check data from json
+        if (initial_run) {
+            if (File("/storage/emulated/0/Download/${team_number}_obj_pit.json").exists()) {
+                val jsonFile = objJsonFileRead(team_number)
+
+                if (jsonFile.weight.toString().isNotEmpty() &&
+                    jsonFile.length.toString().isNotEmpty() &&
+                    jsonFile.width.toString().isNotEmpty() &&
+                    jsonFile.weight.toString() != "0.0" &&
+                    jsonFile.length.toString() != "0.0" &&
+                    jsonFile.width.toString() != "0.0" &&
+                    jsonFile.drivetrain.toString().isNotEmpty() &&
+                    jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
+                    jsonFile.drivetrain_motors.toString().isNotEmpty() &&
+                    jsonFile.drivetrain_motors.toString() != "0") {
+                    if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
+                } else teamsWithData.remove(team_number)
+            }
+        } else {
+            if (et_weight.text.toString().isNotEmpty() &&
+                et_length.text.toString().isNotEmpty() &&
+                et_width.text.toString().isNotEmpty() &&
+                spin_drivetrain.selectedItem != "Drivetrain" &&
+                spin_drivetrain_motor_type.selectedItem != "Drivetrain Motor Type" &&
+                et_number_of_motors.text.isNotEmpty()
+            ) {
+                if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
+            } else teamsWithData.remove(team_number)
+        }
+
+        if ((File("/storage/emulated/0/Download/${team_number}_full_robot.jpg"
+            ).exists()) && (File(
+                "/storage/emulated/0/Download/${team_number}_front.jpg"
+            ).exists()) && (File(
+                "/storage/emulated/0/Download/${team_number}_side.jpg"
+            ).exists())
+        ) {
+            if (!teamsWithPhotos.contains(team_number)) {
+                teamsWithPhotos.add(team_number)
+            }
+        } else teamsWithPhotos.remove(team_number)
+    }
+
     override fun onBackPressed() {
 
         when {
@@ -315,6 +360,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             }
             else -> {
                 saver()
+                checksTeamInfo(team_number, false)
             }
         }
     }
@@ -325,6 +371,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             saver()
+            checksTeamInfo(team_number, false)
             return true
         }
         return super.onKeyLongPress(keyCode, event)

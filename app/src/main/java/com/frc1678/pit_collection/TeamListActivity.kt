@@ -25,13 +25,16 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.pit_map_popup.view.*
+import kotlinx.android.synthetic.main.team_cell.*
 import kotlinx.android.synthetic.main.team_list_activity.lv_teams_list
+import org.apache.commons.lang3.ObjectUtils.Null
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 
 // Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
+    var collectionObjectiveDataActivity = CollectionObjectiveDataActivity()
 
     companion object {
         var teamsList = emptyList<String>()
@@ -49,6 +52,10 @@ class TeamListActivity : CollectionActivity() {
         putIntoStorage("mode_collection_select_activity", mode)
         for (team in StarredTeams.contents.toList()) {
             starredTeams.add(team.asString)
+        }
+
+        for (team in teamsList) {
+            collectionObjectiveDataActivity.checksTeamInfo(team, true)
         }
     }
 

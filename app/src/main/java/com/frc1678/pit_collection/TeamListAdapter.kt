@@ -38,50 +38,11 @@ class TeamListAdapter(
             }
         }
 
-        val allPics = (File(
-            "/storage/emulated/0/Download/${teamsList[position]}_full_robot.jpg"
-        ).exists()) && (File(
-            "/storage/emulated/0/Download/${teamsList[position]}_front.jpg"
-        ).exists() && (File(
-            "/storage/emulated/0/Download/${teamsList[position]}_side.jpg"
-        ).exists()))
-
-        if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("weight\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("length\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("width\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain\":-1") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain_motor_type\":-1") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain_motors\":0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("file doesn't exist"))
-            and allPics)
-        {
+        if ((teamsWithData.contains(teamsList[position])) && (teamsWithPhotos.contains(teamsList[position]))) {
             view.setBackgroundColor(context.resources.getColor(R.color.green, null))
-        } else if (((mode == Constants.ModeSelection.OBJECTIVE.toString()) and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("weight\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("length\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("width\":0.0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain\":-1") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain_motor_type\":-1") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("drivetrain_motors\":0") and!
-            readFileDirectlyAsText("/storage/emulated/0/Download/" +
-                "${teamsList[position]}_obj_pit.json").contains("file doesn't exist")))
-        {
+        } else if ((teamsWithData.contains(teamsList[position]))) {
             view.setBackgroundColor(context.resources.getColor(R.color.light_orange, null))
-        } else if ((mode == Constants.ModeSelection.OBJECTIVE.toString()) and allPics) {
+        } else if ((teamsWithPhotos.contains(teamsList[position]))) {
             view.setBackgroundColor(context.resources.getColor(R.color.purple, null))
         }
 

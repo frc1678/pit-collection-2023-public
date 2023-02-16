@@ -2,6 +2,7 @@ package com.frc1678.pit_collection
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

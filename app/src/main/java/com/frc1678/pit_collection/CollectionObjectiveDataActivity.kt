@@ -271,9 +271,13 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 if (jsonFile.weight.toString().isNotEmpty() &&
                     jsonFile.length.toString().isNotEmpty() &&
                     jsonFile.width.toString().isNotEmpty() &&
+                    jsonFile.weight.toString() != "0.0" &&
+                    jsonFile.length.toString() != "0.0" &&
+                    jsonFile.width.toString() != "0.0" &&
                     jsonFile.drivetrain.toString().isNotEmpty() &&
                     jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
-                    jsonFile.drivetrain_motors.toString().isNotEmpty()) {
+                    jsonFile.drivetrain_motors.toString().isNotEmpty() &&
+                    jsonFile.drivetrain_motors.toString() != "0") {
                     if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
                 } else teamsWithData.remove(team_number)
             }

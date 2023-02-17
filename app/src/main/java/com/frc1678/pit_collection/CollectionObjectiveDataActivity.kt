@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.collection_objective_activity.*
 import java.io.File
@@ -101,10 +102,22 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
     }
 
+    private fun checkIfNotEmptyOrPeriod(et: EditText): Boolean {
+        return (et.text.toString().isNotEmpty() && et.text.toString() != ".")
+    }
+    private fun checkIfZero(et: EditText): Boolean {
+        if (checkIfNotEmptyOrPeriod(et)) {
+            if (parseDouble(et.text.toString()) == 0.0) {
+                return true
+            }
+        }
+        return false
+    }
+
     private fun overLimit(): Boolean {
-        if (et_length.text.toString() != "" && et_length.text.toString() != "." &&
-            et_width.text.toString() != "" && et_width.text.toString() != "." &&
-            et_weight.text.toString() != "" && et_weight.text.toString() != ".") {
+        if (checkIfNotEmptyOrPeriod(et_length) &&
+            checkIfNotEmptyOrPeriod(et_width) &&
+            checkIfNotEmptyOrPeriod(et_weight)) {
             if (parseDouble(et_weight.text.toString()) > 125) {
                 AlertDialog.Builder(this).setTitle("Error: Weight is above legal limit")
                     .setNegativeButton("Cancel") { dialog, _ ->
@@ -140,19 +153,19 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     .putExtra("has_vision", tb_has_vision.isChecked)
                     .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
                     .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
-                if (et_weight.text.toString().isNotEmpty() && et_weight.text.toString() != ".") {
+                if (checkIfNotEmptyOrPeriod(et_weight)) {
                     intent.putExtra("weight", parseDouble(et_weight.text.toString()))
                 }
                 else if (et_weight.text.toString() == ".") {
                     intent.putExtra("weight", 0.0)
                 }
-                if (et_length.text.toString().isNotEmpty() && et_length.text.toString() != ".") {
+                if (checkIfNotEmptyOrPeriod(et_length)) {
                     intent.putExtra("length", parseDouble(et_length.text.toString()))
                 }
                 else if (et_length.text.toString() == ".") {
                     intent.putExtra("length", 0.0)
                 }
-                if (et_width.text.toString().isNotEmpty() && et_width.text.toString() != ".") {
+                if (checkIfNotEmptyOrPeriod(et_width)) {
                     intent.putExtra("width", parseDouble(et_width.text.toString()))
                 }
                 else if (et_width.text.toString() == ".") {
@@ -211,32 +224,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     // Check if any changes are made to the obj data collection screen
     private fun allNotChecked(): Boolean {
-        if (et_weight.text.toString().isNotEmpty() && et_weight.text.toString() != ".") {
-            if (parseDouble(et_weight.text.toString()) == 0.0) {
-                return true
-            }
-        }
-        if (et_length.text.toString().isNotEmpty() && et_length.text.toString() != ".") {
-            if (parseDouble(et_length.text.toString()) == 0.0) {
-                return true
-            }
-        }
-        if (et_width.text.toString().isNotEmpty() && et_width.text.toString() != ".") {
-            if (parseDouble(et_width.text.toString()) == 0.0) {
-                return true
-            }
-        }
-        if (et_number_of_motors.text.toString().isNotEmpty() && et_number_of_motors.text.toString() != ".") {
-            if (parseInt(et_number_of_motors.text.toString()) == 0) {
-                return true
-            }
-        }
         return (
             has_communication_device == false &&
             has_vision == false &&
-                    (et_weight.text.toString() == "" || et_weight.text.toString() == ".") &&
-                    (et_length.text.toString() == "" || et_length.text.toString() == ".") &&
-                    (et_width.text.toString() == "" || et_width.text.toString() == ".") &&
+                    (!checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width)) &&
+                    (!checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length)) &&
+                    (!checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight)) &&
             (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
             (indexNumMotor == -1 || indexNumMotor == null) &&
             et_number_of_motors.text.toString() == ""
@@ -246,9 +239,9 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private fun populateData() {
         has_communication_device = tb_has_communication.isChecked
         has_vision = tb_has_vision.isChecked
-        weight = if (et_weight.text.toString() == "" || et_weight.text.toString() == ".") 0.0 else parseDouble(et_weight.text.toString())
-        length = if (et_length.text.toString() == "" || et_length.text.toString() == ".") 0.0 else parseDouble(et_length.text.toString())
-        width = if (et_width.text.toString() == "" || et_width.text.toString() == ".") 0.0 else parseDouble(et_width.text.toString())
+        weight = if (!checkIfNotEmptyOrPeriod(et_weight)) 0.0 else parseDouble(et_weight.text.toString())
+        length = if (!checkIfNotEmptyOrPeriod(et_length)) 0.0 else parseDouble(et_length.text.toString())
+        width = if (!checkIfNotEmptyOrPeriod(et_width)) 0.0 else parseDouble(et_width.text.toString())
         drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
     }
 
@@ -315,19 +308,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 } else teamsWithData.remove(team_number)
             }
         } else {
-            if (et_weight.text.toString().isNotEmpty() &&
-                et_length.text.toString().isNotEmpty() &&
-                et_width.text.toString().isNotEmpty() &&
-                et_weight.text.toString() != "0.0" &&
-                et_length.text.toString() != "0.0" &&
-                et_width.text.toString() != "0.0" &&
-                et_weight.text.toString() != "." &&
-                et_length.text.toString() != "." &&
-                et_width.text.toString() != "." &&
+            if (checkIfNotEmptyOrPeriod(et_weight) && !checkIfZero(et_weight) &&
+                checkIfNotEmptyOrPeriod(et_length) && !checkIfZero(et_length) &&
+                checkIfNotEmptyOrPeriod(et_width) && !checkIfZero(et_width) &&
                 spin_drivetrain.selectedItem != "Drivetrain" &&
                 spin_drivetrain_motor_type.selectedItem != "Drivetrain Motor Type" &&
-                et_number_of_motors.text.isNotEmpty() &&
-                et_number_of_motors.text.toString() != "0"
+                checkIfNotEmptyOrPeriod(et_number_of_motors) && !checkIfZero(et_number_of_motors)
             ) {
                 if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
             } else teamsWithData.remove(team_number)
@@ -346,101 +332,23 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         } else teamsWithPhotos.remove(team_number)
     }
 
-    override fun onBackPressed() {
-        if (et_weight.text.toString().isNotEmpty() && et_weight.text.toString() != ".") {
-            if (parseDouble(et_weight.text.toString()) == 0.0) {
-                val weightSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Weight",
-                    Snackbar.LENGTH_SHORT
-                )
-                weightSnack.show()
-                return
-            }
-        }
-        if (et_length.text.toString().isNotEmpty() && et_length.text.toString() != ".") {
-            if (parseDouble(et_length.text.toString()) == 0.0) {
-                val weightSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Length",
-                    Snackbar.LENGTH_SHORT
-                )
-                weightSnack.show()
-                return
-            }
-        }
-        if (et_width.text.toString().isNotEmpty() && et_width.text.toString() != ".") {
-            if (parseDouble(et_width.text.toString()) == 0.0) {
-                val weightSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Width",
-                    Snackbar.LENGTH_SHORT
-                )
-                weightSnack.show()
-                return
-            }
-        }
-        if (et_number_of_motors.text.toString().isNotEmpty() && et_number_of_motors.text.toString() != ".") {
-            if (parseInt(et_number_of_motors.text.toString()) == 0) {
-                val weightSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Number Of Drivetrain Motors",
-                    Snackbar.LENGTH_SHORT
-                )
-                weightSnack.show()
-                return
-            }
-        }
-        when {
-            et_weight.text.toString().isEmpty() || et_weight.text.toString() == "." -> {
-                val weightSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Weight",
-                    Snackbar.LENGTH_SHORT
-                )
-                weightSnack.show()
-            }
-            et_length.text.toString().isEmpty() || et_length.text.toString() == "." -> {
-                val lengthSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Length",
-                    Snackbar.LENGTH_SHORT
-                )
-                lengthSnack.show()
-            }
-            et_width.text.toString().isEmpty() || et_width.text.toString() == "." -> {
-                val widthSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Width",
-                    Snackbar.LENGTH_SHORT
-                )
-                widthSnack.show()
-            }
-            spin_drivetrain.selectedItem.toString() == "Drivetrain" -> {
+    private fun createSnackbar(text: String) {
+        val weightSnack = Snackbar.make(
+            findViewById(android.R.id.content),
+            text,
+            Snackbar.LENGTH_SHORT
+        )
+        weightSnack.show()
+    }
 
-                val drivetrainSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Define A Drivetrain",
-                    Snackbar.LENGTH_SHORT
-                )
-                drivetrainSnack.show()
-            }
-            spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> {
-                val drivetrainMotorTypeSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Define A Drivetrain Motor Type",
-                    Snackbar.LENGTH_SHORT
-                )
-                drivetrainMotorTypeSnack.show()
-            }
-            et_number_of_motors.text.isEmpty() -> {
-                val numberOfMotorSnack = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Please Enter Number Of Drivetrain Motors",
-                    Snackbar.LENGTH_SHORT
-                )
-                numberOfMotorSnack.show()
-            }
+    override fun onBackPressed() {
+        when {
+            !checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight) -> createSnackbar("Please Enter Weight")
+            !checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length) -> createSnackbar("Please Enter Length")
+            !checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width) -> createSnackbar("Please Enter Width")
+            spin_drivetrain.selectedItem.toString() == "Drivetrain" -> createSnackbar("Please Define A Drivetrain")
+            spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> createSnackbar("Please Define A Drivetrain Motor Type")
+            et_number_of_motors.text.isEmpty() || checkIfZero(et_number_of_motors) -> createSnackbar("Please Enter Number Of Drivetrain Motors")
             else -> {
                 saver()
                 checksTeamInfo(team_number, false)

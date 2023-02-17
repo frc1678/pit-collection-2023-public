@@ -211,6 +211,26 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     // Check if any changes are made to the obj data collection screen
     private fun allNotChecked(): Boolean {
+        if (et_weight.text.toString().isNotEmpty() && et_weight.text.toString() != ".") {
+            if (parseDouble(et_weight.text.toString()) == 0.0) {
+                return true
+            }
+        }
+        if (et_length.text.toString().isNotEmpty() && et_length.text.toString() != ".") {
+            if (parseDouble(et_length.text.toString()) == 0.0) {
+                return true
+            }
+        }
+        if (et_width.text.toString().isNotEmpty() && et_width.text.toString() != ".") {
+            if (parseDouble(et_width.text.toString()) == 0.0) {
+                return true
+            }
+        }
+        if (et_number_of_motors.text.toString().isNotEmpty() && et_number_of_motors.text.toString() != ".") {
+            if (parseInt(et_number_of_motors.text.toString()) == 0) {
+                return true
+            }
+        }
         return (
             has_communication_device == false &&
             has_vision == false &&
@@ -327,7 +347,50 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     }
 
     override fun onBackPressed() {
-
+        if (et_weight.text.toString().isNotEmpty() && et_weight.text.toString() != ".") {
+            if (parseDouble(et_weight.text.toString()) == 0.0) {
+                val weightSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Enter Weight",
+                    Snackbar.LENGTH_SHORT
+                )
+                weightSnack.show()
+                return
+            }
+        }
+        if (et_length.text.toString().isNotEmpty() && et_length.text.toString() != ".") {
+            if (parseDouble(et_length.text.toString()) == 0.0) {
+                val weightSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Enter Length",
+                    Snackbar.LENGTH_SHORT
+                )
+                weightSnack.show()
+                return
+            }
+        }
+        if (et_width.text.toString().isNotEmpty() && et_width.text.toString() != ".") {
+            if (parseDouble(et_width.text.toString()) == 0.0) {
+                val weightSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Enter Width",
+                    Snackbar.LENGTH_SHORT
+                )
+                weightSnack.show()
+                return
+            }
+        }
+        if (et_number_of_motors.text.toString().isNotEmpty() && et_number_of_motors.text.toString() != ".") {
+            if (parseInt(et_number_of_motors.text.toString()) == 0) {
+                val weightSnack = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Please Enter Number Of Drivetrain Motors",
+                    Snackbar.LENGTH_SHORT
+                )
+                weightSnack.show()
+                return
+            }
+        }
         when {
             et_weight.text.toString().isEmpty() || et_weight.text.toString() == "." -> {
                 val weightSnack = Snackbar.make(

@@ -6,15 +6,20 @@ import android.os.Environment
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.engine.okhttp.*
+import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.android.synthetic.main.starting_activity.error_message
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Dns
 import okhttp3.OkHttpClient
+import java.io.File
 import java.net.Inet4Address
 import java.net.InetAddress
 
@@ -28,11 +33,6 @@ class Ipv4OnlyDns : Dns {
         return sortedAddresses
     }
 }
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonPrimitive
-import java.io.File
 
 /**
  * Downloads the team list file from Grosbeak or uses a cached team list. If this fails, the error

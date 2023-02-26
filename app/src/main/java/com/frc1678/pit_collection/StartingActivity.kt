@@ -6,13 +6,28 @@ import android.util.Log
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.okhttp.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.android.synthetic.main.starting_activity.error_message
 import kotlinx.coroutines.runBlocking
+import okhttp3.Dns
+import okhttp3.OkHttpClient
+import java.net.Inet4Address
+import java.net.InetAddress
+
+class Ipv4OnlyDns : Dns {
+    override fun lookup(hostname: String): List<InetAddress> {
+        val defaultAddresses = Dns.SYSTEM.lookup(hostname)
+        val sortedAddresses = defaultAddresses.sortedBy {
+            val isIpv4 = it is Inet4Address
+            return@sortedBy isIpv4.not()
+        }
+        return sortedAddresses
+    }
+}
 
 /**
  * Downloads the team list file from Grosbeak. If this fails, the error is shown. Otherwise, opens
@@ -25,9 +40,12 @@ class StartingActivity : CollectionActivity() {
         runBlocking {
             try {
                 // Create client for the web request
-                val client = HttpClient(CIO) {
+                val client = HttpClient(OkHttp) {
                     install(ContentNegotiation) {
                         json()
+                    }
+                    engine {
+                        preconfigured = OkHttpClient.Builder().dns(Ipv4OnlyDns()).build()
                     }
                 }
                 // Fetch the data

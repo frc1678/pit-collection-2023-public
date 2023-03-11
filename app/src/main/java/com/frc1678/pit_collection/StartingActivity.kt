@@ -11,7 +11,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.android.synthetic.main.starting_activity.error_message
+import kotlinx.android.synthetic.main.starting_activity.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -79,6 +79,7 @@ class StartingActivity : CollectionActivity() {
                 setContentView(R.layout.starting_activity)
                 // Show the error message
                 error_message.text = t.toString()
+                download_failed.setText("Missing team_list file ${Constants.EVENT_KEY}")
             }
         }
     }

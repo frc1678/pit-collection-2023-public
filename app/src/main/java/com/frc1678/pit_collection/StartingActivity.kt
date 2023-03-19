@@ -3,6 +3,7 @@ package com.frc1678.pit_collection
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -82,5 +83,8 @@ class StartingActivity : CollectionActivity() {
                 download_failed.setText("Missing team_list file ${Constants.EVENT_KEY}")
             }
         }
+    }
+    fun btnRetryOnClick(view: View) {
+        startActivity(Intent(this@StartingActivity, StartingActivity::class.java))
     }
 }

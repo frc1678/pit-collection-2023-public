@@ -3,7 +3,7 @@ package com.frc1678.pit_collection
 
 object Constants {
 
-    const val EVENT_KEY = "2022mttd"
+    const val EVENT_KEY = "2023cada"
     const val GROSBEAK_AUTH_KEY = "02ae3a526cf54db9b563928b0ec05a77"
 
     enum class ModeSelection {

@@ -247,41 +247,38 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     // Save obj data to a file in downloads
     private fun saver() {
-        if(!overLimit()){
+        populateData()
+        // TODO Move below code to CollectionObjectiveDataActivity and link to save button
 
-            populateData()
-            // TODO Move below code to CollectionObjectiveDataActivity and link to save button
+        assignIndexNums()
 
-            assignIndexNums()
+        // Save variable information as a pitData class.
 
-            // Save variable information as a pitData class.
+        if (allNotChecked()) {
+            val element = team_number
+            val intent = Intent(this, TeamListActivity::class.java)
+            intent.putExtra("teamNumber", element)
+            startActivity(intent)
+        } else {
 
-            if (allNotChecked()) {
-                val element = team_number
-                val intent = Intent(this, TeamListActivity::class.java)
-                intent.putExtra("teamNumber", element)
-                startActivity(intent)
-            } else {
-
-                val information = Constants.DataObjective(
-                    team_number = team_number,
-                    has_communication_device = has_communication_device,
-                    has_vision = has_vision,
-                    weight = weight,
-                    length = length,
-                    width = width,
-                    drivetrain = indexNumDrivetrain,
-                    drivetrain_motor_type = indexNumMotor,
-                    drivetrain_motors = drivetrain_motors
-                )
-                val jsonData = convertToJson(information)
-                val fileName = "${team_number}_obj_pit"
-                writeToFile(fileName, jsonData)
-                val element = team_number
-                val intent = Intent(this, TeamListActivity::class.java)
-                intent.putExtra("teamNumber", element)
-                startActivity(intent)
-            }
+            val information = Constants.DataObjective(
+                team_number = team_number,
+                has_communication_device = has_communication_device,
+                has_vision = has_vision,
+                weight = weight,
+                length = length,
+                width = width,
+                drivetrain = indexNumDrivetrain,
+                drivetrain_motor_type = indexNumMotor,
+                drivetrain_motors = drivetrain_motors
+            )
+            val jsonData = convertToJson(information)
+            val fileName = "${team_number}_obj_pit"
+            writeToFile(fileName, jsonData)
+            val element = team_number
+            val intent = Intent(this, TeamListActivity::class.java)
+            intent.putExtra("teamNumber", element)
+            startActivity(intent)
         }
     }
 
@@ -342,16 +339,22 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     }
 
     override fun onBackPressed() {
-        when {
-            !checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight) -> createSnackbar("Please Enter Weight")
-            !checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length) -> createSnackbar("Please Enter Length")
-            !checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width) -> createSnackbar("Please Enter Width")
-            spin_drivetrain.selectedItem.toString() == "Drivetrain" -> createSnackbar("Please Define A Drivetrain")
-            spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> createSnackbar("Please Define A Drivetrain Motor Type")
-            et_number_of_motors.text.isEmpty() || checkIfZero(et_number_of_motors) -> createSnackbar("Please Enter Number Of Drivetrain Motors")
-            else -> {
-                saver()
-                checksTeamInfo(team_number, false)
+        if (!overLimit()) {
+            when {
+                !checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight) -> createSnackbar("Please Enter Weight")
+                !checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length) -> createSnackbar("Please Enter Length")
+                !checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width) -> createSnackbar("Please Enter Width")
+                spin_drivetrain.selectedItem.toString() == "Drivetrain" -> createSnackbar("Please Define A Drivetrain")
+                spin_drivetrain_motor_type.selectedItem.toString() == "Drivetrain Motor Type" -> createSnackbar(
+                    "Please Define A Drivetrain Motor Type"
+                )
+                et_number_of_motors.text.isEmpty() || checkIfZero(et_number_of_motors) -> createSnackbar(
+                    "Please Enter Number Of Drivetrain Motors"
+                )
+                else -> {
+                    saver()
+                    checksTeamInfo(team_number, false)
+                }
             }
         }
     }

@@ -3,6 +3,8 @@ package com.frc1678.pit_collection
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
@@ -13,6 +15,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.android.synthetic.main.starting_activity.*
+import kotlinx.android.synthetic.main.team_list_activity.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -97,6 +100,28 @@ class StartingActivity : CollectionActivity() {
                 // Show the error message
                 error_message.text = t.toString()
                 download_failed.setText("Missing team_list file ${Constants.EVENT_KEY}")
+
+                et_event.setText(Constants.DEFAULT_KEY)
+                et_event.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                        if (p0.toString().equals("")) {
+
+                        }
+                        else {
+                            val file =
+                                File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
+                            file.writeText(p0.toString())
+                        }
+
+
+                    }
+                })
             }
         }
     }

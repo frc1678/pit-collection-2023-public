@@ -6,13 +6,12 @@ import android.os.Environment
 import android.util.Log
 import android.view.View
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.okhttp.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.android.synthetic.main.starting_activity.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
@@ -70,14 +69,17 @@ class StartingActivity : CollectionActivity() {
                 }
                 // Fetch the data
 
-
+                val anotherFile = File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
                 //check if file exists. if it does set constants.event to whats in the file.
-                val inputStream: InputStream = File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt").inputStream()
-                if (inputStream != null) {
+                if (anotherFile.exists()) {
+                    val inputStream: InputStream =
+                        File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt").inputStream()
                     val inputString = inputStream.bufferedReader().use { it.readText() }
                     Constants.EVENT_KEY = inputString
-                    Log.d("aaaaaa", Constants.EVENT_KEY)
+
                 } else
+                    Constants.EVENT_KEY = Constants.DEFAULT_KEY
+
 
 
                 teamsList =

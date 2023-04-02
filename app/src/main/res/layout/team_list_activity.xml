@@ -28,7 +28,8 @@
             android:layout_weight=".3"
             android:layout_height="match_parent"
             android:enabled="true"
-            android:text="Confirm Keys">
+            android:text="Confirm Keys"
+            android:textSize="10sp">
 
         </Button>
     </LinearLayout>

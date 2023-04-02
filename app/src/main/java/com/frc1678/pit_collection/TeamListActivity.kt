@@ -33,6 +33,9 @@ import org.apache.commons.lang3.ObjectUtils.Null
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.io.path.deleteIfExists
 
 // Read the csv file, populate a listView, and start CollectionObjectiveDataActivity.
 class TeamListActivity : CollectionActivity() {
@@ -83,6 +86,8 @@ class TeamListActivity : CollectionActivity() {
             Runtime.getRuntime().exit(0)
         }
         btn_key_edit.setOnClickListener {
+            val path = Paths.get("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team-list.json")
+            Files.deleteIfExists(path)
             val file =
                 File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
             var isCreated=  file.createNewFile()

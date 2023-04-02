@@ -3,6 +3,7 @@ package com.frc1678.pit_collection
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import com.frc1678.pit_collection.TeamListActivity.Companion.teamsList
 import io.ktor.client.HttpClient
@@ -21,6 +22,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Dns
 import okhttp3.OkHttpClient
 import java.io.File
+import java.io.InputStream
 import java.net.Inet4Address
 import java.net.InetAddress
 
@@ -67,10 +69,22 @@ class StartingActivity : CollectionActivity() {
                     }
                 }
                 // Fetch the data
+
+
+                //check if file exists. if it does set constants.event to whats in the file.
+                val inputStream: InputStream = File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt").inputStream()
+                if (inputStream != null) {
+                    val inputString = inputStream.bufferedReader().use { it.readText() }
+                    Constants.EVENT_KEY = inputString
+                    Log.d("aaaaaa", Constants.EVENT_KEY)
+                } else
+
+
                 teamsList =
                     client.get("https://grosbeak.citruscircuits.org/api/team-list/${Constants.EVENT_KEY}") {
                         header("Authorization", Constants.GROSBEAK_AUTH_KEY)
                     }.body()
+
                 // Cache the team list file
                 teamListFile.writeText(Json.encodeToString(teamsList))
                 // If the request worked, start the main team list activity

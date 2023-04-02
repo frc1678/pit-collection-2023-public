@@ -3,6 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tv_event_key"
+            style="@style/tv_edit_key"
+            android:text="Edit Event Key"
+            android:layout_weight="0.3"/>
+
+
+
+        <EditText
+            android:id="@+id/et_event_key"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/very_small"
+            android:layout_weight=".3" />
+
+        <Button
+            android:id="@+id/btn_key_edit"
+            android:layout_width="match_parent"
+            android:layout_weight=".3"
+            android:layout_height="match_parent"
+            android:enabled="true"
+            android:text="Confirm Keys">
+
+        </Button>
+    </LinearLayout>
+
+
 
     <ImageView
         android:layout_width="match_parent"

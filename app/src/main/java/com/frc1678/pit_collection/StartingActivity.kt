@@ -104,9 +104,11 @@ class StartingActivity : CollectionActivity() {
                 et_event.setText(Constants.DEFAULT_KEY)
                 et_event.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                     }
 
                     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
@@ -122,10 +124,20 @@ class StartingActivity : CollectionActivity() {
 
                     }
                 })
+
+                refresh_button.setOnClickListener {
+                    if (et_event.text.toString().equals(Constants.DEFAULT_KEY)) {
+                        val file =
+                            File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
+                        file.writeText(Constants.DEFAULT_KEY)
+                    }
+                    startActivity(Intent(this@StartingActivity, StartingActivity::class.java))
+
+                }
             }
         }
     }
-    fun btnRetryOnClick(view: View) {
-        startActivity(Intent(this@StartingActivity, StartingActivity::class.java))
-    }
+
+
+
 }

@@ -101,6 +101,11 @@ class StartingActivity : CollectionActivity() {
                 error_message.text = t.toString()
                 download_failed.setText("Missing team_list file ${Constants.EVENT_KEY}")
 
+
+                /**this is the place where you can change event key in the error popup
+                Text watcher that if there's stuff in the reload button it will reload but if there isn't
+                 just don't do anything.
+                 **/
                 et_event.setText(Constants.DEFAULT_KEY)
                 et_event.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -124,7 +129,7 @@ class StartingActivity : CollectionActivity() {
 
                     }
                 })
-
+                //All the additions here just check if the contents equal the default
                 refresh_button.setOnClickListener {
                     if (et_event.text.toString().equals(Constants.DEFAULT_KEY)) {
                         val file =

@@ -77,6 +77,7 @@ class TeamListActivity : CollectionActivity() {
 
             }
         })
+        //function to reload app
         fun triggerRebirth(context: Context?) {
             val packageManager = context?.packageManager
             val intent = packageManager?.getLaunchIntentForPackage(context.packageName)
@@ -85,12 +86,13 @@ class TeamListActivity : CollectionActivity() {
             context.startActivity(mainIntent)
             Runtime.getRuntime().exit(0)
         }
+        //button that deletes team list file so when app reopens it can get new team list
+        //writes to the file
         btn_key_edit.setOnClickListener {
             val path = Paths.get("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/team-list.json")
             Files.deleteIfExists(path)
             val file =
                 File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
-            var isCreated=  file.createNewFile()
             file.writeText(Constants.EVENT_KEY)
 
 

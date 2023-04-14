@@ -27,8 +27,8 @@ open class CollectionActivity : AppCompatActivity() {
     fun setToolbarText(view: ActionBar?, support: androidx.appcompat.app.ActionBar?) {
         when {
             retrieveFromStorage("mode_collection_select_activity") == Constants.ModeSelection.OBJECTIVE.toString() -> {
-                view?.title = this.getString(R.string.tv_objective_version, version_num)
-                support?.title = this.getString(R.string.tv_objective_version, version_num)
+                view?.title = this.getString(R.string.event_key, Constants.EVENT_KEY) + System.getProperty("line.separator") + this.getString(R.string.version_num, version_num)
+                support?.title = this.getString(R.string.event_key, Constants.EVENT_KEY) + System.getProperty("line.separator") + this.getString(R.string.version_num, version_num)
                 view?.show()
                 support?.show()
             }
@@ -39,8 +39,8 @@ open class CollectionActivity : AppCompatActivity() {
                 support?.show()
             }
             else -> {
-                view?.title = this.getString(R.string.tv_version_num, version_num)
-                support?.title = this.getString(R.string.tv_version_num, version_num)
+                view?.title = this.getString(R.string.version_num, version_num)
+                support?.title = this.getString(R.string.version_num, version_num)
                 view?.show()
                 support?.show()
             }

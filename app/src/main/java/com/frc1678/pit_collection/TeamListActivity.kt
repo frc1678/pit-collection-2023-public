@@ -93,7 +93,7 @@ class TeamListActivity : CollectionActivity() {
             Files.deleteIfExists(path)
             val file =
                 File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
-            file.writeText(Constants.EVENT_KEY)
+            file.writeText(Constants.EVENT_KEY + Constants.DEFAULT_KEY)
 
 
 

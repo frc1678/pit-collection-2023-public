@@ -27,6 +27,8 @@ import java.io.File
 import java.io.InputStream
 import java.net.Inet4Address
 import java.net.InetAddress
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class Ipv4OnlyDns : Dns {
     override fun lookup(hostname: String): List<InetAddress> {
@@ -78,7 +80,15 @@ class StartingActivity : CollectionActivity() {
                     val inputStream: InputStream =
                         File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt").inputStream()
                     val inputString = inputStream.bufferedReader().use { it.readText() }
-                    Constants.EVENT_KEY = inputString
+                    //check if user changes default key in constants it will reset with new code stuff into a new file
+                    if (!inputString.substring(8, inputString.length).equals(Constants.DEFAULT_KEY)) {
+                        val path = Paths.get("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
+                        Files.deleteIfExists(path)
+                        val file =
+                            File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
+                        file.writeText(Constants.EVENT_KEY + Constants.DEFAULT_KEY)
+                    }
+                    else Constants.EVENT_KEY = inputString.substring(0, 8)
 
                 } else
                     Constants.EVENT_KEY = Constants.DEFAULT_KEY
@@ -123,7 +133,7 @@ class StartingActivity : CollectionActivity() {
                         else {
                             val file =
                                 File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
-                            file.writeText(p0.toString())
+                            file.writeText(p0.toString() + "${Constants.DEFAULT_KEY}")
                         }
 
 
@@ -134,7 +144,7 @@ class StartingActivity : CollectionActivity() {
                     if (et_event.text.toString().equals(Constants.DEFAULT_KEY)) {
                         val file =
                             File("/storage/emulated/0/${Environment.DIRECTORY_DOWNLOADS}/event_key.txt")
-                        file.writeText(Constants.DEFAULT_KEY)
+                        file.writeText(Constants.DEFAULT_KEY+Constants.DEFAULT_KEY)
                     }
                     startActivity(Intent(this@StartingActivity, StartingActivity::class.java))
 

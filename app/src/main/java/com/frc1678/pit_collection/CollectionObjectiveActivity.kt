@@ -23,10 +23,7 @@ open class CollectionObjectiveActivity : CollectionActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parentView: AdapterView<*>,
-                selectedItemView: View,
-                position: Int,
-                id: Long
+                parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long
             ) {
                 spinner.setSelection(position)
             }
@@ -39,9 +36,12 @@ open class CollectionObjectiveActivity : CollectionActivity() {
 
     // Puts datapoints in the intent passed out of the camera from the one originally passed into the camera
     fun putExtras(getIntent: Intent, intent: Intent, teamNum: String): Intent {
-        intent.putExtra("teamNumber", teamNum)
-            .putExtra("has_communication_device", getIntent.getBooleanExtra("has_communication_device", false))
-            .putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
+        intent.putExtra("teamNumber", teamNum).putExtra(
+                "has_communication_device",
+                getIntent.getBooleanExtra("has_communication_device", false)
+            ).putExtra("has_vision", getIntent.getBooleanExtra("has_vision", false))
+            .putExtra("has_ground_intake", getIntent.getBooleanExtra("has_ground_intake", false))
+            .putExtra("is_forkable", getIntent.getBooleanExtra("is_forkable", false))
             .putExtra("weight", getIntent.getDoubleExtra("weight", 0.0))
             .putExtra("length", getIntent.getDoubleExtra("length", 0.0))
             .putExtra("width", getIntent.getDoubleExtra("width", 0.0))

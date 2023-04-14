@@ -17,10 +17,12 @@ object Constants {
 
         var drivetrain: Int?,
         var has_communication_device: Boolean?,
+        var has_vision: Boolean?,
+        var has_ground_intake: Boolean?,
+        var is_forkable: Boolean?,
         var weight: Double?,
         var length: Double?,
         var width: Double?,
-        var has_vision: Boolean?,
 
         // can cross trench and can eject terminal and can intake terminal deleted
         var drivetrain_motors: Int?,

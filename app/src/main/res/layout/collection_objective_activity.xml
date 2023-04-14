@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/very_small">
 
     <LinearLayout
@@ -16,21 +16,21 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/team_number"
-            android:textStyle="bold"
-            android:textSize="75dp"
-            android:gravity="center" />
+            android:textSize="75sp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btn_camera"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".3"
-            android:gravity="center_vertical"
             android:layout_margin="10dp"
+            android:layout_weight=".3"
             android:background="@drawable/camera_button_round"
-            android:src="@drawable/camera_button"
-            android:scaleType="fitCenter" />
+            android:gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/camera_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,41 +39,58 @@
         android:layout_weight="1">
 
         <ToggleButton
-            style="@style/tb_collection_horizontal"
             android:id="@+id/tb_has_communication"
-            android:textOn="@string/has_communication"
-            android:textOff="@string/no_communication">
-        </ToggleButton>
+            style="@style/tb_collection_horizontal"
+            android:textOff="@string/no_communication"
+            android:textOn="@string/has_communication" />
 
         <ToggleButton
-            style="@style/tb_collection_horizontal"
             android:id="@+id/tb_has_vision"
+            style="@style/tb_collection_horizontal"
             android:textOff="@string/no_vision"
-            android:textOn="@string/has_vision">
-        </ToggleButton>
+            android:textOn="@string/has_vision" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+        <ToggleButton
+            android:id="@+id/tb_has_ground_intake"
+            style="@style/tb_collection_horizontal"
+            android:textOff="@string/no_communication"
+            android:textOn="@string/has_communication" />
+
+        <ToggleButton
+            android:id="@+id/tb_is_forkable"
+            style="@style/tb_collection_horizontal"
+            android:textOff="@string/no_vision"
+            android:textOn="@string/has_vision" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5">
+
             <com.google.android.material.textfield.TextInputEditText
 
+                android:id="@+id/et_weight"
+                style="@style/material_text_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/material_text_field"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:id="@+id/et_weight"
                 android:hint="@string/weight"
-                android:nextFocusDown="@id/et_length">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:inputType="numberDecimal"
+                android:nextFocusDown="@id/et_length"
+                android:text="" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -81,38 +98,39 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/material_text_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:id="@+id/et_length"
-                    android:text=""
+                    style="@style/material_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/length"
                     android:inputType="numberDecimal"
-                    android:hint="@string/length">
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:text=""></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_width"
                     style="@style/material_text_field"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/width"
                     android:inputType="numberDecimal"
-                    android:text=""
-                    android:id="@+id/et_width"
-                    android:hint="@string/width">
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:text=""></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,22 +142,22 @@
             android:id="@+id/spin_drivetrain"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/light_gray"
-            android:layout_margin="10dp"
-            android:hint="@string/spin_drivetrain"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:hint="@string/spin_drivetrain" />
 
         <Spinner
             android:id="@+id/spin_drivetrain_motor_type"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@color/light_gray"
-            android:hint="@string/spin_drivetrain_motor_type"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:hint="@string/spin_drivetrain_motor_type" />
 
     </LinearLayout>
 
@@ -149,15 +167,13 @@
         android:layout_weight="1">
 
         <EditText
-            style="@style/btn_collection"
             android:id="@+id/et_number_of_motors"
+            style="@style/btn_collection"
+            android:layout_margin="@dimen/very_small"
+            android:gravity="center"
             android:hint="@string/motor_number"
             android:inputType="number"
-            android:gravity="center"
-            android:layout_margin="@dimen/very_small"
             android:maxLength="2" />
-
-
 
     </LinearLayout>
 

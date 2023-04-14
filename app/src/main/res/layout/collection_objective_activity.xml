@@ -60,14 +60,14 @@
         <ToggleButton
             android:id="@+id/tb_has_ground_intake"
             style="@style/tb_collection_horizontal"
-            android:textOff="@string/no_communication"
-            android:textOn="@string/has_communication" />
+            android:textOff="@string/no_ground_intake"
+            android:textOn="@string/has_ground_intake" />
 
         <ToggleButton
             android:id="@+id/tb_is_forkable"
             style="@style/tb_collection_horizontal"
-            android:textOff="@string/no_vision"
-            android:textOn="@string/has_vision" />
+            android:textOff="@string/is_not_forkable"
+            android:textOn="@string/is_forkable" />
 
     </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/length"
                     android:inputType="numberDecimal"
-                    android:text=""></com.google.android.material.textfield.TextInputEditText>
+                    android:text=""/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/width"
                     android:inputType="numberDecimal"
-                    android:text=""></com.google.android.material.textfield.TextInputEditText>
+                    android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

@@ -43,6 +43,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         // Populate spinner with arrays from strings.xml
         createSpinner(spin_drivetrain, R.array.drivetrain_array)
         createSpinner(spin_drivetrain_motor_type, R.array.drivetrain_motor_type_array)
+        createSpinner(spin_ground_intake, R.array.ground_intake)
+        createSpinner(spin_forkable, R.array.forkable)
 
         team_number = intent.getStringExtra("teamNumber")!!
         tv_team_number.text = "$team_number"
@@ -154,8 +156,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             intent.putExtra("teamNumber", teamNum)
                 .putExtra("has_communication_device", tb_has_communication.isChecked)
                 .putExtra("has_vision", tb_has_vision.isChecked)
-                .putExtra("has_ground_intake", tb_has_ground_intake.isChecked)
-                .putExtra("is_forkable", tb_is_forkable.isChecked)
+                .putExtra("has_ground_intake", spin_ground_intake.selectedItemPosition)
+                .putExtra("is_forkable", spin_forkable.selectedItemPosition)
                 .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
                 .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
             if (checkIfNotEmptyOrPeriod(et_weight)) {
@@ -190,8 +192,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             tb_has_communication.isChecked =
                 intent.getBooleanExtra("has_communication_device", false)
             tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
-            tb_has_ground_intake.isChecked = intent.getBooleanExtra("has_ground_intake", false)
-            tb_is_forkable.isChecked = intent.getBooleanExtra("is_forkable", false)
+            spin_ground_intake.setSelection(intent.getIntExtra("has_ground_intake", 0))
+            spin_forkable.setSelection(intent.getIntExtra("is_forkable", 0))
             if (intent.getDoubleExtra("weight", 0.0) != 0.0) {
                 et_weight.setText(intent.getDoubleExtra("weight", 0.0).toString())
             }
@@ -215,8 +217,20 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             val jsonFile = objJsonFileRead(team_number)
             tb_has_communication.isChecked = jsonFile.has_communication_device as Boolean
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
-            tb_has_ground_intake.isChecked = jsonFile.has_ground_intake as Boolean
-            tb_is_forkable.isChecked = jsonFile.is_forkable as Boolean
+            spin_ground_intake.setSelection(
+                when (jsonFile.has_ground_intake) {
+                    true -> 1
+                    false -> 2
+                    else -> 0
+                }
+            )
+            spin_forkable.setSelection(
+                when (jsonFile.is_forkable) {
+                    true -> 1
+                    false -> 2
+                    else -> 0
+                }
+            )
             if (jsonFile.weight.toString() != "0.0" && jsonFile.weight.toString() != ".") {
                 et_weight.setText(jsonFile.weight.toString())
             }
@@ -239,8 +253,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         return (
                 has_communication_device == false &&
                         has_vision == false &&
-                        has_ground_intake == false &&
-                        is_forkable == false &&
+                        has_ground_intake == null &&
+                        is_forkable == null &&
                         (!checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width)) &&
                         (!checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length)) &&
                         (!checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight)) &&
@@ -253,8 +267,16 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private fun populateData() {
         has_communication_device = tb_has_communication.isChecked
         has_vision = tb_has_vision.isChecked
-        has_ground_intake = tb_has_ground_intake.isChecked
-        is_forkable = tb_is_forkable.isChecked
+        has_ground_intake = when (spin_ground_intake.selectedItemPosition) {
+            1 -> true
+            2 -> false
+            else -> null
+        }
+        is_forkable = when (spin_forkable.selectedItemPosition) {
+            1 -> true
+            2 -> false
+            else -> null
+        }
         weight =
             if (!checkIfNotEmptyOrPeriod(et_weight)) 0.0 else parseDouble(et_weight.text.toString())
         length =
@@ -310,19 +332,21 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             if (File("/storage/emulated/0/Download/${team_number}_obj_pit.json").exists()) {
                 val jsonFile = objJsonFileRead(team_number)
 
-                if (jsonFile.weight.toString().isNotEmpty() &&
-                    jsonFile.length.toString().isNotEmpty() &&
-                    jsonFile.width.toString().isNotEmpty() &&
-                    jsonFile.weight.toString() != "0.0" &&
-                    jsonFile.length.toString() != "0.0" &&
-                    jsonFile.width.toString() != "0.0" &&
-                    jsonFile.weight.toString() != "." &&
-                    jsonFile.length.toString() != "." &&
-                    jsonFile.width.toString() != "." &&
-                    jsonFile.drivetrain.toString().isNotEmpty() &&
-                    jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
-                    jsonFile.drivetrain_motors.toString().isNotEmpty() &&
-                    jsonFile.drivetrain_motors.toString() != "0"
+                if ((jsonFile.has_ground_intake != null && jsonFile.is_forkable != null) || (
+                        jsonFile.weight.toString().isNotEmpty() &&
+                        jsonFile.length.toString().isNotEmpty() &&
+                        jsonFile.width.toString().isNotEmpty() &&
+                        jsonFile.weight.toString() != "0.0" &&
+                        jsonFile.length.toString() != "0.0" &&
+                        jsonFile.width.toString() != "0.0" &&
+                        jsonFile.weight.toString() != "." &&
+                        jsonFile.length.toString() != "." &&
+                        jsonFile.width.toString() != "." &&
+                        jsonFile.drivetrain.toString().isNotEmpty() &&
+                        jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
+                        jsonFile.drivetrain_motors.toString().isNotEmpty() &&
+                        jsonFile.drivetrain_motors.toString() != "0"
+                    )
                 ) {
                     if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
                 } else teamsWithData.remove(team_number)
@@ -364,6 +388,10 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     override fun onBackPressed() {
         if (!overLimit()) {
+            if (spin_ground_intake.selectedItemPosition != 0 && spin_forkable.selectedItemPosition != 0) {
+                saver()
+                checksTeamInfo(team_number, false)
+            }
             when {
                 !checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight) -> createSnackbar("Please Enter Weight")
                 !checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length) -> createSnackbar("Please Enter Length")

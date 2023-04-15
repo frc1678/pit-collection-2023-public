@@ -17,8 +17,8 @@ fun objJsonFileRead(teamNum: String?): Constants.DataObjective {
     // Get values from the jo json file
     val hasCommunicationDevice = jo.get("has_communication_device").asBoolean
     val hasVision = jo.get("has_vision").asBoolean
-    val hasGroundIntake = jo.get("has_ground_intake").asBoolean
-    val isForkable = jo.get("is_forkable").asBoolean
+    val hasGroundIntake = jo.get("has_ground_intake")?.asBoolean
+    val isForkable = jo.get("is_forkable")?.asBoolean
     val weight = jo.get("weight").asDouble
     val length = jo.get("length").asDouble
     val width = jo.get("width").asDouble

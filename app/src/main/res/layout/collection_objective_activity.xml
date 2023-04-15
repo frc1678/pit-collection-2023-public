@@ -57,17 +57,23 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ToggleButton
-            android:id="@+id/tb_has_ground_intake"
-            style="@style/tb_collection_horizontal"
-            android:textOff="@string/no_ground_intake"
-            android:textOn="@string/has_ground_intake" />
+        <Spinner
+                android:id="@+id/spin_ground_intake"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@color/light_gray"
+                android:gravity="center" />
 
-        <ToggleButton
-            android:id="@+id/tb_is_forkable"
-            style="@style/tb_collection_horizontal"
-            android:textOff="@string/is_not_forkable"
-            android:textOn="@string/is_forkable" />
+        <Spinner
+                android:id="@+id/spin_forkable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@color/light_gray"
+                android:gravity="center" />
 
     </LinearLayout>
 

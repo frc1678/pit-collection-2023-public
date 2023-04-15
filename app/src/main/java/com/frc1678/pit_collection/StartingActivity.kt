@@ -57,6 +57,7 @@ class StartingActivity : CollectionActivity() {
             // Parse the team list, which is stored as a JSON array
             teamsList =
                 Json.parseToJsonElement(teamListFile.readText()).jsonArray.map { it.jsonPrimitive.content }
+                    .sortedBy { it.toIntOrNull() }
             // Start the main team list activity
             startActivity(Intent(this@StartingActivity, TeamListActivity::class.java))
         }
@@ -98,7 +99,7 @@ class StartingActivity : CollectionActivity() {
                 teamsList =
                     client.get("https://grosbeak.citruscircuits.org/api/team-list/${Constants.EVENT_KEY}") {
                         header("Authorization", Constants.GROSBEAK_AUTH_KEY)
-                    }.body()
+                    }.body<List<String>>().sortedBy { it.toIntOrNull() }
 
                 // Cache the team list file
                 teamListFile.writeText(Json.encodeToString(teamsList))

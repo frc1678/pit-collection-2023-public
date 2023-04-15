@@ -77,4 +77,16 @@
         <item>Shooter</item>
         <item>Climber</item>
     </string-array>
+
+    <string-array name="ground_intake">
+        <item>Ground Intake?</item>
+        <item>Has Ground Intake</item>
+        <item>Does Not Have Ground Intake</item>
+    </string-array>
+
+    <string-array name="forkable">
+        <item>Forkable?</item>
+        <item>Is Forkable</item>
+        <item>Is Not Forkable</item>
+    </string-array>
 </resources>

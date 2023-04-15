@@ -15,9 +15,9 @@ open class CollectionObjectiveActivity : CollectionActivity() {
     // Create and populate a spinner.
     fun createSpinner(spinner: Spinner, array: Int) {
         ArrayAdapter.createFromResource(
-            this, array, android.R.layout.simple_spinner_item
+            this, array, R.layout.spinner_item
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             spinner.adapter = adapter
         }
 

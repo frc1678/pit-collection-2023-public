@@ -5,7 +5,6 @@ import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -21,9 +20,11 @@ import java.util.*
 // Create spinners (drivetrain and motor type).
 class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     AdapterView.OnItemSelectedListener {
-    public var team_number: String? = null
+    var team_number: String? = null
     private var has_communication_device: Boolean? = null
     private var has_vision: Boolean? = null
+    private var has_ground_intake: Boolean? = null
+    private var is_forkable: Boolean? = null
     private var weight: Double? = null
     private var length: Double? = null
     private var width: Double? = null
@@ -59,7 +60,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun assignIndexNums() {
         // Use schemaRead() function to read pit_collection_schema.yml and use indexOf() to find corresponding enum value
-        drivetrain = spin_drivetrain.selectedItem.toString().toLowerCase(Locale.US)
+        drivetrain = spin_drivetrain.selectedItem.toString().lowercase(Locale.US)
 
         indexNumDrivetrain = when (drivetrain) {
             "tank" -> {
@@ -78,7 +79,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
         }
 
         drivetrain_motor_type =
-            spin_drivetrain_motor_type.selectedItem.toString().toLowerCase(Locale.US)
+            spin_drivetrain_motor_type.selectedItem.toString().lowercase(Locale.US)
 
         // Drive Train Motor Type
         // TODO: Hook up to enums instead of hard coding
@@ -105,6 +106,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private fun checkIfNotEmptyOrPeriod(et: EditText): Boolean {
         return (et.text.toString().isNotEmpty() && et.text.toString() != ".")
     }
+
     private fun checkIfZero(et: EditText): Boolean {
         if (checkIfNotEmptyOrPeriod(et)) {
             if (parseDouble(et.text.toString()) == 0.0) {
@@ -117,7 +119,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     private fun overLimit(): Boolean {
         if (checkIfNotEmptyOrPeriod(et_length) &&
             checkIfNotEmptyOrPeriod(et_width) &&
-            checkIfNotEmptyOrPeriod(et_weight)) {
+            checkIfNotEmptyOrPeriod(et_weight)
+        ) {
             if (parseDouble(et_weight.text.toString()) > 125) {
                 AlertDialog.Builder(this).setTitle("Error: Weight is above legal limit")
                     .setNegativeButton("Cancel") { dialog, _ ->
@@ -145,48 +148,50 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
     private fun cameraButton(teamNum: String) {
         btn_camera.setOnClickListener {
-                assignIndexNums()
+            assignIndexNums()
 
-                val intent = Intent(this, CameraActivity::class.java)
-                intent.putExtra("teamNumber", teamNum)
-                    .putExtra("has_communication_device", tb_has_communication.isChecked)
-                    .putExtra("has_vision", tb_has_vision.isChecked)
-                    .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
-                    .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
-                if (checkIfNotEmptyOrPeriod(et_weight)) {
-                    intent.putExtra("weight", parseDouble(et_weight.text.toString()))
-                }
-                else if (et_weight.text.toString() == ".") {
-                    intent.putExtra("weight", 0.0)
-                }
-                if (checkIfNotEmptyOrPeriod(et_length)) {
-                    intent.putExtra("length", parseDouble(et_length.text.toString()))
-                }
-                else if (et_length.text.toString() == ".") {
-                    intent.putExtra("length", 0.0)
-                }
-                if (checkIfNotEmptyOrPeriod(et_width)) {
-                    intent.putExtra("width", parseDouble(et_width.text.toString()))
-                }
-                else if (et_width.text.toString() == ".") {
-                    intent.putExtra("width", 0.0)
-                }
-                if (et_number_of_motors.text.isNotEmpty()) {
-                    intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
-                }
-                startActivity(
-                    intent, ActivityOptions.makeSceneTransitionAnimation(
-                        this,
-                        btn_camera, "proceed_button"
-                    ).toBundle()
-                )
+            val intent = Intent(this, CameraActivity::class.java)
+            intent.putExtra("teamNumber", teamNum)
+                .putExtra("has_communication_device", tb_has_communication.isChecked)
+                .putExtra("has_vision", tb_has_vision.isChecked)
+                .putExtra("has_ground_intake", tb_has_ground_intake.isChecked)
+                .putExtra("is_forkable", tb_is_forkable.isChecked)
+                .putExtra("drivetrain_pos", parseInt(indexNumDrivetrain.toString()))
+                .putExtra("drivetrain_motor_pos", parseInt(indexNumMotor.toString()))
+            if (checkIfNotEmptyOrPeriod(et_weight)) {
+                intent.putExtra("weight", parseDouble(et_weight.text.toString()))
+            } else if (et_weight.text.toString() == ".") {
+                intent.putExtra("weight", 0.0)
             }
+            if (checkIfNotEmptyOrPeriod(et_length)) {
+                intent.putExtra("length", parseDouble(et_length.text.toString()))
+            } else if (et_length.text.toString() == ".") {
+                intent.putExtra("length", 0.0)
+            }
+            if (checkIfNotEmptyOrPeriod(et_width)) {
+                intent.putExtra("width", parseDouble(et_width.text.toString()))
+            } else if (et_width.text.toString() == ".") {
+                intent.putExtra("width", 0.0)
+            }
+            if (et_number_of_motors.text.isNotEmpty()) {
+                intent.putExtra("num_motors", parseInt(et_number_of_motors.text.toString()))
+            }
+            startActivity(
+                intent, ActivityOptions.makeSceneTransitionAnimation(
+                    this,
+                    btn_camera, "proceed_button"
+                ).toBundle()
+            )
         }
+    }
 
     private fun populateScreen() {
         if (intent.getBooleanExtra("after_camera", false)) {
-            tb_has_communication.isChecked = intent.getBooleanExtra("has_communication_device", false)
+            tb_has_communication.isChecked =
+                intent.getBooleanExtra("has_communication_device", false)
             tb_has_vision.isChecked = intent.getBooleanExtra("has_vision", false)
+            tb_has_ground_intake.isChecked = intent.getBooleanExtra("has_ground_intake", false)
+            tb_is_forkable.isChecked = intent.getBooleanExtra("is_forkable", false)
             if (intent.getDoubleExtra("weight", 0.0) != 0.0) {
                 et_weight.setText(intent.getDoubleExtra("weight", 0.0).toString())
             }
@@ -197,7 +202,12 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 et_width.setText(intent.getDoubleExtra("width", 0.0).toString())
             }
             spin_drivetrain.setSelection(intent.getIntExtra("drivetrain_pos", -1) + 1)
-            spin_drivetrain_motor_type.setSelection(intent.getIntExtra("drivetrain_motor_pos", -1) + 1)
+            spin_drivetrain_motor_type.setSelection(
+                intent.getIntExtra(
+                    "drivetrain_motor_pos",
+                    -1
+                ) + 1
+            )
             if (intent.getIntExtra("num_motors", 0) != 0) {
                 et_number_of_motors.setText(intent.getIntExtra("num_motors", 0).toString())
             }
@@ -205,6 +215,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             val jsonFile = objJsonFileRead(team_number)
             tb_has_communication.isChecked = jsonFile.has_communication_device as Boolean
             tb_has_vision.isChecked = jsonFile.has_vision as Boolean
+            tb_has_ground_intake.isChecked = jsonFile.has_ground_intake as Boolean
+            tb_is_forkable.isChecked = jsonFile.is_forkable as Boolean
             if (jsonFile.weight.toString() != "0.0" && jsonFile.weight.toString() != ".") {
                 et_weight.setText(jsonFile.weight.toString())
             }
@@ -225,24 +237,32 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     // Check if any changes are made to the obj data collection screen
     private fun allNotChecked(): Boolean {
         return (
-            has_communication_device == false &&
-            has_vision == false &&
-                    (!checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width)) &&
-                    (!checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length)) &&
-                    (!checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight)) &&
-            (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
-            (indexNumMotor == -1 || indexNumMotor == null) &&
-            et_number_of_motors.text.toString() == ""
-        )
+                has_communication_device == false &&
+                        has_vision == false &&
+                        has_ground_intake == false &&
+                        is_forkable == false &&
+                        (!checkIfNotEmptyOrPeriod(et_width) || checkIfZero(et_width)) &&
+                        (!checkIfNotEmptyOrPeriod(et_length) || checkIfZero(et_length)) &&
+                        (!checkIfNotEmptyOrPeriod(et_weight) || checkIfZero(et_weight)) &&
+                        (indexNumDrivetrain == -1 || indexNumDrivetrain == null) &&
+                        (indexNumMotor == -1 || indexNumMotor == null) &&
+                        et_number_of_motors.text.toString() == ""
+                )
     }
 
     private fun populateData() {
         has_communication_device = tb_has_communication.isChecked
         has_vision = tb_has_vision.isChecked
-        weight = if (!checkIfNotEmptyOrPeriod(et_weight)) 0.0 else parseDouble(et_weight.text.toString())
-        length = if (!checkIfNotEmptyOrPeriod(et_length)) 0.0 else parseDouble(et_length.text.toString())
-        width = if (!checkIfNotEmptyOrPeriod(et_width)) 0.0 else parseDouble(et_width.text.toString())
-        drivetrain_motors = if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
+        has_ground_intake = tb_has_ground_intake.isChecked
+        is_forkable = tb_is_forkable.isChecked
+        weight =
+            if (!checkIfNotEmptyOrPeriod(et_weight)) 0.0 else parseDouble(et_weight.text.toString())
+        length =
+            if (!checkIfNotEmptyOrPeriod(et_length)) 0.0 else parseDouble(et_length.text.toString())
+        width =
+            if (!checkIfNotEmptyOrPeriod(et_width)) 0.0 else parseDouble(et_width.text.toString())
+        drivetrain_motors =
+            if (et_number_of_motors.text.toString() == "") 0 else parseInt(et_number_of_motors.text.toString())
     }
 
     // Save obj data to a file in downloads
@@ -265,6 +285,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                 team_number = team_number,
                 has_communication_device = has_communication_device,
                 has_vision = has_vision,
+                has_ground_intake = has_ground_intake,
+                is_forkable = is_forkable,
                 weight = weight,
                 length = length,
                 width = width,
@@ -300,7 +322,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                     jsonFile.drivetrain.toString().isNotEmpty() &&
                     jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
                     jsonFile.drivetrain_motors.toString().isNotEmpty() &&
-                    jsonFile.drivetrain_motors.toString() != "0") {
+                    jsonFile.drivetrain_motors.toString() != "0"
+                ) {
                     if (!teamsWithData.contains(team_number)) teamsWithData.add(team_number)
                 } else teamsWithData.remove(team_number)
             }
@@ -316,7 +339,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
             } else teamsWithData.remove(team_number)
         }
 
-        if ((File("/storage/emulated/0/Download/${team_number}_full_robot.jpg"
+        if ((File(
+                "/storage/emulated/0/Download/${team_number}_full_robot.jpg"
             ).exists()) && (File(
                 "/storage/emulated/0/Download/${team_number}_front.jpg"
             ).exists()) && (File(
@@ -362,6 +386,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
     override fun onNothingSelected(parent: AdapterView<*>) {
         TODO("not implemented")
     }
+
     override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             saver()

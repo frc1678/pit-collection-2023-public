@@ -126,6 +126,7 @@ class TeamListActivity : CollectionActivity() {
     }
 
     // Starts the mode selection activity of the previously selected selection mode
+    // Not used this year as subjective collection is not being used
     private fun intentToMatchInput() {
         this.getSharedPreferences("PREFS", 0).edit().remove("mode_collection_select_activity")
             .apply()

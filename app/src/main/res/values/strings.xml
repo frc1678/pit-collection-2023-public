@@ -11,6 +11,10 @@
     <string name="no_communication">NO Communication Device</string>
     <string name="has_vision">Has Vision</string>
     <string name="no_vision">Does NOT Have Vision</string>
+    <string name="has_ground_intake">Has Ground Intake</string>
+    <string name="no_ground_intake">Does NOT Have Ground Intake</string>
+    <string name="is_forkable">Is able to be Forked</string>
+    <string name="is_not_forkable">Is not able to be Forked</string>
     <string name="spin_drivetrain">Drivetrain Type</string>
     <string name="spin_drivetrain_motor_type">Drivetrain Motor Type</string>
     <string name="team_number">1678</string>

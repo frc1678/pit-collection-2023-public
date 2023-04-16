@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -342,8 +343,8 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
                         jsonFile.weight.toString() != "." &&
                         jsonFile.length.toString() != "." &&
                         jsonFile.width.toString() != "." &&
-                        jsonFile.drivetrain.toString().isNotEmpty() &&
-                        jsonFile.drivetrain_motor_type.toString().isNotEmpty() &&
+                        jsonFile.drivetrain.toString() != "-1" &&
+                        jsonFile.drivetrain_motor_type.toString() != "-1" &&
                         jsonFile.drivetrain_motors.toString().isNotEmpty() &&
                         jsonFile.drivetrain_motors.toString() != "0"
                     )

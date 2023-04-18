@@ -297,7 +297,7 @@ class CollectionObjectiveDataActivity : CollectionObjectiveActivity(),
 
         // Save variable information as a pitData class.
 
-        if (allNotChecked()) {
+        if (allNotChecked() && !File("/storage/emulated/0/Download/${team_number}_obj_pit.json").exists()) {
             val element = team_number
             val intent = Intent(this, TeamListActivity::class.java)
             intent.putExtra("teamNumber", element)

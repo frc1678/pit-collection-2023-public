@@ -52,6 +52,7 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
     private fun setOnClickListeners(teamNum: String, fileName: String) {
         delete.setOnClickListener {
             File("$fileName.tmp").delete()
+            iv_picture_confirm.setImageBitmap(null)
             startActivity(
                 putExtras(intent, Intent(this, CameraActivity::class.java), teamNum),
                 ActivityOptions.makeSceneTransitionAnimation(
@@ -62,6 +63,7 @@ class CameraConfirmationActivity : CollectionObjectiveActivity() {
         }
         btn_continue.setOnClickListener {
             File("$fileName.tmp").renameTo(File(fileName))
+            iv_picture_confirm.setImageBitmap(null)
             startActivity(
                 putExtras(intent, Intent(this, CameraActivity::class.java), teamNum),
                 ActivityOptions.makeSceneTransitionAnimation(
